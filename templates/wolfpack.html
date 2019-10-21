@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <button class="btn btn-info" name="infoBtn" onclick="infoBtnClicked()">Info button</button>
+        <button class="btn btn-danger" name="dangerBtn" onclick="location.href='{% url 'home_page' %}'">Go to home page</button>
+    </div>
+    <script>
+        function infoBtnClicked(){
+            $.get('infoBtnOnClick/', function(data){
+                console.log(data)
+            })
+        }
+    </script>
+{% endblock %}
