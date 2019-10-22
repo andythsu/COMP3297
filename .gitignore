@@ -207,6 +207,9 @@ fabric.properties
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator/
 
+# migration files
+migrations/
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 
