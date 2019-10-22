@@ -17,7 +17,7 @@ class Developer(User):
     projectId  = models.ForeignKey('Project', on_delete=models.DO_NOTHING, blank=True, null=True)
 
 class Project(models.Model):
-    projectId    = models.AutoField(primary_key=True)
+    id    = models.AutoField(primary_key=True)
     title        = models.CharField(max_length=50)
     description  = models.TextField(blank=True,null=True)
     scrumMaster  = models.IntegerField()
