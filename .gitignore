@@ -211,7 +211,7 @@ fabric.properties
 migrations/
 
 # venv
-# venv/
+venv/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
