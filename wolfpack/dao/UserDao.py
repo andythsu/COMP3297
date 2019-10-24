@@ -44,6 +44,9 @@ def deleteById(pid, role):
     user = getUserById(pid, role)
     user.delete()
 
+def getUserProject(userId):
+    pass
+
 
 def updateById(pid, name=None, role=None, projectId=None):
     user = getUserById(pid, role)
