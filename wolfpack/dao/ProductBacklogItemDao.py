@@ -2,7 +2,8 @@ from wolfpack.models import ProductBacklogItem
 
 
 def getAllItem():
-    pass
+    allItem = ProductBacklogItem.objects.all()
+    return allItem
 
 
 def getItemById(pid):
@@ -22,7 +23,8 @@ def insert(size, priority, status, userStory, projectId):
 
 
 def deleteById(pid):
-    pass
+    pbi = getItemById(pid)
+    pbi.delete()
 
 
 def updateById(pid, size=None, priority=None, status=None, userStory=None, projectId=None):
