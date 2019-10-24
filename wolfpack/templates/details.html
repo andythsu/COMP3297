@@ -1,0 +1,40 @@
+{% include 'partials/header.html' %}
+
+<div class="row">
+    <div class="col-md">
+        <h3>Project ID:&nbsp;&nbsp;&nbsp;&nbsp; {{pbi.projectId}}</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md sprint">
+        Size: &nbsp;&nbsp;&nbsp;&nbsp; {{pbi.size}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md status">
+        Status: &nbsp;&nbsp;&nbsp;&nbsp; {{pbi.status}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md status">
+        User Story: &nbsp;&nbsp;&nbsp;&nbsp; {{pbi.userStory}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md status">
+        Priority: &nbsp;&nbsp;&nbsp;&nbsp; {{pbi.priority}}
+    </div>
+</div>
+
+
+<form action="{% url 'wolfpack:delete' pbi.id %}" method="post">
+    {% csrf_token %}
+    <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:update' pbi.id %}">Edit</a>
+    <input class='pbi-delete btn btn-danger' type="submit" value="Delete"/>
+</form>
+
+{% include 'partials/footer.html' %}

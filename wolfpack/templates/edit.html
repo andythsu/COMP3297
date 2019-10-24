@@ -1,0 +1,41 @@
+{% url 'wolfpack:detail' pbi.id as gobackurl %}
+{% include 'partials/header.html' with url_to_go_back=gobackurl %}
+
+<h3>Edit PBI</h3>
+
+<form action="{% url 'wolfpack:update' pbi.id %}" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="title">Project ID</label><br />
+    <input type="text" name="projectId" id="projectId" value="{{pbi.projectId}}"/>
+  </div>
+
+  <div class="form-group">
+    <label for="text">Size</label><br />
+    <textarea name="size" id="size">{{pbi.size}}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="text">Priority</label><br />
+    <textarea name="priority" id="priority">{{pbi.priority}}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="text">User Story</label><br />
+    <textarea name="userStory" id="userStory">{{pbi.userStory}}</textarea>
+  </div>
+
+
+  <div class="form-group">
+    <label for="text">Status</label><br />
+    <textarea name="status" id="status">{{pbi.status}}</textarea>
+  </div>
+
+
+  <div class="form-group">
+    <hr>
+    <input class='btn btn-primary' type="submit" value="Submit" />
+  </div>
+</form>
+
+{% include 'partials/footer.html' %}

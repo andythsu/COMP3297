@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'wolfpack/css/style.css' %}">
+    <title>Product Backlog</title>
+  </head>
+  <body>
+
+    <div class='container'>
+    <header>
+      <a class='app-title' href="{% url 'wolfpack:index' %}"><h1>Product Backlog</h1></a>
+
+      <div class="messages">
+      {% if messages %}
+        {% for message in messages %}
+          {% firstof message.tags 'warning' as msgtag %}
+          <div class="alert alert-{{msgtag}} alert-dismissible fade show" role="alert">
+          <p>{{message}}</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+        {% endfor %}
+      {% endif %}
+      </div>
+
+      <a class='btn btn-success' href="{% url 'wolfpack:insert' %}">Add PBI</a>
+      {% if not url_to_go_back %}
+      {% url 'wolfpack:index' as url_to_go_back %}
+      {% endif %}
+      <a class='btn btn-dark' href="{{ url_to_go_back }}">Go Back</a>
+      <hr>
+    </header>
+

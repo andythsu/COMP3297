@@ -1,0 +1,30 @@
+{% include 'partials/header.html' %}
+
+<ul class='list-group'>
+    {% for pbi in pbis %}
+    <li class='list-group-item'>
+        <div class="row">
+            <div class="col-sm">
+                PBI ID: <a href="{% url 'wolfpack:detail' pbi.id %}">{{pbi.projectId}}</a>
+            </div>
+            <div class="col-sm">
+                User Story: {{pbi.userStory}}
+            </div>
+            <div class="col-sm">
+                size: {{pbi.size}}
+            </div>
+            <div class="col-sm">
+                priority: {{pbi.priority}}
+            </div>
+            <div class="col-sm">
+                status: {{pbi.status}}
+            </div>
+            <div class="col-sm">
+                Sprint 1
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% include 'partials/footer.html' %}
