@@ -7,7 +7,7 @@ def getAllItem():
 
 
 def getItemById(pid):
-    return ProductBacklogItem.objects.get(id=pid)
+    return ProductBacklogItem.objects.get(pk=pid)
 
 
 def insert(size, priority, status, userStory, projectId):
@@ -19,7 +19,7 @@ def insert(size, priority, status, userStory, projectId):
         projectId=projectId
     )
     pbi.save()
-    return pbi.id
+    return pbi.pk
 
 
 def deleteById(pid):
@@ -45,3 +45,11 @@ def updateById(pid, size=None, priority=None, status=None, userStory=None, proje
         pbi.projectId = projectId
 
     pbi.save()
+
+
+def viewAllCurrentPbi():
+    return ProductBacklogItem.objects.all().exclude(status='done')
+
+
+def viewAllDonePbi():
+    return ProductBacklogItem.objects.all().filter(status='done')

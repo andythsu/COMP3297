@@ -8,6 +8,7 @@ from .models import ProductBacklogItem
 from .models import Project
 
 from .dao import ProductBacklogItemDao
+from .dao import UserDao
 
 
 def index(request):
@@ -76,10 +77,11 @@ def delete(request, id):
 
 def add_project(request):
     if (request.method == 'POST'):
+        # scrumMaster = UserDao.getUserById(request.POST['scrumMaster'], 'SM')
         project = Project(
             title=request.POST['title'],
             description=request.POST['description'],
-            scrumMaster=request.POST['scrumMaster'],
+            scrumMaster=UserDao.getUserById(request.POST['scrumMaster'], 'SM'),
         )
         project.save()
         messages.success(request, 'Project Added : %s' % project.title)
