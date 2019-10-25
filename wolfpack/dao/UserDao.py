@@ -6,14 +6,18 @@ from wolfpack.models import ScrumMaster
 
 from . import ProjectDao
 
+from wolfpack.Enum import UserRoleEnum
+
 
 def getUserById(pid, role):
-    if role == 'PO':
+    if role == UserRoleEnum.PRODUCT_OWNER:
         return get_object_or_404(ProductOwner, id=pid)
-    elif role == 'SM':
+    elif role == UserRoleEnum.SCRUM_MASTER:
         return get_object_or_404(ScrumMaster, id=pid)
-    else:
+    elif role == UserRoleEnum.DEVELOPER:
         return get_object_or_404(Developer, id=pid)
+    else:
+        raise Exception("user role doesn't exist in enum")
 
 
 def insert(name, role, projectId):

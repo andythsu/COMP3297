@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 
+from wolfpack.Enum import UserRoleEnum
 from .models import Project
 from django.contrib import messages
 from django.urls import reverse
@@ -29,7 +30,7 @@ def insertProject(request):
         )
 
         # update  projectId
-        UserDao.updateById(pid=request.POST['scrumMaster'], role="SM", projectId=projectId)
+        UserDao.updateById(pid=request.POST['scrumMaster'], role=UserRoleEnum.SCRUM_MASTER, projectId=projectId)
 
         messages.success(request, 'Project Added : %s' % request.POST['title'])
         return redirect(reverse('wolfpack:index_project'))

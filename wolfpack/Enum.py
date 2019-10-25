@@ -1,5 +1,9 @@
 from enum import Enum
 
+class UserRoleEnum(Enum):
+    SCRUM_MASTER = 0
+    PRODUCT_OWNER = 1
+    DEVELOPER = 2
 
 class PbiStatusEnum(Enum):
     NOT_STARTED = 0
