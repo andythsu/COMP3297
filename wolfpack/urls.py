@@ -1,11 +1,8 @@
 from django.urls import path
 
 from . import views
-from .dao import ProductBacklogItemDao
-from .dao import ProjectDao
 
 app_name = 'wolfpack'
-
 
 urlpatterns = [
     path('', views.index_project, name='index'),

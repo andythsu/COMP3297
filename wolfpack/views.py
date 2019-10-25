@@ -7,9 +7,12 @@ from django.http import HttpResponse
 from .models import ProductBacklogItem
 from .models import Project
 
+from .dao import ProductBacklogItemDao
+
 
 def index(request):
-    pbi = ProductBacklogItem.objects.all()[:10]
+    pbi = ProductBacklogItemDao.getAllItem()
+    # pbi = ProductBacklogItem.objects.all()[:10]
     context = {
         'pbis': pbi
     }
@@ -18,7 +21,7 @@ def index(request):
 
 def insert(request, id):
     if (request.method == 'POST'):
-        pbi = ProductBacklogItem(
+        pbiId = ProductBacklogItemDao.insert(
             size=request.POST['size'],
             priority=request.POST['priority'],
             status=request.POST['status'],
