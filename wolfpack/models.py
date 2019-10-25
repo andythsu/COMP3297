@@ -7,6 +7,9 @@ class User(models.Model):
     class Meta:
         abstract = True
 
+    def __str__(self):
+        return self.name
+
 
 class ProductOwner(User):
     projectId = models.ForeignKey('Project', on_delete=models.DO_NOTHING, blank=False, null=False)
@@ -25,6 +28,9 @@ class Project(models.Model):
     description = models.TextField(blank=True, null=True)
     scrumMaster = models.ForeignKey('ScrumMaster', on_delete=models.DO_NOTHING, blank=True, null=True)
 
+    def __str__(self):
+        return self.title
+
 
 class ProductBacklogItem(models.Model):
     size = models.IntegerField()
@@ -32,6 +38,10 @@ class ProductBacklogItem(models.Model):
     status = models.CharField(max_length=10)
     userStory = models.TextField()
     projectId = models.ForeignKey(Project, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    def __str__(self):
+        return self.pk
+
     # I changed the projectID because it gives errors (Sam)
     # projectId = models.IntegerField()
 
