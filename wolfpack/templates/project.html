@@ -1,0 +1,55 @@
+{% include 'partials/header.html' %}
+
+<a class='btn btn-success' href="{% url 'wolfpack:insert' pro.id %}">Add PBI</a>
+
+<ul class='list-group'>
+    Done
+    {% for pbi in pbis %}
+    <li class='list-group-item'>
+        <div class="row">
+            <div class="col-sm">
+                User Story: <a href="{% url 'wolfpack:detail' pbi.id %}">{{pbi.userStory}}</a>
+            </div>
+            <div class="col-sm">
+                size: {{pbi.size}}
+            </div>
+            <div class="col-sm">
+                priority: {{pbi.priority}}
+            </div>
+            <div class="col-sm">
+                status: {{pbi.status}}
+            </div>
+            <div class="col-sm">
+                Sprint 1
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<ul class='list-group'>
+    Not done
+    {% for pbi2 in pbis2 %}
+    <li class='list-group-item'>
+        <div class="row">
+            <div class="col-sm">
+                User Story: <a href="{% url 'wolfpack:detail' pbi2.id %}">{{pbi2.userStory}}</a>
+            </div>
+            <div class="col-sm">
+                size: {{pbi2.size}}
+            </div>
+            <div class="col-sm">
+                priority: {{pbi2.priority}}
+            </div>
+            <div class="col-sm">
+                status: {{pbi2.status}}
+            </div>
+            <div class="col-sm">
+                Sprint 1
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% include 'partials/footer.html' %}

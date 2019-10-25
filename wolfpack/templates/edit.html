@@ -6,8 +6,8 @@
 <form action="{% url 'wolfpack:update' pbi.id %}" method="post">
   {% csrf_token %}
   <div class="form-group">
-    <label for="title">Project ID</label><br />
-    <input type="text" name="projectId" id="projectId" value="{{pbi.projectId}}"/>
+    <label for="title">User Story</label><br />
+    <input type="text" name="userStory" id="userStory" value="{{pbi.projectId}}"/>
   </div>
 
   <div class="form-group">
@@ -18,11 +18,6 @@
   <div class="form-group">
     <label for="text">Priority</label><br />
     <textarea name="priority" id="priority">{{pbi.priority}}</textarea>
-  </div>
-
-  <div class="form-group">
-    <label for="text">User Story</label><br />
-    <textarea name="userStory" id="userStory">{{pbi.userStory}}</textarea>
   </div>
 
 

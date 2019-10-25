@@ -1,12 +1,12 @@
 {% include 'partials/header.html' %}
 
 <h3>New PBI</h3>
-
-<form action="{% url 'wolfpack:insert' %}" method="post">
+{{pro.id}}
+<form action="{% url 'wolfpack:insert' id%}" method="post">
     {% csrf_token %}
     <div class="form-group">
-        <label for="title">Project ID</label><br/>
-        <textarea name="projectId" id="projectId"></textarea>
+        <label for="title">User Story</label><br/>
+        <textarea name="userStory" id="userStory"></textarea>
     </div>
 
     <div class="form-group">
@@ -22,12 +22,6 @@
     <div class="form-group">
         <label for="text">Status</label><br/>
         <textarea name="status" id="status"></textarea>
-    </div>
-
-
-    <div class="form-group">
-        <label for="text">User Story</label><br/>
-        <textarea name="userStory" id="userStory"></textarea>
     </div>
 
 

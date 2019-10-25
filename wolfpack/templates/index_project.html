@@ -1,0 +1,27 @@
+{% include 'partials/header_addproject.html' %}
+
+<ul class='list-group'>
+    {% for pro in projects %}
+    <li class='list-group-item'>
+        <div class="row">
+            <div class="col-sm">
+                Project: <a href="{% url 'wolfpack:project' pro.id %}">{{pro.title}}</a>
+            </div>
+            <div class="col-sm">
+                Description: {{pro.description}}
+            </div>
+            <div class="col-sm">
+                Scrum Master: {{pro.scrumMaster}}
+            </div>
+            <div class="col-sm">
+                <form action="{% url 'wolfpack:delete_project' pro.id %}" method="post">
+                    {% csrf_token %}
+                    <input class='pbi-delete btn btn-danger' type="submit" value="Delete"/>
+                </form>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% include 'partials/footer.html' %}

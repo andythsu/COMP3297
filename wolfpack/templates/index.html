@@ -1,14 +1,11 @@
-{% include 'partials/header.html' %}
+{% include 'partials/header_addproject.html' %}
 
 <ul class='list-group'>
     {% for pbi in pbis %}
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                PBI ID: <a href="{% url 'wolfpack:detail' pbi.id %}">{{pbi.projectId}}</a>
-            </div>
-            <div class="col-sm">
-                User Story: {{pbi.userStory}}
+                User Story: <a href="{% url 'wolfpack:detail' pbi.id %}">{{pbi.userStory}}</a>
             </div>
             <div class="col-sm">
                 size: {{pbi.size}}

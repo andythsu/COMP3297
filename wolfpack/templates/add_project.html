@@ -1,0 +1,29 @@
+{% include 'partials/header.html' %}
+
+<h3>New Project</h3>
+
+<form action="{% url 'wolfpack:add_project' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="title">Title</label><br/>
+        <textarea name="title" id="title"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="text">Description</label><br/>
+        <input type="text" name="description" id="description"/>
+    </div>
+
+    <div class="form-group">
+        <label for="text">ScrumMaster</label><br/>
+        <textarea name="scrumMaster" id="scrumMaster"></textarea>
+    </div>
+
+
+    <div class="form-group">
+        <hr>
+        <input class='btn btn-primary' type="submit" value="Submit"/>
+    </div>
+</form>
+
+{% include 'partials/footer.html' %}

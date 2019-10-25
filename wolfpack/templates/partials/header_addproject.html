@@ -5,13 +5,13 @@
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'wolfpack/css/style.css' %}">
-    <title>Product Backlog </title>
+    <title>Product Backlog</title>
   </head>
   <body>
 
     <div class='container'>
     <header>
-      <a class='app-title' href="{% url 'wolfpack:index' %}"><h1>Product Backlog</h1></a>
+      <a class='app-title' href="{% url 'wolfpack:index_project' %}"><h1>Project</h1></a>
 
       <div class="messages">
       {% if messages %}
@@ -27,6 +27,7 @@
       {% endif %}
       </div>
 
+      <a class='btn btn-success' href="{% url 'wolfpack:add_project' %}">Add Project</a>
       {% if not url_to_go_back %}
       {% url 'wolfpack:index' as url_to_go_back %}
       {% endif %}
