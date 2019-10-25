@@ -2,7 +2,7 @@ from wolfpack.models import Project, ProductBacklogItem
 
 
 def getProjectById(pid):
-    return Project.objects.get(id=pid)
+    return Project.objects.get(pk=pid)
 
 
 def insert(title, description, scrumMaster):
@@ -32,11 +32,3 @@ def updateById(pid, title=None, description=None, scrumMaster=None):
         project.scrumMaster = scrumMaster
 
     project.save()
-
-
-def viewAllCurrentPbi():
-    return ProductBacklogItem.objects.all().exclude(status='done')
-
-
-def viewAllDonePbi():
-    return ProductBacklogItem.objects.all().filter(status='done')
