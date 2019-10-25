@@ -37,12 +37,12 @@ class ProductBacklogItem(models.Model):
     name = models.CharField(max_length=20)
     size = models.IntegerField()
     priority = models.IntegerField()
-    status = models.CharField(max_length=10)
+    status = models.IntegerField()
     userStory = models.TextField()
     projectId = models.ForeignKey('Project', on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.id
 
     # I changed the projectID because it gives errors (Sam)
     # projectId = models.IntegerField()

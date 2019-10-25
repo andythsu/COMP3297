@@ -5,7 +5,7 @@
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                Project: <a href="{% url 'wolfpack:project' pro.id %}">{{pro.title}}</a>
+                Project: <a href="{% url 'wolfpack:get_project_pbis' pro.id %}">{{pro.title}}</a>
             </div>
             <div class="col-sm">
                 Description: {{pro.description}}

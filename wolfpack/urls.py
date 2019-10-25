@@ -1,19 +1,20 @@
 from django.urls import path
 
-from . import views
+from . import PbiViews
+from . import ProjectViews
 
 app_name = 'wolfpack'
 
 urlpatterns = [
-    path('', views.index_project, name='index'),
-    path('project/insert/<int:id>', views.insert, name='insert'),
-    path('index_project', views.index_project, name='index_project'),
-    path('add_project', views.add_project, name='add_project'),
-    path('delete_project/<int:id>', views.delete_project, name='delete_project'),
-    path('project/details/<int:id>', views.details, name='detail'),
-    path('project/<int:id>', views.project, name='project'),
-    path('project/delete/<int:id>', views.delete, name='delete'),
-    path('project/update/<int:id>', views.update, name='update'),
+    path('', ProjectViews.index, name='index'),
+    path('project/insert/<int:id>', PbiViews.insert, name='insert'),
+    path('index_project', ProjectViews.index, name='index_project'),
+    path('add_project', ProjectViews.insertProject, name='add_project'),
+    path('delete_project/<int:id>', ProjectViews.deleteProject, name='delete_project'),
+    path('project/details/<int:id>', PbiViews.details, name='detail'),
+    path('project/<int:id>', PbiViews.getProjectPbis, name='get_project_pbis'),
+    path('project/delete/<int:id>', PbiViews.delete, name='delete'),
+    path('project/update/<int:id>', PbiViews.update, name='update'),
 
     # button actions
 ]

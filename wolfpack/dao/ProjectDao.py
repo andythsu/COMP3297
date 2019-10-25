@@ -1,18 +1,21 @@
-from wolfpack.models import Project, ProductBacklogItem
+from django.shortcuts import get_object_or_404
+
+from wolfpack.models import Project, ProductBacklogItem, ScrumMaster
 
 
 def getProjectById(pid):
-    return Project.objects.get(pk=pid)
+    return get_object_or_404(Project, id=pid)
 
 
-def insert(title, description, scrumMaster):
-    project = ProductBacklogItem(
+def insert(title, description, scrumMasterId):
+    scrumMaster = ScrumMaster.objects.get(id=scrumMasterId)
+    project = Project(
         title=title,
         description=description,
         scrumMaster=scrumMaster
     )
     project.save()
-    return project.projectId
+    return project.id
 
 
 def deleteById(pid):
