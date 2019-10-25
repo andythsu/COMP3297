@@ -28,8 +28,7 @@ def insert(request, id):
             userStory=request.POST['userStory'],
             projectId=id,
         )
-        pbi.save()
-        messages.success(request, 'Product Added : %s' % pbi.projectId)
+        messages.success(request, 'pbi added : %s' % pbiId)
         return redirect(reverse('wolfpack:project', args=[id]))
     else:
         context = {
