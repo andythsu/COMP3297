@@ -7,9 +7,7 @@ from django.http import HttpResponse
 from .models import ProductBacklogItem
 from .models import Project
 
-from .dao import ProductBacklogItemDao
-from .dao import UserDao
-
+from .dao import ProductBacklogItemDao, UserDao, ProjectDao
 
 def index(request):
     pbi = ProductBacklogItemDao.getAllItem()
@@ -27,7 +25,7 @@ def insert(request, id):
             priority=request.POST['priority'],
             status=request.POST['status'],
             userStory=request.POST['userStory'],
-            projectId=id,
+            projectId=ProjectDao.getProjectById(id)
         )
         messages.success(request, 'pbi added : %s' % pbiId)
         return redirect(reverse('wolfpack:project', args=[id]))
