@@ -9,7 +9,7 @@ class User(models.Model):
         abstract = True
 
     def __str__(self):
-        return self.name
+        return str(self.id)
 
 
 class ProductOwner(User):
@@ -19,7 +19,6 @@ class ProductOwner(User):
 class ScrumMaster(User):
     projectId = models.ForeignKey('Project', on_delete=models.DO_NOTHING, blank=True, null=True)
 
-
 class Developer(User):
     projectId = models.ForeignKey('Project', on_delete=models.DO_NOTHING, blank=True, null=True)
 
@@ -27,14 +26,12 @@ class Developer(User):
 class Project(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
-    scrumMaster = models.ForeignKey('ScrumMaster', on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return str(self.id)
 
 
 class ProductBacklogItem(models.Model):
-    name = models.CharField(max_length=20)
     size = models.IntegerField()
     priority = models.IntegerField()
     status = models.IntegerField()
@@ -42,7 +39,7 @@ class ProductBacklogItem(models.Model):
     projectId = models.ForeignKey('Project', on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
     # I changed the projectID because it gives errors (Sam)
     # projectId = models.IntegerField()

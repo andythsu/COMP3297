@@ -1,8 +1,7 @@
 {% include 'partials/header.html' %}
 
 <h3>New PBI</h3>
-{{pro.id}}
-<form action="{% url 'wolfpack:insert' id%}" method="post">
+<form action="{% url 'wolfpack:insert' projectId %}" method="post">
     {% csrf_token %}
     <div class="form-group">
         <label for="title">User Story</label><br/>
@@ -20,13 +19,7 @@
     </div>
 
     <div class="form-group">
-        <label for="text">Status</label><br/>
-        <select name="status" id="status">
-            <option value="0">Not Started</option>
-            <option value="1">In Progress</option>
-            <option value="2">Done</option>
-            <option value="3">Not Finished</option>
-        </select>
+        <label for="text">Status: Not Started</label><br/>
     </div>
 
 

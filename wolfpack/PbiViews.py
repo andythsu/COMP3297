@@ -8,21 +8,22 @@ from .models import ProductBacklogItem
 
 from .dao import ProductBacklogItemDao, ProjectDao
 
+
 # inserts pbi
-def insert(request, id):
+def insert(request, projectId):
     if request.method == 'POST':
         pbiId = ProductBacklogItemDao.insert(
             size=request.POST['size'],
             priority=request.POST['priority'],
-            status=request.POST['status'],
+            status=0,
             userStory=request.POST['userStory'],
-            projectId=id,
+            projectId=projectId
         )
         messages.success(request, 'pbi added : %s' % pbiId)
-        return redirect(reverse('wolfpack:get_project_pbis', args=[id]))
+        return redirect(reverse('wolfpack:get_project_pbis', args=[projectId]))
     else:
         context = {
-            'id': id
+            'projectId': projectId
         }
         return render(request, 'AddPbi.html', context)
 
@@ -36,7 +37,7 @@ def details(request, id):
 
 
 def update(request, id):
-    pbi = get_object_or_404(ProductBacklogItem, pk=id)
+    pbi = ProductBacklogItemDao.getItemById(pid=id)
     if request.method == 'POST':
         ProductBacklogItemDao.updateById(id,
                                          size=request.POST['size'],
@@ -49,7 +50,8 @@ def update(request, id):
         context = {
             'pbi': pbi,
         }
-    return render(request, 'edit.html', context)
+    return render(request, 'UpdatePbi.html', context)
+
 
 def delete(request, id):
     if request.method == 'POST':
@@ -60,22 +62,30 @@ def delete(request, id):
 
     return redirect(reverse('wolfpack:get_project_pbis', args=[pid]))
 
+
 def getProjectPbis(request, id):
     pro = ProjectDao.getProjectById(id)
-    pbi = ProductBacklogItemDao.getPbiByStatus(projectId=id, status=PbiStatusEnum.DONE)
-    pbi2 = ProductBacklogItemDao.getPbiNotInStatus(projectId=id, status=PbiStatusEnum.DONE)
+    pbi = ProductBacklogItemDao.getPbiByStatus(projectId=id, status=PbiStatusEnum.DONE.value)
+    pbi2 = ProductBacklogItemDao.getPbiNotInStatus(projectId=id, status=PbiStatusEnum.DONE.value)
+
+    modifiedPbi = []
+    modifiedPbi2 = []
+
     for eachPbi in pbi:
-        eachPbi.status = PbiStatusEnum(eachPbi.status)
+        modifiedPbi.append({
+            'pbi': eachPbi,
+            'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
+        })
 
     for eachPbi in pbi2:
-        eachPbi.status = PbiStatusEnum(eachPbi.status)
-
+        modifiedPbi2.append({
+            'pbi': eachPbi,
+            'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
+        })
 
     context = {
         'pro': pro,
-        'pbis': pbi,
-        'pbis2': pbi2
+        'pbis': modifiedPbi,
+        'pbis2': modifiedPbi2
     }
     return render(request, 'ProductBacklogIndex.html', context)
-
-

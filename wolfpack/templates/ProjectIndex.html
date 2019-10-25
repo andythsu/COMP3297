@@ -5,16 +5,16 @@
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                Project: <a href="{% url 'wolfpack:get_project_pbis' pro.id %}">{{pro.title}}</a>
+                Project: <a href="{% url 'wolfpack:get_project_pbis' pro.project.id %}">{{pro.project.title}}</a>
             </div>
             <div class="col-sm">
-                Description: {{pro.description}}
+                Description: {{pro.project.description}}
             </div>
             <div class="col-sm">
                 Scrum Master: {{pro.scrumMaster}}
             </div>
             <div class="col-sm">
-                <form action="{% url 'wolfpack:delete_project' pro.id %}" method="post">
+                <form action="{% url 'wolfpack:delete_project' pro.project.id %}" method="post">
                     {% csrf_token %}
                     <input class='pbi-delete btn btn-danger' type="submit" value="Delete"/>
                 </form>

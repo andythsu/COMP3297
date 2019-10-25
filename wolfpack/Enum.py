@@ -6,3 +6,17 @@ class PbiStatusEnum(Enum):
     IN_PROGRESS = 1
     DONE = 2
     NOT_FINISHED = 3
+
+    @staticmethod
+    def getNameByValue(val):
+        val = int(val)
+        if val == 0:
+            return "NOT_STARTED"
+        elif val == 1:
+            return "IN_PROGRESS"
+        elif val == 2:
+            return "DONE"
+        elif val == 3:
+            return "NOT_FINISHED"
+        else:
+            raise Exception("value doesn't exist in PbiStatusEnum class")

@@ -1,16 +1,19 @@
-from wolfpack.models import User
+from django.shortcuts import get_object_or_404
+
 from wolfpack.models import ProductOwner
 from wolfpack.models import Developer
 from wolfpack.models import ScrumMaster
 
+from . import ProjectDao
+
 
 def getUserById(pid, role):
     if role == 'PO':
-        return ProductOwner.objects.get(pk=pid)
+        return get_object_or_404(ProductOwner, id=pid)
     elif role == 'SM':
-        return ScrumMaster.objects.get(pk=pid)
+        return get_object_or_404(ScrumMaster, id=pid)
     else:
-        return Developer.objects.get(pk=pid)
+        return get_object_or_404(Developer, id=pid)
 
 
 def insert(name, role, projectId):
@@ -18,26 +21,26 @@ def insert(name, role, projectId):
         user = ProductOwner(
             name=name,
             role=role,
-            projectId=projectId
+            projectId=ProjectDao.getProjectById(projectId)
         )
         user.save()
-        return user.pk
+        return user.id
     elif role == 'SM':
         user = ScrumMaster(
             name=name,
             role=role,
-            projectId=projectId
+            projectId=ProjectDao.getProjectById(projectId)
         )
         user.save()
-        return user.pk
+        return user.id
     else:
         user = Developer(
             name=name,
             role=role,
-            projectId=projectId
+            projectId=ProjectDao.getProjectById(projectId)
         )
         user.save()
-        return user.pk
+        return user.id
 
 
 def deleteById(pid, role):
@@ -49,7 +52,7 @@ def getUserProject(userId):
     pass
 
 
-def updateById(pid, name=None, role=None, projectId=None):
+def updateById(pid, role, name=None, projectId=None):
     user = getUserById(pid, role)
     if name is not None:
         user.name = name
@@ -58,6 +61,13 @@ def updateById(pid, name=None, role=None, projectId=None):
         user.role = role
 
     if projectId is not None:
-        user.projectId = projectId
+        user.projectId = ProjectDao.getProjectById(projectId)
 
     user.save()
+
+
+def getScrumMasterNameByProjectId(projectId):
+    try:
+        return ScrumMaster.objects.get(projectId=projectId).name
+    except:
+        return ""

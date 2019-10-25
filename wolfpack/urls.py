@@ -7,7 +7,7 @@ app_name = 'wolfpack'
 
 urlpatterns = [
     path('', ProjectViews.index, name='index'),
-    path('project/insert/<int:id>', PbiViews.insert, name='insert'),
+    path('project/insert/<int:projectId>', PbiViews.insert, name='insert'),
     path('index_project', ProjectViews.index, name='index_project'),
     path('add_project', ProjectViews.insertProject, name='add_project'),
     path('delete_project/<int:id>', ProjectViews.deleteProject, name='delete_project'),

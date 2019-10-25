@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    # path('', include("wolfpack.urls")),
+    path('', include("wolfpack.urls")),
     path('wolfpack/', include("wolfpack.urls")),
     path('admin/', admin.site.urls)
 

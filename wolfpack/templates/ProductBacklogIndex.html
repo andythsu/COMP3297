@@ -8,16 +8,16 @@
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                User Story: <a href="{% url 'wolfpack:detail' pbi.id %}">{{pbi.userStory}}</a>
+                User Story: <a href="{% url 'wolfpack:detail' pbi.pbi.id %}">{{pbi.pbi.userStory}}</a>
             </div>
             <div class="col-sm">
-                size: {{pbi.size}}
+                size: {{pbi.pbi.size}}
             </div>
             <div class="col-sm">
-                priority: {{pbi.priority}}
+                priority: {{pbi.pbi.priority}}
             </div>
             <div class="col-sm">
-                status: {{pbi.status}}
+                status: {{pbi.statusInString}}
             </div>
             <div class="col-sm">
                 Sprint 1
@@ -33,16 +33,16 @@
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                User Story: <a href="{% url 'wolfpack:detail' pbi2.id %}">{{pbi2.userStory}}</a>
+                User Story: <a href="{% url 'wolfpack:detail' pbi2.pbi.id %}">{{pbi2.pbi.userStory}}</a>
             </div>
             <div class="col-sm">
-                size: {{pbi2.size}}
+                size: {{pbi2.pbi.size}}
             </div>
             <div class="col-sm">
-                priority: {{pbi2.priority}}
+                priority: {{pbi2.pbi.priority}}
             </div>
             <div class="col-sm">
-                status: {{pbi2.status}}
+                status: {{pbi2.statusInString}}
             </div>
             <div class="col-sm">
                 Sprint 1

@@ -4,22 +4,33 @@ from .models import Project
 from django.contrib import messages
 from django.urls import reverse
 
-from .dao import ProjectDao
+from .dao import ProjectDao,UserDao
 
 def index(request):
-    pro = Project.objects.all()[:10]
+    projects = ProjectDao.getAllProjects()
+
+    projectList = []
+    for project in projects:
+        projectList.append({
+            'project': project,
+            'scrumMaster': UserDao.getScrumMasterNameByProjectId(projectId=project.id)
+        })
+
     context = {
-        'projects': pro
+        'projects': projectList
     }
-    return render(request, 'index_project.html', context)
+    return render(request, 'ProjectIndex.html', context)
 
 def insertProject(request):
     if request.method == 'POST':
-        project = ProjectDao.insert(
+        projectId = ProjectDao.insert(
             title=request.POST['title'],
-            description=request.POST['description'],
-            scrumMasterId=request.POST['scrumMaster']
+            description=request.POST['description']
         )
+
+        # update  projectId
+        UserDao.updateById(pid=request.POST['scrumMaster'], role="SM", projectId=projectId)
+
         messages.success(request, 'Project Added : %s' % request.POST['title'])
         return redirect(reverse('wolfpack:index_project'))
     else:

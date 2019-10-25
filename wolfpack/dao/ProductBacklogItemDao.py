@@ -17,13 +17,12 @@ def getItemById(pid):
     return ProductBacklogItem.objects.get(pk=pid)
 
 def insert(size, priority, status, userStory, projectId):
-    project = ProjectDao.getProjectById(projectId)
     pbi = ProductBacklogItem(
         size=size,
         priority=priority,
         status=status,
         userStory=userStory,
-        projectId=project
+        projectId=ProjectDao.getProjectById(projectId)
     )
     pbi.save()
     return pbi.pk
