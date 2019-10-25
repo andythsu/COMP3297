@@ -6,9 +6,12 @@ from django.http import HttpResponse
 
 from .models import ProductBacklogItem
 
+from .dao import ProductBacklogItemDao
+
 
 def index(request):
-    pbi = ProductBacklogItem.objects.all()[:10]
+    pbi = ProductBacklogItemDao.getAllItem()
+    # pbi = ProductBacklogItem.objects.all()[:10]
     context = {
         'pbis': pbi
     }
@@ -17,15 +20,21 @@ def index(request):
 
 def insert(request):
     if (request.method == 'POST'):
-        pbi = ProductBacklogItem(
+        pbiId = ProductBacklogItemDao.insert(
             size=request.POST['size'],
             priority=request.POST['priority'],
             status=request.POST['status'],
             userStory=request.POST['userStory'],
-            projectId=request.POST['projectId'],
-        )
-        pbi.save()
-        messages.success(request, 'Product Added : %s' % pbi.projectId)
+            projectId=request.POST['projectId'])
+        # pbi = ProductBacklogItem(
+        #     size=request.POST['size'],
+        #     priority=request.POST['priority'],
+        #     status=request.POST['status'],
+        #     userStory=request.POST['userStory'],
+        #     projectId=request.POST['projectId'],
+        # )
+        # pbi.save()
+        messages.success(request, 'pbi added : %s' % pbiId)
         return redirect(reverse('wolfpack:index'))
     else:
         context = {
