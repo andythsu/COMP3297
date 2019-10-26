@@ -13,14 +13,15 @@ class User(models.Model):
 
 
 class ProductOwner(User):
-    projectId = models.ForeignKey('Project', on_delete=models.DO_NOTHING, blank=False, null=False)
+    projectId = models.ForeignKey('Project', on_delete=models.SET_NULL, blank=False, null=True)
 
 
 class ScrumMaster(User):
-    projectId = models.ForeignKey('Project', on_delete=models.DO_NOTHING, blank=True, null=True)
+    projectId = models.ForeignKey('Project', on_delete=models.SET_NULL, blank=True, null=True)
+
 
 class Developer(User):
-    projectId = models.ForeignKey('Project', on_delete=models.DO_NOTHING, blank=True, null=True)
+    projectId = models.ForeignKey('Project', on_delete=models.SET_NULL, blank=True, null=True)
 
 
 class Project(models.Model):
@@ -36,7 +37,7 @@ class ProductBacklogItem(models.Model):
     priority = models.IntegerField()
     status = models.IntegerField()
     userStory = models.TextField()
-    projectId = models.ForeignKey('Project', on_delete=models.DO_NOTHING, blank=True, null=True)
+    projectId = models.ForeignKey('Project', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return str(self.id)
