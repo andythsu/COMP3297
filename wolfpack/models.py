@@ -17,7 +17,8 @@ class ProductOwner(User):
 
 
 class ScrumMaster(User):
-    projectId = models.ForeignKey('Project', on_delete=models.SET_NULL, blank=True, null=True)
+    # projectId = models.ForeignKey('Project', on_delete=models.SET_NULL, blank=True, null=True)
+    pass
 
 
 class Developer(User):
@@ -27,6 +28,7 @@ class Developer(User):
 class Project(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
+    scrumMaster = models.ForeignKey('ScrumMaster', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return str(self.id)

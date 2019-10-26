@@ -14,7 +14,7 @@ def index(request):
     for project in projects:
         projectList.append({
             'project': project,
-            'scrumMaster': UserDao.getScrumMasterNameByProjectId(projectId=project.id)
+            'scrumMaster': project.scrumMaster.name
         })
 
     context = {
@@ -26,12 +26,9 @@ def insertProject(request):
     if request.method == 'POST':
         projectId = ProjectDao.insert(
             title=request.POST['title'],
-            description=request.POST['description']
+            description=request.POST['description'],
+            scrumMasterId=request.POST['scrumMaster']
         )
-
-        # update  projectId
-        UserDao.updateById(pid=request.POST['scrumMaster'], role=UserRoleEnum.SCRUM_MASTER, projectId=projectId)
-
         messages.success(request, 'Project Added : %s' % request.POST['title'])
         return redirect(reverse('wolfpack:index_project'))
     else:

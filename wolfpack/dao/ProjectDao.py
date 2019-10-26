@@ -4,6 +4,8 @@ from wolfpack.models import Project
 
 from . import UserDao
 
+from wolfpack.Enum import UserRoleEnum
+
 
 def getAllProjects():
     return Project.objects.all()
@@ -12,10 +14,11 @@ def getProjectById(pid):
     return get_object_or_404(Project, id=pid)
 
 
-def insert(title, description):
+def insert(title, description, scrumMasterId):
     project = Project(
         title=title,
-        description=description
+        description=description,
+        scrumMaster=UserDao.getUserById(scrumMasterId, UserRoleEnum.SCRUM_MASTER)
     )
     project.save()
     return project.id

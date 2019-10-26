@@ -68,10 +68,3 @@ def updateById(pid, role, name=None, projectId=None):
         user.projectId = ProjectDao.getProjectById(projectId)
 
     user.save()
-
-
-def getScrumMasterNameByProjectId(projectId):
-    try:
-        return ScrumMaster.objects.get(projectId=projectId).name
-    except:
-        return ""
