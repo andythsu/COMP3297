@@ -8,7 +8,7 @@
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                User Story: <a href="{% url 'wolfpack:detail' pbi.pbi.id %}">{{pbi.pbi.userStory}}</a>
+                User Story: <a href="{% url 'wolfpack:detail' pro.id pbi.pbi.id %}">{{pbi.pbi.userStory}}</a>
             </div>
             <div class="col-sm">
                 size: {{pbi.pbi.size}}
@@ -33,7 +33,7 @@
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                User Story: <a href="{% url 'wolfpack:detail' pbi2.pbi.id %}">{{pbi2.pbi.userStory}}</a>
+                User Story: <a href="{% url 'wolfpack:detail' pro.id pbi2.pbi.id %}">{{pbi2.pbi.userStory}}</a>
             </div>
             <div class="col-sm">
                 size: {{pbi2.pbi.size}}

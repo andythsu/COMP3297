@@ -7,14 +7,15 @@ app_name = 'wolfpack'
 
 urlpatterns = [
     path('', ProjectViews.index, name='index'),
-    path('project/insert/<int:projectId>', PbiViews.insert, name='insert'),
     path('index_project', ProjectViews.index, name='index_project'),
     path('add_project', ProjectViews.insertProject, name='add_project'),
-    path('delete_project/<int:id>', ProjectViews.deleteProject, name='delete_project'),
-    path('project/details/<int:id>', PbiViews.details, name='detail'),
-    path('project/<int:id>', PbiViews.getProjectPbis, name='get_project_pbis'),
-    path('project/delete/<int:id>', PbiViews.delete, name='delete'),
-    path('project/update/<int:id>', PbiViews.update, name='update'),
+    path('delete_project/<int:proId>', ProjectViews.deleteProject, name='delete_project'),
+    path('project/<int:proId>/pbi/insert', PbiViews.insert, name='insert'),
+    path('project/<int:proId>/pbi/<int:pbiId>/details', PbiViews.details, name='detail'),
+    path('project/<int:proId>/pbi', PbiViews.getProjectPbis, name='get_project_pbis'),
+    path('project/<int:proId>/pbi/<int:pbiId>/delete', PbiViews.delete, name='delete'),
+    path('project/<int:proId>/pbi/<int:pbiId>/update', PbiViews.update, name='update'),
 
     # button actions
 ]
+

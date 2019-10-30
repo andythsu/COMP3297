@@ -34,9 +34,8 @@ def insertProject(request):
     else:
         return render(request, 'add_project.html')
 
-def deleteProject(request, id):
+def deleteProject(request, proId):
     if request.method == 'POST':
-        pro = get_object_or_404(Project, pk=id)
-        messages.success(request, 'Project Deleted : %s' % pro.title)
-        pro.delete()
+        ProjectDao.deleteById(proId)
+        messages.success(request, 'Project Deleted : %s' % proId)
     return redirect(reverse('wolfpack:index_project'))

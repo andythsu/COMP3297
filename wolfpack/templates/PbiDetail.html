@@ -26,9 +26,9 @@
 </div>
 
 
-<form action="{% url 'wolfpack:delete' pbi.id %}" method="post">
+<form action="{% url 'wolfpack:delete' pbi.projectId pbi.id %}" method="post">
     {% csrf_token %}
-    <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:update' pbi.id %}">Edit</a>
+    <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:update' pbi.projectId pbi.id %}">Edit</a>
     <input class='pbi-delete btn btn-danger' type="submit" value="Delete"/>
 </form>
 
