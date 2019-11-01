@@ -40,7 +40,7 @@ class ProductBacklogItem(models.Model):
     status = models.IntegerField()
     userStory = models.TextField()
     projectId = models.ForeignKey('Project', on_delete=models.CASCADE, blank=True, null=True)
-    sprintId = models.ForeignKey('SprintBacklog', on_delete=models.DO_NOTHING, blank=False, null=False)
+    sprintId = models.ForeignKey('SprintBacklog', on_delete=models.DO_NOTHING, blank=False, null=True)
 
     def __str__(self):
         return str(self.id)
@@ -64,7 +64,7 @@ class SprintTask(models.Model):
     effortHours = models.IntegerField()
     owner = models.ForeignKey('Developer', on_delete=models.CASCADE, blank=True, null=True)
     sprintId = models.ForeignKey('SprintBacklog', on_delete=models.CASCADE, blank=False, null=False)
-    pbiId = models.ForeignKey('ProductBacklogIem', on_delete=models.CASCADE, blank=False, null=False)
+    pbiId = models.ForeignKey('ProductBacklogItem', on_delete=models.CASCADE, blank=False, null=False)
 
     def __str__(self):
         return str(self.id)
