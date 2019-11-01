@@ -1,0 +1,73 @@
+{% include 'partials/ .html' %}
+
+<a class='btn btn-success' href="{%  %}">Add Task</a>
+
+<ul class='list-group'>
+    To Do
+    {% for pbi in pbis %}
+    <li class='list-group-item'>
+        <div class="row">
+            <div class="col-sm">
+                Title: <a href="{%  %}">{{ }}</a>
+            </div>
+            <div class="col-sm">
+                Corresponding PBI: <a href="{%  %}">{{ }}</a>
+            </div>
+            <div class="col-sm">
+                Effort hours: {{ }}
+            </div>
+            <div class="col-sm">
+                Owner: {{ }}
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<ul class='list-group'>
+    To Do
+    {% for pbi2 in pbis2 %}
+    <li class='list-group-item'>
+        <div class="row">
+            <div class="col-sm">
+                Title: <a href="{%  %}">{{ }}</a>
+            </div>
+            <div class="col-sm">
+                Corresponding PBI: <a href="{%  %}">{{ }}</a>
+            </div>
+            <div class="col-sm">
+                Effort hours: {{ }}
+            </div>
+            <div class="col-sm">
+                Owner: {{ }}
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<ul class='list-group'>
+    To Do
+    {% for pbi3 in pbis3 %}
+    <li class='list-group-item'>
+        <div class="row">
+            <div class="col-sm">
+                Title: <a href="{%  %}">{{ }}</a>
+            </div>
+            <div class="col-sm">
+                Corresponding PBI: <a href="{%  %}">{{ }}</a>
+            </div>
+            <div class="col-sm">
+                Effort hours: {{ }}
+            </div>
+            <div class="col-sm">
+                Owner: {{ }}
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+
+
+{% include 'partials/footer.html' %}

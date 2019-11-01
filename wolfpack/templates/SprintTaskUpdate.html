@@ -1,0 +1,41 @@
+{% include 'partials/ .html' %}
+
+<h3>Edit Sprint Task</h3>
+<form action="{%   %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="text">Title</label><br/>
+        <input type="text" name="title" id="title">
+    </div>
+
+    <div class="form-group">
+        <label for="text">Effort hours</label><br/>
+        <input type="number" name="effortHours" id="effortHours" min="1">
+    </div>
+
+    <div class="form-group">
+        <label for="text">Status</label><br/>
+            <select name="status" id="status">
+                <option value="0">To Do</option>
+                <option value="1">In Progress</option>
+                <option value="2">Done</option>
+            </select>
+    </div>
+
+    <div class="form-group">
+        <label for="text">Owner</label><br/>
+        <input type="text" name="owner" id="owner"/>
+    </div>
+
+    <div class="form-group">
+        <label for="text">Description</label><br/>
+        <textarea name="description" id="description"></textarea>
+    </div>
+    
+    <div class="form-group">
+        <hr>
+        <input class='btn btn-primary' type="submit" value="Submit"/>
+    </div>
+</form>
+
+{% include 'partials/footer.html' %}

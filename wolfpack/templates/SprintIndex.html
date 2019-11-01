@@ -1,0 +1,27 @@
+{% include 'partials/ .html' %}
+
+<a class='btn btn-success' href="{%  %}">Add Sprint Backlog</a>
+
+<ul class='list-group'>
+    To Do
+    {% for sb in sbs %}
+    <li class='list-group-item'>
+        <div class="row">
+            <div class="col-sm">
+                Sprint Backlog: <a href="{%  %}">{{ }}</a>
+            </div>
+            <div class="col-sm">
+                Start Date: {{ }}
+            </div>
+            <div class="col-sm">
+                End Date: {{ }}
+            </div>
+            <div class="col-sm">
+                Maximum Hours: {{ }}
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% include 'partials/footer.html' %}
