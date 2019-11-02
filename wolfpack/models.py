@@ -40,7 +40,7 @@ class ProductBacklogItem(models.Model):
     status = models.IntegerField()
     userStory = models.TextField()
     projectId = models.ForeignKey('Project', on_delete=models.CASCADE, blank=True, null=True)
-    sprintId = models.ForeignKey('SprintBacklog', on_delete=models.DO_NOTHING, blank=False, null=True)
+    sprintId = models.ForeignKey('SprintBacklog', on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
         return str(self.id)

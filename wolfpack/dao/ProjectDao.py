@@ -10,6 +10,7 @@ from wolfpack.Enum import UserRoleEnum
 def getAllProjects():
     return Project.objects.all()
 
+
 def getProjectById(pid):
     return get_object_or_404(Project, id=pid)
 

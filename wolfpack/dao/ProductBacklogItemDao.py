@@ -7,14 +7,18 @@ def getAllItem():
     allItem = ProductBacklogItem.objects.all()
     return allItem
 
+
 def getPbiByStatus(projectId, status):
     return ProductBacklogItem.objects.filter(projectId=projectId).filter(status=status)
+
 
 def getPbiNotInStatus(projectId, status):
     return ProductBacklogItem.objects.filter(projectId=projectId).exclude(status=status)
 
+
 def getItemById(pid):
     return ProductBacklogItem.objects.get(pk=pid)
+
 
 def insert(size, priority, status, userStory, projectId):
     pbi = ProductBacklogItem(
