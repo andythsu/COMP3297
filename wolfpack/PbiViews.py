@@ -64,21 +64,36 @@ def delete(request, proId, pbiId):
 
 def getProjectPbis(request, proId):
     pro = ProjectDao.getProjectById(proId)
-    pbi = ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.DONE.value)
-    pbi2 = ProductBacklogItemDao.getPbiNotInStatus(projectId=proId, status=PbiStatusEnum.DONE.value)
+    pbi = list(ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.DONE.value))
+    pbi2 = list(ProductBacklogItemDao.getPbiNotInStatus(projectId=proId, status=PbiStatusEnum.DONE.value))
+    #Update 3Nov 0005: Convert QuerySet to List so that can be sorted
+
+    pbi.sort(key=lambda x: x.priority)
+    pbi2.sort(key=lambda x: x.priority)
+    #Update 3Nov 0005: Sort according to priority
 
     modifiedPbi = []
     modifiedPbi2 = []
 
+    pbis_cumu=0
+    pbis2_cumu=0
+    # Update 3Nov 0145: Have variable to store cumulative sizes
+
     for eachPbi in pbi:
+        pbis_cumu+=eachPbi.size
         modifiedPbi.append({
             'pbi': eachPbi,
+            'cumusize': pbis_cumu,
+            # Update 3Nov 0145: Passes the cumulative size of each PBI
             'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
         })
 
     for eachPbi in pbi2:
+        pbis2_cumu += eachPbi.size
         modifiedPbi2.append({
             'pbi': eachPbi,
+            'cumusize': pbis2_cumu,
+            # Update 3Nov 0145: Passes the cumulative size of each PBI
             'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
         })
 
