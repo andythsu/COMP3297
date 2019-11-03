@@ -1,16 +1,46 @@
+from django.shortcuts import get_object_or_404
+
 from wolfpack.models import SprintBacklog
+from . import ProjectDao
 
 
-def getSprintBacklogById():
-    pass
+def getSprintBacklogById(pid):
+    return get_object_or_404(SprintBacklog, id=pid)
 
 
-def insert():
-    pass
+def insert(name, startDate, endDate, maxHours, projectId):
+    sprintBacklog = SprintBacklog(
+        name=name,
+        startDate=startDate,
+        endDate=endDate,
+        maxHours=maxHours,
+        projectId=ProjectDao.getProjectById(projectId)
+    )
+    sprintBacklog.save()
+    return sprintBacklog.pk
 
 
-def deleteById():
-    pass
+def deleteById(pid):
+    sprintBacklog = getSprintBacklogById(pid)
+    sprintBacklog.delete()
 
 
-# implement and add more later
+def updateById(pid, name=None, startDate=None, endDate=None, maxHours=None, projectId=None):
+    sprintBacklog = getSprintBacklogById(pid)
+    if name is not None:
+        sprintBacklog.name = name
+
+    if startDate is not None:
+        sprintBacklog.startDate = startDate
+
+    if endDate is not None:
+        sprintBacklog.endDate = endDate
+
+    if maxHours is not None:
+        sprintBacklog.maxHours = maxHours
+
+    if projectId is not None:
+        sprintBacklog.projectId = projectId
+
+    sprintBacklog.save()
+

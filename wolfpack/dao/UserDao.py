@@ -33,7 +33,6 @@ def insert(name, role, projectId):
         user = ScrumMaster(
             name=name,
             role=role,
-            projectId=ProjectDao.getProjectById(projectId)
         )
         user.save()
         return user.id

@@ -1,4 +1,4 @@
-from wolfpack.models import ProductBacklogItem, Project
+from wolfpack.models import ProductBacklogItem
 
 from . import ProjectDao
 
@@ -6,6 +6,10 @@ from . import ProjectDao
 def getAllItem():
     allItem = ProductBacklogItem.objects.all()
     return allItem
+
+
+def getItemById(pid):
+    return ProductBacklogItem.objects.get(pk=pid)
 
 
 def getPbiByStatus(projectId, status):
@@ -16,8 +20,8 @@ def getPbiNotInStatus(projectId, status):
     return ProductBacklogItem.objects.filter(projectId=projectId).exclude(status=status)
 
 
-def getItemById(pid):
-    return ProductBacklogItem.objects.get(pk=pid)
+def getPbiBySprintId(projectId, sprintId):
+    return ProductBacklogItem.objects.filter(projectId=projectId).filter(sprintId=sprintId)
 
 
 def insert(size, priority, status, userStory, projectId):
@@ -37,7 +41,7 @@ def deleteById(pid):
     pbi.delete()
 
 
-def updateById(pid, size=None, priority=None, status=None, userStory=None, projectId=None):
+def updateById(pid, size=None, priority=None, status=None, userStory=None, projectId=None, sprintId=None):
     pbi = getItemById(pid)
     if size is not None:
         pbi.size = size
@@ -54,12 +58,20 @@ def updateById(pid, size=None, priority=None, status=None, userStory=None, proje
     if projectId is not None:
         pbi.projectId = projectId
 
+    if sprintId is not None:
+        pbi.sprintId = sprintId
+
     pbi.save()
 
 
 def viewAllCurrentPbi():
-    return ProductBacklogItem.objects.all().exclude(status='done')
+    return ProductBacklogItem.objects.all().exclude(status=2)
 
 
 def viewAllDonePbi():
-    return ProductBacklogItem.objects.all().filter(status='done')
+    return ProductBacklogItem.objects.all().filter(status=2)
+
+
+def rejectPbi(pid):
+    updateById(pid, None, None, 3, None, None, None)
+
