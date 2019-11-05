@@ -1,7 +1,7 @@
 {% include 'partials/header.html' %}
 
 <a class='btn btn-success' href="{% url 'wolfpack:insert' pro.id %}">Add PBI</a>
-<a class='btn btn-success' href="{% url 'wolfpack:add_sprint' pro.id %}">Add Sprint</a>
+<a class='btn btn-success' href="{% url 'wolfpack:index_sprint' pro.id %}">View Sprint</a>
 <ul class='list-group'>
     Done
     {% for pbi in pbis %}

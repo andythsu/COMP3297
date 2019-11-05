@@ -1,23 +1,38 @@
-{% include 'partials/ .html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'wolfpack/css/style.css' %}">
+    <title>Product Backlog</title>
+  </head>
+  <body>
 
-<a class='btn btn-success' href="{%  %}">Add Sprint Backlog</a>
+    <div class='container'>
+
+<header>
+      <h1>All Sprints</h1>
+      <a class='btn btn-success' href="{% url 'wolfpack:add_sprint' pro.id %}">Add Sprint Backlog</a>
+      <a class='btn btn-dark' href="{% url 'wolfpack:get_project_pbis' pro.id %}">Go Back</a>
+      <hr>
+</header>
 
 <ul class='list-group'>
-    To Do
-    {% for sb in sbs %}
+    {% for sb in sprints %}
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                Sprint Backlog: <a href="{%  %}">{{ }}</a>
+                Sprint: <a href="{% url 'wolfpack:index' %}">{{sb.sprint.name}}</a>
             </div>
             <div class="col-sm">
-                Start Date: {{ }}
+                Start Date: {{sb.sprint.startDate}}
             </div>
             <div class="col-sm">
-                End Date: {{ }}
+                End Date: {{sb.sprint.endDate}}
             </div>
             <div class="col-sm">
-                Maximum Hours: {{ }}
+                Maximum Hours: {{sb.sprint.maxHours}}
             </div>
         </div>
     </li>
