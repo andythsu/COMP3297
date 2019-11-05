@@ -23,7 +23,7 @@
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                Sprint: <a href="{% url 'wolfpack:index' %}">{{sb.sprint.name}}</a>
+                Sprint: <a href="{% url 'wolfpack:sprint_detail' pro.id sb.sprint.id %}">{{sb.sprint.name}}</a>
             </div>
             <div class="col-sm">
                 Start Date: {{sb.sprint.startDate}}

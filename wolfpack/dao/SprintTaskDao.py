@@ -12,5 +12,7 @@ def insert():
 def deleteById():
     pass
 
+def getTaskByStatus(projectId, sprintId, status):
+    return []
 
 # implement and add more later
