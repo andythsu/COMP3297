@@ -1,0 +1,26 @@
+{% url 'wolfpack:detail' proId pbi.id as gobackurl %}
+{% include 'partials/header.html' with url_to_go_back=gobackurl %}
+
+<h3>Edit PBI</h3>
+
+<form action="{% url 'wolfpack:addToSprint' proId pbi.id %}" method="post">
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label for="text">Sprint</label><br />
+      <select name="sprintId" id="sprintId">
+        {% for sb in sprints %}
+            <option value="{{sb.sprint.id}}">{{sb.sprint.name}}</option>
+        {% endfor %}
+      </select>
+  </div>
+
+
+
+  <div class="form-group">
+    <hr>
+    <input class='btn btn-primary' type="submit" value="Submit" />
+  </div>
+</form>
+
+{% include 'partials/footer.html' %}
