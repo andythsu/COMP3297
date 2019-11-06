@@ -5,8 +5,8 @@ def getSprintTaskById():
     pass
 
 
-def insert():
-    pass
+def insert(title, pbiId, effortHours, status,owner,description,sprintId, proId):
+    return 0
 
 
 def deleteById():

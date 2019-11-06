@@ -8,6 +8,27 @@ from .models import SprintTask
 
 from .dao import ProjectDao, SprintBacklogDao, SprintTaskDao
 
+def insert(request, proId, sprintId):
+    if request.method == 'POST':
+        sprintTaskId = SprintTaskDao.insert(
+            title =request.POST['title'],
+            pbiId =request.POST['corpbi'],
+            effortHours =request.POST['effortHours'],
+            status = 0,
+            owner = request.POST['owner'],
+            description = request.POST['description'],
+            sprintId =sprintId,
+            proId =proId
+        )
+        messages.success(request, 'sprint task added : %s' % sprintTaskId)
+        return redirect(reverse('wolfpack:sprint_detail', args=[proId,sprintId]))
+    else:
+        context = {
+            'projectId': proId,
+            'sprintId': sprintId
+        }
+        return render(request, 'SprintTaskAdd.html', context)
+
 
 def index(request, proId, sprintId):
     pro = ProjectDao.getProjectById(proId)
