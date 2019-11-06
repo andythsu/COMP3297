@@ -1,23 +1,24 @@
 from django.shortcuts import get_object_or_404
 
 from wolfpack.models import SprintTask
-from . import ProjectDao
-from . import SprintBacklogDao
+
+from . import SprintBacklogDao, UserDao, ProductBacklogItemDao
+from wolfpack.Enum import UserRoleEnum
 
 
 def getSprintTaskById(tid):
     return get_object_or_404(SprintTask, id=tid)
 
 
-def insert(title, description, status, effortHours, owner, sprintId, pbiId):
+def insert(title, description, status, effortHours, developerId, sprintId, pbiId):
     task = SprintTask(
         title=title,
         description=description,
         status=status,
         effortHours=effortHours,
-        owner=owner,
+        owner=UserDao.getUserById(developerId, UserRoleEnum.DEVELOPER),
         sprintId=SprintBacklogDao.getSprintBacklogById(sprintId),
-        pbiId=ProjectDao.getProjectById(pbiId)
+        pbiId=ProductBacklogItemDao.getItemById(pbiId)
     )
     task.save()
     return task.pk
@@ -60,5 +61,6 @@ def viewAllDoneTask():
     return SprintTask.objects.all().filter(status='done')
 
 
-def getTaskByStatus(projectId, sprintId, status):
-    return []
+def getTaskByStatus(sprintId, status):
+    sprint = SprintBacklogDao.getSprintBacklogById(sprintId)
+    return SprintTask.objects.all().filter(sprintId=sprint, status=status)

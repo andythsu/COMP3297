@@ -28,7 +28,7 @@
                 Title: <a href="{% url 'wolfpack:index' %}">{{task.task.title}}</a>
             </div>
             <div class="col-sm">
-                Corresponding PBI: <a href="{% url 'wolfpack:detail' pro.id pbi.pbi.id %}">{{task.task.pbiId}}</a>
+                Corresponding PBI: <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>
             </div>
             <div class="col-sm">
                 Effort hours: {{task.task.effortHours}}

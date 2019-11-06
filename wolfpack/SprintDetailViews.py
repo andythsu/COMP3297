@@ -3,24 +3,22 @@ from django.urls import reverse
 from django.contrib import messages
 
 from .Enum import SprintTaskStatusEnum
-
-from .models import SprintTask
-
 from .dao import ProjectDao, SprintBacklogDao, SprintTaskDao
+
 
 def insert(request, proId, sprintId):
     if request.method == 'POST':
         sprintTaskId = SprintTaskDao.insert(
-            title =request.POST['title'],
-            pbiId =request.POST['corpbi'],
-            effortHours =request.POST['effortHours'],
-            status = 0,
-            owner = request.POST['owner'],
-            description = request.POST['description'],
-            sprintId =sprintId
+            title=request.POST['title'],
+            description=request.POST['description'],
+            status=0,
+            effortHours=request.POST['effortHours'],
+            developerId=request.POST['owner'],
+            sprintId=sprintId,
+            pbiId=request.POST['corpbi']
         )
         messages.success(request, 'sprint task added : %s' % sprintTaskId)
-        return redirect(reverse('wolfpack:sprint_detail', args=[proId,sprintId]))
+        return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
     else:
         context = {
             'projectId': proId,
@@ -32,9 +30,9 @@ def insert(request, proId, sprintId):
 def index(request, proId, sprintId):
     pro = ProjectDao.getProjectById(proId)
     sprint = SprintBacklogDao.getSprintBacklogById(sprintId)
-    tasks = SprintTaskDao.getTaskByStatus(proId, sprintId, status=SprintTaskStatusEnum.TO_DO.value)
-    tasks2 = SprintTaskDao.getTaskByStatus(proId, sprintId, status=SprintTaskStatusEnum.IN_PROGRESS.value)
-    tasks3 = SprintTaskDao.getTaskByStatus(proId, sprintId, status=SprintTaskStatusEnum.DONE.value)
+    tasks = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.TO_DO.value)
+    tasks2 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.IN_PROGRESS.value)
+    tasks3 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.DONE.value)
 
     modifiedTask=[]
     modifiedTask2 = []
