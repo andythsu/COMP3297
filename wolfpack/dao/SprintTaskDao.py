@@ -62,4 +62,3 @@ def viewAllDoneTask():
 
 def getTaskByStatus(projectId, sprintId, status):
     return []
-

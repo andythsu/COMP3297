@@ -6,7 +6,7 @@ from .Enum import PbiStatusEnum
 
 from .models import ProductBacklogItem
 
-from .dao import ProductBacklogItemDao, ProjectDao, SprintBacklogDao
+from .dao import ProductBacklogItemDao, ProjectDao, SprintBacklogDao, SprintTaskDao
 
 
 # inserts pbi
@@ -117,8 +117,22 @@ def addToSprint(request, proId, pbiId):
         ProductBacklogItemDao.updateById(pbiId,
                                          sprintId=request.POST['sprintId'],
                                          status=1)
+
+#        sprintTaskId = SprintTaskDao.insert(
+#            title=request.POST['title'],
+#            pbiId=request.POST['corpbi'],
+#            effortHours=request.POST['effortHours'],
+#            status=1,
+#            owner=request.POST['owner'],
+#            description=request.POST['description'],
+#            sprintId=request.POST['sprintId']
+#        )
+
         messages.success(request, 'PBI Added to Sprint : %s' % pbi.sprintId)
-        return redirect(reverse('wolfpack:get_project_pbis', args=[proId]))
+        context = {
+            'pbi': pbi,
+        }
+        return render(request, 'PbiDetail.html', context)
     else:
         context = {
             'pbi': pbi,
