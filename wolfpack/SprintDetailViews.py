@@ -17,8 +17,7 @@ def insert(request, proId, sprintId):
             status = 0,
             owner = request.POST['owner'],
             description = request.POST['description'],
-            sprintId =sprintId,
-            proId =proId
+            sprintId =sprintId
         )
         messages.success(request, 'sprint task added : %s' % sprintTaskId)
         return redirect(reverse('wolfpack:sprint_detail', args=[proId,sprintId]))
