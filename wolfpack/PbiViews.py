@@ -115,7 +115,8 @@ def addToSprint(request, proId, pbiId):
         })
     if request.method == 'POST':
         ProductBacklogItemDao.updateById(pbiId,
-                                         sprintId=request.POST['sprintId'])
+                                         sprintId=request.POST['sprintId'],
+                                         status=1)
         messages.success(request, 'PBI Added to Sprint : %s' % pbi.sprintId)
         return redirect(reverse('wolfpack:get_project_pbis', args=[proId]))
     else:
