@@ -36,6 +36,9 @@
             <div class="col-sm">
                 Owner: {{task.task.owner}}
             </div>
+            <div class="col-sm">
+                Status: to_do
+            </div>
         </div>
     </li>
     {% endfor %}
@@ -58,6 +61,9 @@
             <div class="col-sm">
                 Owner: {{task.task.owner}}
             </div>
+            <div class="col-sm">
+                Status: in_progress
+            </div>
         </div>
     </li>
     {% endfor %}
@@ -79,6 +85,9 @@
             </div>
             <div class="col-sm">
                 Owner: {{task.task.owner}}
+            </div>
+            <div class="col-sm">
+                Status: done
             </div>
         </div>
     </li>
