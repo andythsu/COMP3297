@@ -69,3 +69,28 @@ def index(request, proId, sprintId):
         'done': done_cumu
     }
     return render(request, 'SprintBacklogDetail.html', context)
+
+def delete(request, proId, sprintId, taskId):
+    if request.method == 'POST':
+        SprintTaskDao.deleteById(taskId)
+        messages.success(request, 'Task Deleted : %s' % taskId)
+
+    pro = ProjectDao.getProjectById(proId)
+    sprint = SprintBacklogDao.getSprintBacklogById(sprintId)
+    tasks = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.TO_DO.value)
+    tasks2 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.IN_PROGRESS.value)
+    tasks3 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.DONE.value)
+
+    modifiedTask = []
+    modifiedTask2 = []
+    modifiedTask3 = []
+
+    context = {
+        'pro': pro,
+        'sprint': sprint,
+        'tasks': modifiedTask,
+        'tasks2': modifiedTask2,
+        'tasks3': modifiedTask3
+    }
+#    return redirect(reverse('wolfpack:index_project'))
+    return render(request, 'SprintBacklogDetail.html', context)

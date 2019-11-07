@@ -48,6 +48,12 @@
             <div class="col-sm">
                 Status: to_do
             </div>
+            <div class="col-sm">
+                <form action="{% url 'wolfpack:delete_t' pro.id sprint.id task.task.id %}" method="post">
+                    {% csrf_token %}
+                    <input class='pbi-delete btn btn-danger' type="submit" value="Delete"/>
+                </form>
+            </div>
         </div>
     </li>
     {% endfor %}

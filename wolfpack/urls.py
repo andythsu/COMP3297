@@ -23,6 +23,7 @@ urlpatterns = [
     path('project/<int:proId>/sprint/<int:sprintId>/details', SprintDetailViews.index, name='sprint_detail'),
     path('project/<int:proId>/sprint/<int:sprintId>/update', SprintBacklogViews.update, name='sprint_update'),
     path('project/<int:proId>/sprint/<int:sprintId>/insert', SprintDetailViews.insert, name='add_task'),
+    path('project/<int:proId>/sprint/<int:sprintId>/deleteTask/<int:taskId>', SprintDetailViews.delete, name='delete_t'),
     # button actions
 ]
 
