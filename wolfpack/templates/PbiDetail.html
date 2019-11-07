@@ -26,10 +26,10 @@
 </div>
 {% if pbi.status != 1 %}
     <form action="{% url 'wolfpack:delete' pbi.projectId pbi.id %}" method="post">
-    {% csrf_token %}
-    <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:update' pbi.projectId pbi.id %}">Edit</a>
-    <input class='pbi-delete btn btn-danger' type="submit" value="Delete"/>
-</form>
+        {% csrf_token %}
+        <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:update' pbi.projectId pbi.id %}">Edit</a>
+        <input class='pbi-delete btn btn-danger' type="submit" value="Delete"/>
+    </form>
     <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:addToSprint' pbi.projectId pbi.id %}">Add to sprint</a>
 {% endif %}
 
