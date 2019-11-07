@@ -118,15 +118,15 @@ def addToSprint(request, proId, pbiId):
                                          sprintId=request.POST['sprintId'],
                                          status=1)
 
-        sprintTaskId = SprintTaskDao.insert(
-            title=request.POST['title'],
-            pbiId=pbiId,
-            effortHours=request.POST['effortHours'],
-            status=1,
-            developerId=request.POST['owner'],
-            description=request.POST['description'],
-            sprintId=request.POST['sprintId']
-        )
+#        sprintTaskId = SprintTaskDao.insert(
+#            title=request.POST['title'],
+#            pbiId=pbiId,
+#            effortHours=request.POST['effortHours'],
+#            status=1,
+#            developerId=request.POST['owner'],
+#            description=request.POST['description'],
+#            sprintId=request.POST['sprintId']
+#        )
 
         messages.success(request, 'PBI Added to Sprint : %s' % pbi.sprintId)
         context = {

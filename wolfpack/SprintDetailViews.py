@@ -8,7 +8,7 @@ from .dao import ProjectDao, SprintBacklogDao, SprintTaskDao, ProductBacklogItem
 
 def insert(request, proId, sprintId):
     #pbi list
-    pbi = list(ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.NOT_STARTED.value))
+    pbi = list(ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.IN_PROGRESS.value).filter(sprintId=sprintId))
     pbi.sort(key=lambda x: x.priority)
     modifiedPbi = []
     pbis_cumu=0
@@ -39,8 +39,6 @@ def insert(request, proId, sprintId):
             pbiId=request.POST['corpbi']
         )
         pbiId = request.POST['corpbi']
-        ProductBacklogItemDao.updateById(pbiId,
-                                         status=1,)
         messages.success(request, 'sprint task added : %s' % sprintTaskId)
         return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
     else:
