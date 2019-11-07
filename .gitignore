@@ -263,3 +263,5 @@ venv/
 # End of https://www.gitignore.io/api/python,django,pycharm
 .idea/dataSources.xml
 get-pip.py
+
+.DS_Store
