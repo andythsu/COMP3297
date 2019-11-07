@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from wolfpack.models import SprintTask
 
 from . import SprintBacklogDao, UserDao, ProductBacklogItemDao
-from wolfpack.Enum import UserRoleEnum
+from wolfpack.Enum import UserRoleEnum, SprintTaskStatusEnum
 
 
 def getSprintTaskById(tid):
@@ -50,15 +50,15 @@ def deleteById(tid):
 
 
 def viewAllTodoTask():
-    return SprintTask.objects.all().filter(status="todo")
+    return SprintTask.objects.all().filter(status=SprintTaskStatusEnum.TO_DO)
 
 
 def viewAllInprogressTask():
-    return SprintTask.objects.all().filter(status="inprogress")
+    return SprintTask.objects.all().filter(status=SprintTaskStatusEnum.IN_PROGRESS)
 
 
 def viewAllDoneTask():
-    return SprintTask.objects.all().filter(status='done')
+    return SprintTask.objects.all().filter(status=SprintTaskStatusEnum.DONE)
 
 
 def getTaskByStatus(sprintId, status):

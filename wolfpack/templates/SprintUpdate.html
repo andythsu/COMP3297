@@ -9,11 +9,11 @@
   </head>
   <body>
 
-    <div class='container'>
+{#    <div class='container'>#}
 
 <header>
       <h1>Edit Sprint {{sprint.name}}</h1>
-      <a class='btn btn-dark' href="{% url 'wolfpack:index_sprint' 3 %}">Go Back</a>
+      <a class='btn btn-dark' href="{% url 'wolfpack:sprint_detail' proId sprint.id %}">Go Back</a>
       <hr>
 </header>
 
