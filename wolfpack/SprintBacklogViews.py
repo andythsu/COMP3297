@@ -3,6 +3,8 @@ from django.urls import reverse
 from django.contrib import messages
 from .dao import ProjectDao, SprintBacklogDao
 
+from wolfpack.Enum import SprintStatusEnum
+
 
 def index(request, proId):
     pro = ProjectDao.getProjectById(proId)
@@ -26,6 +28,7 @@ def insert(request, proId):
             startDate=request.POST['startDate'],
             endDate=request.POST['endDate'],
             maxHours=request.POST['maxHours'],
+            status=SprintStatusEnum.IN_PROGRESS,  # this will restrict user from editing the sprint backlog detail after they create it
             projectId=proId
         )
         messages.success(request, 'sprint backlog added : %s' % sprintBacklogId)
