@@ -38,17 +38,23 @@ def index(request, proId, sprintId):
     modifiedTask2 = []
     modifiedTask3 = []
 
+    notfinish_cumu=0
+    done_cumu=0
+
     for task in tasks:
+        notfinish_cumu+=task.effortHours
         modifiedTask.append({
             'task': task,
         })
 
     for task in tasks2:
+        notfinish_cumu+=task.effortHours
         modifiedTask.append({
             'task': task,
         })
 
     for task in tasks3:
+        done_cumu+=task.effortHours
         modifiedTask.append({
             'task': task,
         })
@@ -58,6 +64,8 @@ def index(request, proId, sprintId):
         'sprint': sprint,
         'tasks': modifiedTask,
         'tasks2': modifiedTask2,
-        'tasks3': modifiedTask3
+        'tasks3': modifiedTask3,
+        'notdone': notfinish_cumu,
+        'done': done_cumu
     }
     return render(request, 'SprintBacklogDetail.html', context)
