@@ -2,11 +2,23 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
 
-from .Enum import SprintTaskStatusEnum
-from .dao import ProjectDao, SprintBacklogDao, SprintTaskDao
+from .Enum import SprintTaskStatusEnum, PbiStatusEnum
+from .dao import ProjectDao, SprintBacklogDao, SprintTaskDao, ProductBacklogItemDao
 
 
 def insert(request, proId, sprintId):
+    pbi = list(ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.NOT_STARTED.value))
+    pbi.sort(key=lambda x: x.priority)
+    modifiedPbi = []
+    pbis_cumu=0
+    for eachPbi in pbi:
+        pbis_cumu+=eachPbi.size
+        modifiedPbi.append({
+            'pbi': eachPbi,
+            'cumusize': pbis_cumu,
+            # Update 3Nov 0145: Passes the cumulative size of each PBI
+            'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
+        })
     if request.method == 'POST':
         sprintTaskId = SprintTaskDao.insert(
             title=request.POST['title'],
@@ -22,7 +34,8 @@ def insert(request, proId, sprintId):
     else:
         context = {
             'projectId': proId,
-            'sprintId': sprintId
+            'sprintId': sprintId,
+            'pbis': modifiedPbi,
         }
         return render(request, 'SprintTaskAdd.html', context)
 
