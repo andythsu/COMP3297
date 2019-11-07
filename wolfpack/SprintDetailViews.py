@@ -3,10 +3,11 @@ from django.urls import reverse
 from django.contrib import messages
 
 from .Enum import SprintTaskStatusEnum, PbiStatusEnum
-from .dao import ProjectDao, SprintBacklogDao, SprintTaskDao, ProductBacklogItemDao
+from .dao import ProjectDao, SprintBacklogDao, SprintTaskDao, ProductBacklogItemDao, UserDao
 
 
 def insert(request, proId, sprintId):
+    #pbi list
     pbi = list(ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.NOT_STARTED.value))
     pbi.sort(key=lambda x: x.priority)
     modifiedPbi = []
@@ -19,6 +20,20 @@ def insert(request, proId, sprintId):
             # Update 3Nov 0145: Passes the cumulative size of each PBI
             'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
         })
+    #user list
+#    user = list(UserDao.getUserById()
+#    pbi.sort(key=lambda x: x.priority)
+#    modifiedPbi = []
+#    pbis_cumu=0
+#    for eachPbi in pbi:
+#        pbis_cumu+=eachPbi.size
+#        modifiedPbi.append({
+#            'pbi': eachPbi,
+#            'cumusize': pbis_cumu,
+#            # Update 3Nov 0145: Passes the cumulative size of each PBI
+#            'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
+#        })
+    #post function
     if request.method == 'POST':
         sprintTaskId = SprintTaskDao.insert(
             title=request.POST['title'],

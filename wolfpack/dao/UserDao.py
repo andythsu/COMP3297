@@ -67,3 +67,13 @@ def updateById(pid, role, name=None, projectId=None):
         user.projectId = ProjectDao.getProjectById(projectId)
 
     user.save()
+
+def getUserByRole():
+    if role == UserRoleEnum.PRODUCT_OWNER:
+        return User.objects.all().filter(role=UserRoleEnum.PRODUCT_OWNER)
+    elif role == UserRoleEnum.SCRUM_MASTER:
+        return User.objects.all().filter(role=UserRoleEnum.SCRUM_MASTER)
+    elif role == UserRoleEnum.DEVELOPER:
+        return User.objects.all().filter(role=UserRoleEnum.DEVELOPER)
+    else:
+        raise Exception("user role doesn't exist in enum")
