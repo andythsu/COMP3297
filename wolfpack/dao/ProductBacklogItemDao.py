@@ -1,6 +1,7 @@
 from wolfpack.models import ProductBacklogItem
 
 from . import ProjectDao
+from . import SprintBacklogDao
 
 
 def getAllItem():
@@ -59,7 +60,7 @@ def updateById(pid, size=None, priority=None, status=None, userStory=None, proje
         pbi.projectId = projectId
 
     if sprintId is not None:
-        pbi.sprintId = sprintId
+        pbi.sprintId = SprintBacklogDao.getSprintBacklogById(sprintId)
 
     pbi.save()
 

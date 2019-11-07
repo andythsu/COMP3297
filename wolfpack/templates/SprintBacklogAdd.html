@@ -1,6 +1,22 @@
-{% include 'partials/header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'wolfpack/css/style.css' %}">
+    <title>Product Backlog</title>
+  </head>
+  <body>
 
-<h3>New Sprint</h3>
+    <div class='container'>
+
+<header>
+      <h1>New Sprint</h1>
+      <a class='btn btn-dark' href="{% url 'wolfpack:index_sprint' projectId%}">Go Back</a>
+      <hr>
+</header>
+
 <form action="{% url 'wolfpack:add_sprint' projectId %}" method="post">
     {% csrf_token %}
     <div class="form-group">

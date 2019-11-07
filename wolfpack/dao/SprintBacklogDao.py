@@ -8,6 +8,10 @@ def getSprintBacklogById(pid):
     return get_object_or_404(SprintBacklog, id=pid)
 
 
+def getAllSprints(projectId):
+    return SprintBacklog.objects.all().filter(projectId=projectId)
+
+
 def insert(name, startDate, endDate, maxHours, projectId):
     sprintBacklog = SprintBacklog(
         name=name,

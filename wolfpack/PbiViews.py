@@ -6,7 +6,7 @@ from .Enum import PbiStatusEnum
 
 from .models import ProductBacklogItem
 
-from .dao import ProductBacklogItemDao, ProjectDao
+from .dao import ProductBacklogItemDao, ProjectDao, SprintBacklogDao, SprintTaskDao
 
 
 # inserts pbi
@@ -103,3 +103,41 @@ def getProjectPbis(request, proId):
         'pbis2': modifiedPbi2
     }
     return render(request, 'PbiIndex.html', context)
+
+def addToSprint(request, proId, pbiId):
+    pbi = ProductBacklogItemDao.getItemById(pid=pbiId)
+    pro = ProjectDao.getProjectById(proId)
+    sprints = SprintBacklogDao.getAllSprints(proId)
+    sprintList = []
+    for sprint in sprints:
+        sprintList.append({
+            'sprint': sprint,
+        })
+    if request.method == 'POST':
+        ProductBacklogItemDao.updateById(pbiId,
+                                         sprintId=request.POST['sprintId'],
+                                         status=1)
+
+#        sprintTaskId = SprintTaskDao.insert(
+#            title=request.POST['title'],
+#            pbiId=request.POST['corpbi'],
+#            effortHours=request.POST['effortHours'],
+#            status=1,
+#            owner=request.POST['owner'],
+#            description=request.POST['description'],
+#            sprintId=request.POST['sprintId']
+#        )
+
+        messages.success(request, 'PBI Added to Sprint : %s' % pbi.sprintId)
+        context = {
+            'pbi': pbi,
+        }
+        return render(request, 'PbiDetail.html', context)
+    else:
+        context = {
+            'pbi': pbi,
+            'proId': proId,
+            'pro': pro,
+            'sprints': sprintList
+        }
+    return render(request, 'PbiAddToSprint.html', context)

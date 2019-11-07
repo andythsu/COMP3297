@@ -24,3 +24,20 @@ class PbiStatusEnum(Enum):
             return "NOT_FINISHED"
         else:
             raise Exception("value doesn't exist in PbiStatusEnum class")
+
+class SprintTaskStatusEnum(Enum):
+    TO_DO = 0
+    IN_PROGRESS = 1
+    DONE = 2
+
+    @staticmethod
+    def getNameByValue(val):
+        val = int(val)
+        if val == 0:
+            return "TO_DO"
+        elif val == 1:
+            return "IN_PROGRESS"
+        elif val == 2:
+            return "DONE"
+        else:
+            raise Exception("value doesn't exist in PbiStatusEnum class")

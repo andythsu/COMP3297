@@ -3,6 +3,7 @@ from django.urls import path
 from . import PbiViews
 from . import ProjectViews
 from . import SprintBacklogViews
+from . import SprintDetailViews
 
 app_name = 'wolfpack'
 
@@ -16,9 +17,12 @@ urlpatterns = [
     path('project/<int:proId>/pbi', PbiViews.getProjectPbis, name='get_project_pbis'),
     path('project/<int:proId>/pbi/<int:pbiId>/delete', PbiViews.delete, name='delete'),
     path('project/<int:proId>/pbi/<int:pbiId>/update', PbiViews.update, name='update'),
-
+    path('project/<int:proId>/pbi/<int:pbiId>/addToSprint', PbiViews.addToSprint, name='addToSprint'),
+    path('project/<int:proId>/sprint', SprintBacklogViews.index, name='index_sprint'),
     path('project/<int:proId>/sprint/insert', SprintBacklogViews.insert, name='add_sprint'),
-
+    path('project/<int:proId>/sprint/<int:sprintId>/details', SprintDetailViews.index, name='sprint_detail'),
+    path('project/<int:proId>/sprint/<int:sprintId>/update', SprintBacklogViews.update, name='sprint_update'),
+    path('project/<int:proId>/sprint/<int:sprintId>/insert', SprintDetailViews.insert, name='add_task'),
     # button actions
 ]
 
