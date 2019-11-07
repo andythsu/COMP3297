@@ -25,7 +25,7 @@
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                Title: <a href="{% url 'wolfpack:index' %}">{{task.task.title}}</a>
+                Title: {{task.task.title}}
             </div>
             <div class="col-sm">
                 Corresponding PBI: <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>
