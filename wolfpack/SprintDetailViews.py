@@ -34,7 +34,7 @@ def index(request, proId, sprintId):
     tasks2 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.IN_PROGRESS.value)
     tasks3 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.DONE.value)
 
-    modifiedTask=[]
+    modifiedTask = []
     modifiedTask2 = []
     modifiedTask3 = []
 
@@ -55,7 +55,7 @@ def index(request, proId, sprintId):
 
     context = {
         'pro': pro,
-        'sprint':sprint,
+        'sprint': sprint,
         'tasks': modifiedTask,
         'tasks2': modifiedTask2,
         'tasks3': modifiedTask3
