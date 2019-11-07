@@ -28,17 +28,18 @@ def updateById(tid, title=None, description=None, status=None, effortHours=None,
     task = getSprintTaskById(tid)
     if title is not None:
         task.title = title
-    if title is not None:
+    if description is not None:
         task.description = description
-    if title is not None:
+    if status is not None:
         task.status = status
-    if title is not None:
+    if effortHours is not None:
         task.effortHours = effortHours
-    if title is not None:
-        task.owner = owner
-    if title is not None:
+    if owner is not None:
+        developer=UserDao.getUserById(owner, UserRoleEnum.DEVELOPER)
+        task.owner = developer
+    if sprintId is not None:
         task.sprintId = sprintId
-    if title is not None:
+    if pbiId is not None:
         task.pbiId = pbiId
 
     task.save()
