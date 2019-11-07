@@ -5,7 +5,7 @@ from .models import Project
 from django.contrib import messages
 from django.urls import reverse
 
-from .dao import ProjectDao,UserDao
+from .dao import ProjectDao, UserDao
 
 def index(request):
     projects = ProjectDao.getAllProjects()
@@ -23,6 +23,12 @@ def index(request):
     return render(request, 'ProjectIndex.html', context)
 
 def insertProject(request):
+    user = list(UserDao.getUserByRole(UserRoleEnum.SCRUM_MASTER))
+    modifiedUser = []
+    for eachUser in user:
+        modifiedUser.append({
+            'user': eachUser,
+        })
     if request.method == 'POST':
         projectId = ProjectDao.insert(
             title=request.POST['title'],
@@ -32,7 +38,10 @@ def insertProject(request):
         messages.success(request, 'Project Added : %s' % request.POST['title'])
         return redirect(reverse('wolfpack:index_project'))
     else:
-        return render(request, 'add_project.html')
+        context = {
+            'users': modifiedUser
+        }
+        return render(request, 'add_project.html', context)
 
 def deleteProject(request, proId):
     if request.method == 'POST':

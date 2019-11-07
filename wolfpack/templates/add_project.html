@@ -15,8 +15,13 @@
     </div>
 
     <div class="form-group">
-        <label for="text">ScrumMaster</label><br/>
-        <input name="scrumMaster" id="scrumMaster">
+        Scrum Master ID:
+        <select name="scrumMaster" id="scrumMaster">
+            {% for user in users %}
+                {{user.user.id}}
+                <option value="{{user.user.id}}">{{user.user.id}}</option>
+            {% endfor %}
+        </select>
     </div>
 
 
