@@ -1,11 +1,12 @@
 #!/bin/bash
 
+appName="wolfpack"
+
 # this will let Django know we have some changes in our model
-./manage.py makemigrations
+./manage.py makemigrations $appName
 
 # this will apply changes to database
-./manage.py migrate
-
-# make migration files
-appName="wolfpack"
 ./manage.py migrate $appName
+
+# sync db
+./manage.py migrate --run-syncdb
