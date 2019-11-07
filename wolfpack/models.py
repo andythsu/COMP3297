@@ -51,6 +51,7 @@ class SprintBacklog(models.Model):
     startDate = models.DateField()
     endDate = models.DateField()
     maxHours = models.IntegerField()
+    status = models.IntegerField()
     projectId = models.ForeignKey('Project', on_delete=models.CASCADE, blank=False, null=False)
 
     def __str__(self):

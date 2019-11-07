@@ -9,7 +9,7 @@
   </head>
   <body>
 
-    <div class='container'>
+{#    <div class='container'>#}
 
 <header>
       <h1>Sprint Backlog for {{sprint.name}}</h1>
@@ -18,7 +18,11 @@
 </header>
 
 <a class='btn btn-success' href="{% url 'wolfpack:add_task' pro.id sprint.id %}">Add Task</a>
+{#this will prevent user from editing sprints with status other than "not started"#}
+{% if sprint.status == 0 %}
 <a class='btn btn-success' href="{% url 'wolfpack:sprint_update' pro.id sprint.id %}">Edit Sprint</a>
+{% endif %}
+{#end of if block#}
 <ul class='list-group'>
     To Do
     {% for task in tasks %}

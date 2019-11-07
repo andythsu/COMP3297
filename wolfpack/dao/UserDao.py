@@ -21,7 +21,7 @@ def getUserById(pid, role):
 
 
 def insert(name, role, projectId):
-    if role == 'PO':
+    if role == UserRoleEnum.PRODUCT_OWNER:
         user = ProductOwner(
             name=name,
             role=role,
@@ -29,7 +29,7 @@ def insert(name, role, projectId):
         )
         user.save()
         return user.id
-    elif role == 'SM':
+    elif role == UserRoleEnum.SCRUM_MASTER:
         user = ScrumMaster(
             name=name,
             role=role,

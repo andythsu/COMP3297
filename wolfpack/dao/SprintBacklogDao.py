@@ -12,12 +12,13 @@ def getAllSprints(projectId):
     return SprintBacklog.objects.all().filter(projectId=projectId)
 
 
-def insert(name, startDate, endDate, maxHours, projectId):
+def insert(name, startDate, endDate, maxHours, status, projectId):
     sprintBacklog = SprintBacklog(
         name=name,
         startDate=startDate,
         endDate=endDate,
         maxHours=maxHours,
+        status=status,
         projectId=ProjectDao.getProjectById(projectId)
     )
     sprintBacklog.save()
