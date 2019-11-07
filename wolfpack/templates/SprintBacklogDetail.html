@@ -48,6 +48,10 @@
             <div class="col-sm">
                 Status: to_do
             </div>
+            <div>
+                <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:update_t' pro.id sprint.id task.task.id %}">Edit</a>
+            </div>
+
             <div class="col-sm">
                 <form action="{% url 'wolfpack:delete_t' pro.id sprint.id task.task.id %}" method="post">
                     {% csrf_token %}
