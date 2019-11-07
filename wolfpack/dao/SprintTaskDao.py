@@ -44,6 +44,8 @@ def updateById(tid, title=None, description=None, status=None, effortHours=None,
 
     task.save()
 
+def getSprintTasksByPbiId(pbiId):
+    return SprintTask.objects.all().filter(pbiId=pbiId)
 
 def deleteById(tid):
     task = getSprintTaskById(tid)

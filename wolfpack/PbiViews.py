@@ -32,6 +32,7 @@ def details(request, proId, pbiId):
     pbi = ProductBacklogItemDao.getItemById(pbiId)
     context = {
         'pbi': pbi,
+        'pbiStatusInString': PbiStatusEnum.getNameByValue(pbi.status)
     }
     return render(request, 'PbiDetail.html', context)
 
@@ -107,7 +108,7 @@ def getProjectPbis(request, proId):
 def addToSprint(request, proId, pbiId):
     pbi = ProductBacklogItemDao.getItemById(pid=pbiId)
     pro = ProjectDao.getProjectById(proId)
-    sprints = SprintBacklogDao.getAllSprints(proId)
+    sprints = SprintBacklogDao.getAllSprintsByProjectId(proId)
     sprintList = []
     for sprint in sprints:
         sprintList.append({
@@ -128,9 +129,10 @@ def addToSprint(request, proId, pbiId):
 #            sprintId=request.POST['sprintId']
 #        )
 
-        messages.success(request, 'PBI Added to Sprint : %s' % pbi.sprintId)
+        messages.success(request, 'PBI Added to Sprint')
         context = {
             'pbi': pbi,
+            'pbiStatusInString':PbiStatusEnum.getNameByValue(pbi.status)
         }
         return render(request, 'PbiDetail.html', context)
     else:

@@ -19,20 +19,24 @@
 </header>
 
 <ul class='list-group'>
-    {% for sb in sprints %}
+    {% if sprints|length <= 0 %}
+        <p>No active sprints.</p>
+    {% endif %}
+
+    {% for sprint in sprints %}
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                Sprint: <a href="{% url 'wolfpack:sprint_detail' pro.id sb.sprint.id %}">{{sb.sprint.name}}</a>
+                Sprint: <a href="{% url 'wolfpack:sprint_detail' pro.id sprint.id %}">{{sprint.name}}</a>
             </div>
             <div class="col-sm">
-                Start Date: {{sb.sprint.startDate}}
+                Start Date: {{sprint.startDate}}
             </div>
             <div class="col-sm">
-                End Date: {{sb.sprint.endDate}}
+                End Date: {{sprint.endDate}}
             </div>
             <div class="col-sm">
-                Maximum Hours: {{sb.sprint.maxHours}}
+                Maximum Hours: {{sprint.maxHours}}
             </div>
         </div>
     </li>

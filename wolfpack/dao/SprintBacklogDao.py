@@ -2,15 +2,18 @@ from django.shortcuts import get_object_or_404
 
 from wolfpack.models import SprintBacklog
 from . import ProjectDao
+from wolfpack.Enum import SprintStatusEnum
 
 
 def getSprintBacklogById(pid):
     return get_object_or_404(SprintBacklog, id=pid)
 
 
-def getAllSprints(projectId):
+def getAllSprintsByProjectId(projectId):
     return SprintBacklog.objects.all().filter(projectId=projectId)
 
+def getAllActiveSprintsByProjectId(projectId):
+    return SprintBacklog.objects.all().filter(projectId=projectId).exclude(status=SprintStatusEnum.DONE.value)
 
 def insert(name, startDate, endDate, maxHours, status, projectId):
     sprintBacklog = SprintBacklog(
@@ -30,7 +33,7 @@ def deleteById(pid):
     sprintBacklog.delete()
 
 
-def updateById(pid, name=None, startDate=None, endDate=None, maxHours=None, projectId=None):
+def updateById(pid, name=None, startDate=None, endDate=None, maxHours=None, projectId=None, status=None):
     sprintBacklog = getSprintBacklogById(pid)
     if name is not None:
         sprintBacklog.name = name
@@ -46,6 +49,9 @@ def updateById(pid, name=None, startDate=None, endDate=None, maxHours=None, proj
 
     if projectId is not None:
         sprintBacklog.projectId = projectId
+
+    if status is not None:
+        sprintBacklog.status = status
 
     sprintBacklog.save()
 

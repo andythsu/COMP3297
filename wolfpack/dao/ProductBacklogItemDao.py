@@ -24,7 +24,6 @@ def getPbiNotInStatus(projectId, status):
 def getPbiBySprintId(projectId, sprintId):
     return ProductBacklogItem.objects.filter(projectId=projectId).filter(sprintId=sprintId)
 
-
 def insert(size, priority, status, userStory, projectId):
     pbi = ProductBacklogItem(
         size=size,

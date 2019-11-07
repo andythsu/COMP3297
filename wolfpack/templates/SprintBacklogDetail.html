@@ -24,6 +24,8 @@
 {% endif %}
 {#end of if block#}
 
+<a class="btn btn-success" href="{% url 'wolfpack:sprint_close' pro.id sprint.id %}">Close Sprint</a>
+
 <h3>Maximum effort hours: {{sprint.maxHours}} hours</h3>
 <h3>Not done: {{notdone}} hours</h3>
 <h3>Done: {{done}} hours</h3>
