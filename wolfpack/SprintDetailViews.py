@@ -29,6 +29,9 @@ def insert(request, proId, sprintId):
             sprintId=sprintId,
             pbiId=request.POST['corpbi']
         )
+        pbiId = request.POST['corpbi']
+        ProductBacklogItemDao.updateById(pbiId,
+                                         status=1,)
         messages.success(request, 'sprint task added : %s' % sprintTaskId)
         return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
     else:
@@ -97,6 +100,27 @@ def delete(request, proId, sprintId, taskId):
     modifiedTask = []
     modifiedTask2 = []
     modifiedTask3 = []
+
+    notfinish_cumu=0
+    done_cumu=0
+
+    for task in tasks:
+        notfinish_cumu+=task.effortHours
+        modifiedTask.append({
+            'task': task,
+        })
+
+    for task in tasks2:
+        notfinish_cumu+=task.effortHours
+        modifiedTask2.append({
+            'task': task,
+        })
+
+    for task in tasks3:
+        done_cumu+=task.effortHours
+        modifiedTask3.append({
+            'task': task,
+        })
 
     context = {
         'pro': pro,
