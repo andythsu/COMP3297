@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
 
-from .Enum import SprintTaskStatusEnum, PbiStatusEnum
+from .Enum import SprintTaskStatusEnum, PbiStatusEnum, UserRoleEnum
 from .dao import ProjectDao, SprintBacklogDao, SprintTaskDao, ProductBacklogItemDao, UserDao
 
 
@@ -21,18 +21,12 @@ def insert(request, proId, sprintId):
             'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
         })
     #user list
-#    user = list(UserDao.getUserById()
-#    pbi.sort(key=lambda x: x.priority)
-#    modifiedPbi = []
-#    pbis_cumu=0
-#    for eachPbi in pbi:
-#        pbis_cumu+=eachPbi.size
-#        modifiedPbi.append({
-#            'pbi': eachPbi,
-#            'cumusize': pbis_cumu,
-#            # Update 3Nov 0145: Passes the cumulative size of each PBI
-#            'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
-#        })
+    user = list(UserDao.getUserByRole(UserRoleEnum.DEVELOPER))
+    modifiedUser = []
+    for eachUser in user:
+        modifiedUser.append({
+            'user': eachUser,
+        })
     #post function
     if request.method == 'POST':
         sprintTaskId = SprintTaskDao.insert(
@@ -54,6 +48,7 @@ def insert(request, proId, sprintId):
             'projectId': proId,
             'sprintId': sprintId,
             'pbis': modifiedPbi,
+            'users': modifiedUser
         }
         return render(request, 'SprintTaskAdd.html', context)
 

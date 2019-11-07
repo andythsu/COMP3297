@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404
 from wolfpack.models import ProductOwner
 from wolfpack.models import Developer
 from wolfpack.models import ScrumMaster
+from wolfpack.models import User
+
 
 from . import ProjectDao
 
@@ -68,12 +70,13 @@ def updateById(pid, role, name=None, projectId=None):
 
     user.save()
 
-def getUserByRole():
+
+def getUserByRole(role):
     if role == UserRoleEnum.PRODUCT_OWNER:
-        return User.objects.all().filter(role=UserRoleEnum.PRODUCT_OWNER)
+        return ProductOwner.objects.all()
     elif role == UserRoleEnum.SCRUM_MASTER:
-        return User.objects.all().filter(role=UserRoleEnum.SCRUM_MASTER)
+        return ScrumMaster.objects.all()
     elif role == UserRoleEnum.DEVELOPER:
-        return User.objects.all().filter(role=UserRoleEnum.DEVELOPER)
+        return Developer.objects.all()
     else:
         raise Exception("user role doesn't exist in enum")
