@@ -35,3 +35,21 @@ def insert(request, proId):
             'projectId': proId
         }
         return render(request, 'SprintBacklogAdd.html', context)
+
+
+def update(request, proId, sprintId):
+    sprint = SprintBacklogDao.getSprintBacklogById(sprintId)
+    if request.method == 'POST':
+        SprintBacklogDao.updateById(sprintId,
+                                    name=request.POST['name'],
+                                    startDate=request.POST['startDate'],
+                                    endDate=request.POST['endDate'],
+                                    maxHours=request.POST['maxHours'])
+        messages.success(request, 'PBI Updated : %s' % sprintId)
+        return redirect(reverse('wolfpack:index_sprint', args=[proId]))
+    else:
+        context = {
+            'sprint': sprint,
+            'proId': proId
+        }
+    return render(request, 'SprintUpdate.html', context)

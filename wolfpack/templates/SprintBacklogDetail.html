@@ -18,7 +18,7 @@
 </header>
 
 <a class='btn btn-success' href="{% url 'wolfpack:add_task' pro.id sprint.id %}">Add Task</a>
-
+<a class='btn btn-success' href="{% url 'wolfpack:sprint_update' pro.id sprint.id %}">Edit Sprint</a>
 <ul class='list-group'>
     To Do
     {% for task in tasks %}
