@@ -139,3 +139,24 @@ def delete(request, proId, sprintId, taskId):
     }
 #    return redirect(reverse('wolfpack:index_project'))
     return render(request, 'SprintBacklogDetail.html', context)
+
+
+def update(request, proId, sprintId, taskId):
+    task = SprintTaskDao.getSprintTaskById(taskId)
+    if request.method == 'POST':
+        SprintTaskDao.updateById(taskId,
+                                 title=request.POST['title'],
+                                 description=request.POST['description'],
+                                 status=request.POST['status'],
+                                 effortHours=request.POST['effortHours'],
+                                 owner=request.POST['owner'],
+                                 )
+        messages.success(request, 'Task Updated : %s' % taskId)
+        return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
+    else:
+        context = {
+            'task': task,
+            'sprintId': sprintId,
+            'proId': proId
+        }
+    return render(request, 'SprintTaskUpdate.html', context)

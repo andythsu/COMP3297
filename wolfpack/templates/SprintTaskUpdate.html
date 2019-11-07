@@ -1,16 +1,32 @@
-{% include 'partials/ .html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'wolfpack/css/style.css' %}">
+    <title>Sprint Backlog</title>
+  </head>
+  <body>
 
-<h3>Edit Sprint Task</h3>
-<form action="{%   %}" method="post">
+    <div class='container'>
+
+<header>
+      <h1>Edit Sprint Task</h1>
+      <a class='btn btn-dark' href="{% url 'wolfpack:sprint_detail' proId sprintId %}">Go Back</a>
+      <hr>
+</header>
+
+<form action="{% url 'wolfpack:update_t' proId sprintId task.id %}" method="post">
     {% csrf_token %}
     <div class="form-group">
         <label for="text">Title</label><br/>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" value="{{task.title}}">
     </div>
 
     <div class="form-group">
         <label for="text">Effort hours</label><br/>
-        <input type="number" name="effortHours" id="effortHours" min="1">
+        <input type="number" name="effortHours" id="effortHours" min="1" value="{{task.effortHours}}">
     </div>
 
     <div class="form-group">
@@ -24,12 +40,12 @@
 
     <div class="form-group">
         <label for="text">Owner</label><br/>
-        <input type="text" name="owner" id="owner"/>
+        <input type="text" name="owner" id="owner" value="{{task.owner.id}}"/>
     </div>
 
     <div class="form-group">
         <label for="text">Description</label><br/>
-        <textarea name="description" id="description"></textarea>
+        <textarea name="description" id="description">{{task.description}}</textarea>
     </div>
     
     <div class="form-group">
