@@ -49,13 +49,13 @@ def index(request, proId, sprintId):
 
     for task in tasks2:
         notfinish_cumu+=task.effortHours
-        modifiedTask.append({
+        modifiedTask2.append({
             'task': task,
         })
 
     for task in tasks3:
         done_cumu+=task.effortHours
-        modifiedTask.append({
+        modifiedTask3.append({
             'task': task,
         })
 
