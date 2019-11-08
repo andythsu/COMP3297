@@ -107,7 +107,7 @@ def index(request, proId, sprintId):
         modifiedTask3.append({
             'task': task,
         })
-
+    remaining = sprint.maxHours - notfinish_cumu - done_cumu
     context = {
         'pro': pro,
         'sprint': sprint,
@@ -115,7 +115,8 @@ def index(request, proId, sprintId):
         'tasks2': modifiedTask2,
         'tasks3': modifiedTask3,
         'notdone': notfinish_cumu,
-        'done': done_cumu
+        'done': done_cumu,
+        'remaining': remaining
     }
     return render(request, 'SprintBacklogDetail.html', context)
 
