@@ -38,7 +38,7 @@ def insert(request, proId):
             startDate=request.POST['startDate'],
             endDate=request.POST['endDate'],
             maxHours=request.POST['maxHours'],
-            status=SprintStatusEnum.IN_PROGRESS,
+            status=SprintStatusEnum.IN_PROGRESS.value,
             # this will restrict user from editing the sprint backlog detail after they create it
             projectId=proId
         )
