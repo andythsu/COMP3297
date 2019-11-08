@@ -8,7 +8,7 @@ from wolfpack.Enum import SprintStatusEnum, SprintTaskStatusEnum, PbiStatusEnum
 
 def index(request, proId):
     pro = ProjectDao.getProjectById(proId)
-    allSprintsInProject = SprintBacklogDao.getAllActiveSprintsByProjectId(proId)
+    allSprintsInProject = SprintBacklogDao.getAllSprintsByProjectId(proId)
     activeSprints = []
     inactiveSprints = []
     for sprint in allSprintsInProject:

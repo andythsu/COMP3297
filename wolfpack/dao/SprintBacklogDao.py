@@ -12,8 +12,10 @@ def getSprintBacklogById(pid):
 def getAllSprintsByProjectId(projectId):
     return SprintBacklog.objects.all().filter(projectId=projectId)
 
+
 def getAllActiveSprintsByProjectId(projectId):
     return SprintBacklog.objects.all().filter(projectId=projectId).exclude(status=SprintStatusEnum.DONE.value)
+
 
 def insert(name, startDate, endDate, maxHours, status, projectId):
     sprintBacklog = SprintBacklog(
