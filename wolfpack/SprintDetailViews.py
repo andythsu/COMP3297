@@ -168,6 +168,12 @@ def delete(request, proId, sprintId, taskId):
 
 def update(request, proId, sprintId, taskId):
     task = SprintTaskDao.getSprintTaskById(taskId)
+    user = list(UserDao.getUserByRole(UserRoleEnum.DEVELOPER))
+    modifiedUser = []
+    for eachUser in user:
+        modifiedUser.append({
+            'user': eachUser,
+        })
     if request.method == 'POST':
         SprintTaskDao.updateById(taskId,
                                  title=request.POST['title'],
@@ -182,6 +188,7 @@ def update(request, proId, sprintId, taskId):
         context = {
             'task': task,
             'sprintId': sprintId,
-            'proId': proId
+            'proId': proId,
+            'users': modifiedUser
         }
     return render(request, 'SprintTaskUpdate.html', context)

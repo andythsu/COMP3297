@@ -39,8 +39,14 @@
     </div>
 
     <div class="form-group">
-        <label for="text">Owner</label><br/>
-        <input type="text" name="owner" id="owner" value="{{task.owner.id}}"/>
+        Owner ID:
+        <select name="owner" id="owner">
+             <option value="" selected disabled hidden>{{task.owner}}</option>
+            {% for user in users %}
+                {{user.user.id}}
+                <option value="{{user.user.id}}">{{user.user.id}}</option>
+            {% endfor %}
+        </select>
     </div>
 
     <div class="form-group">
