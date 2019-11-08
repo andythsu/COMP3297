@@ -7,6 +7,22 @@ from .dao import ProjectDao, SprintBacklogDao, SprintTaskDao, ProductBacklogItem
 
 
 def insert(request, proId, sprintId):
+
+    #Sum of effort hours
+    pro = ProjectDao.getProjectById(proId)
+    sprint = SprintBacklogDao.getSprintBacklogById(sprintId)
+    tasks = SprintTaskDao.getTaskBySprint(sprintId)
+
+    modifiedTask = []
+
+    cumu=0
+
+    for task in tasks:
+        cumu+=task.effortHours
+        modifiedTask.append({
+            'task': task,
+        })
+
     #pbi list
     pbi = list(ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.IN_PROGRESS.value).filter(sprintId=sprintId))
     pbi.sort(key=lambda x: x.priority)
@@ -20,6 +36,7 @@ def insert(request, proId, sprintId):
             # Update 3Nov 0145: Passes the cumulative size of each PBI
             'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
         })
+
     #user list
     user = list(UserDao.getUserByRole(UserRoleEnum.DEVELOPER))
     modifiedUser = []
@@ -27,26 +44,35 @@ def insert(request, proId, sprintId):
         modifiedUser.append({
             'user': eachUser,
         })
+
+    context = {
+        'projectId': proId,
+        'sprintId': sprintId,
+        'pbis': modifiedPbi,
+        'users': modifiedUser
+    }
+
     #post function
     if request.method == 'POST':
-        sprintTaskId = SprintTaskDao.insert(
-            title=request.POST['title'],
-            description=request.POST['description'],
-            status=0,
-            effortHours=request.POST['effortHours'],
-            developerId=request.POST['owner'],
-            sprintId=sprintId,
-            pbiId=request.POST['corpbi']
-        )
-        messages.success(request, 'sprint task added : %s' % sprintTaskId)
-        return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
+        EH = int('0' + request.POST['effortHours'])
+        cumu += EH
+        if cumu > sprint.maxHours:
+            #cannot add
+            messages.success(request, 'Effort hours exceed maximum effort hours')
+            return render(request, 'SprintTaskAdd.html', context)
+        else:
+            sprintTaskId = SprintTaskDao.insert(
+                title=request.POST['title'],
+                description=request.POST['description'],
+                status=0,
+                effortHours=request.POST['effortHours'],
+                developerId=request.POST['owner'],
+                sprintId=sprintId,
+                pbiId=request.POST['corpbi']
+            )
+            messages.success(request, 'sprint task added : %s' % sprintTaskId)
+            return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
     else:
-        context = {
-            'projectId': proId,
-            'sprintId': sprintId,
-            'pbis': modifiedPbi,
-            'users': modifiedUser
-        }
         return render(request, 'SprintTaskAdd.html', context)
 
 

@@ -67,3 +67,7 @@ def viewAllDoneTask():
 def getTaskByStatus(sprintId, status):
     sprint = SprintBacklogDao.getSprintBacklogById(sprintId)
     return SprintTask.objects.all().filter(sprintId=sprint, status=status)
+
+def getTaskBySprint(sprintId):
+    sprint = SprintBacklogDao.getSprintBacklogById(sprintId)
+    return SprintTask.objects.all().filter(sprintId=sprint)

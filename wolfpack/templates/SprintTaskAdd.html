@@ -11,11 +11,26 @@
 
 {#    <div class='container'>#}
 
+
 <header>
       <h1>New Sprint Task</h1>
       <a class='btn btn-dark' href="{% url 'wolfpack:sprint_detail' projectId  sprintId  %}">Go Back</a>
       <hr>
 </header>
+
+    <div class="messages">
+      {% if messages %}
+        {% for message in messages %}
+          {% firstof message.tags 'warning' as msgtag %}
+          <div class="alert alert-{{msgtag}} alert-dismissible fade show" role="alert">
+          <p>{{message}}</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
 
 <h3>New Sprint Task</h3>
 <form action="{% url 'wolfpack:add_task' projectId  sprintId %}" method="post">
