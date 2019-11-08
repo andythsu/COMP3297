@@ -141,7 +141,7 @@ def update(request, proId, sprintId, taskId):
                                  description=request.POST['description'],
                                  status=request.POST['status'],
                                  effortHours=request.POST['effortHours'],
-                                 owner=request.POST['owner'],
+                                 owner=request.POST.get('owner')
                                  )
         messages.success(request, 'Task Updated : %s' % taskId)
         return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
