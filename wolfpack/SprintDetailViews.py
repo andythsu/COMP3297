@@ -120,51 +120,11 @@ def index(request, proId, sprintId):
     }
     return render(request, 'SprintBacklogDetail.html', context)
 
+
 def delete(request, proId, sprintId, taskId):
-    if request.method == 'POST':
-        SprintTaskDao.deleteById(taskId)
-        messages.success(request, 'Task Deleted : %s' % taskId)
-
-    pro = ProjectDao.getProjectById(proId)
-    sprint = SprintBacklogDao.getSprintBacklogById(sprintId)
-    tasks = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.TO_DO.value)
-    tasks2 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.IN_PROGRESS.value)
-    tasks3 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.DONE.value)
-
-    modifiedTask = []
-    modifiedTask2 = []
-    modifiedTask3 = []
-
-    notfinish_cumu=0
-    done_cumu=0
-
-    for task in tasks:
-        notfinish_cumu+=task.effortHours
-        modifiedTask.append({
-            'task': task,
-        })
-
-    for task in tasks2:
-        notfinish_cumu+=task.effortHours
-        modifiedTask2.append({
-            'task': task,
-        })
-
-    for task in tasks3:
-        done_cumu+=task.effortHours
-        modifiedTask3.append({
-            'task': task,
-        })
-
-    context = {
-        'pro': pro,
-        'sprint': sprint,
-        'tasks': modifiedTask,
-        'tasks2': modifiedTask2,
-        'tasks3': modifiedTask3
-    }
-#    return redirect(reverse('wolfpack:index_project'))
-    return render(request, 'SprintBacklogDetail.html', context)
+    SprintTaskDao.deleteById(taskId)
+    messages.success(request, 'Task deleted : %s' % taskId)
+    return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
 
 
 def update(request, proId, sprintId, taskId):
@@ -193,3 +153,9 @@ def update(request, proId, sprintId, taskId):
             'users': modifiedUser
         }
     return render(request, 'SprintTaskUpdate.html', context)
+
+
+def finish(request, proId, sprintId, taskId):
+    SprintTaskDao.updateById(taskId, status=2)
+    messages.success(request, 'Task done : %s' % taskId)
+    return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
