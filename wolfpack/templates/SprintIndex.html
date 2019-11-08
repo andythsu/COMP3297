@@ -19,28 +19,62 @@
 </header>
 
 <ul class='list-group'>
-    {% if sprints|length <= 0 %}
+    Active Sprint
+    {% if activeSprints|length <= 0 %}
         <p>No active sprints.</p>
     {% endif %}
-
-    {% for sprint in sprints %}
+    <hr>
+    {% for sprint in activeSprints %}
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
-                Sprint: <a href="{% url 'wolfpack:sprint_detail' pro.id sprint.id %}">{{sprint.name}}</a>
+                Sprint: <a href="{% url 'wolfpack:sprint_detail' pro.id sprint.sprint.id %}">{{sprint.sprint.name}}</a>
             </div>
             <div class="col-sm">
-                Start Date: {{sprint.startDate}}
+                Start Date: {{sprint.sprint.startDate}}
             </div>
             <div class="col-sm">
-                End Date: {{sprint.endDate}}
+                End Date: {{sprint.sprint.endDate}}
             </div>
             <div class="col-sm">
-                Maximum Hours: {{sprint.maxHours}}
+                Maximum Hours: {{sprint.sprint.maxHours}}
+            </div>
+            <div class="col-sm">
+                Status: {{ sprint.sprintStatus }}
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+
+    <br>
+
+    Inactive Sprint
+    <hr>
+    {% if inactiveSprints|length <= 0 %}
+        No inactive sprints.
+    {% endif %}
+    {% for sprint in inactiveSprints %}
+    <li class='list-group-item'>
+        <div class="row">
+            <div class="col-sm">
+                Sprint: <a href="{% url 'wolfpack:sprint_detail' pro.id sprint.sprint.id %}">{{sprint.sprint.name}}</a>
+            </div>
+            <div class="col-sm">
+                Start Date: {{sprint.sprint.startDate}}
+            </div>
+            <div class="col-sm">
+                End Date: {{sprint.sprint.endDate}}
+            </div>
+            <div class="col-sm">
+                Maximum Hours: {{sprint.sprint.maxHours}}
+            </div>
+            <div class="col-sm">
+                Status: {{ sprint.sprintStatus }}
             </div>
         </div>
     </li>
     {% endfor %}
 </ul>
+    </div>
 
 {% include 'partials/footer.html' %}

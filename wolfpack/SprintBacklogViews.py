@@ -8,10 +8,25 @@ from wolfpack.Enum import SprintStatusEnum, SprintTaskStatusEnum, PbiStatusEnum
 
 def index(request, proId):
     pro = ProjectDao.getProjectById(proId)
-    sprints = SprintBacklogDao.getAllActiveSprintsByProjectId(proId)
+    allSprintsInProject = SprintBacklogDao.getAllActiveSprintsByProjectId(proId)
+    activeSprints = []
+    inactiveSprints = []
+    for sprint in allSprintsInProject:
+        if sprint.status == SprintStatusEnum.DONE.value:
+            inactiveSprints.append({
+                'sprint': sprint,
+                'sprintStatus:': SprintStatusEnum.getNameByValue(sprint.status)
+            })
+        else:
+            activeSprints.append({
+                'sprint': sprint,
+                'sprintStatus': SprintStatusEnum.getNameByValue(sprint.status)
+            })
+
     context = {
         'pro': pro,
-        'sprints': sprints
+        'activeSprints': activeSprints,
+        'inactiveSprints': inactiveSprints
     }
     return render(request, 'SprintIndex.html', context)
 
