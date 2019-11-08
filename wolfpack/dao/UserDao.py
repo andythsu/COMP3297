@@ -12,6 +12,8 @@ from wolfpack.Enum import UserRoleEnum
 
 
 def getUserById(pid, role):
+    if pid is None:
+        return None
     if role == UserRoleEnum.PRODUCT_OWNER:
         return get_object_or_404(ProductOwner, id=pid)
     elif role == UserRoleEnum.SCRUM_MASTER:

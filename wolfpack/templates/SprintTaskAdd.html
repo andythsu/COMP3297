@@ -60,6 +60,7 @@
     <div class="form-group">
         Owner ID:
         <select name="owner" id="owner">
+             <option value="" selected disabled hidden>None</option>
             {% for user in users %}
                 {{user.user.id}}
                 <option value="{{user.user.id}}">{{user.user.id}}</option>

@@ -66,7 +66,7 @@ def insert(request, proId, sprintId):
                 description=request.POST['description'],
                 status=0,
                 effortHours=request.POST['effortHours'],
-                developerId=request.POST['owner'],
+                developerId=request.POST.get('owner'),
                 sprintId=sprintId,
                 pbiId=request.POST['corpbi']
             )
