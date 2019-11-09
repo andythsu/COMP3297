@@ -77,7 +77,7 @@ def close(request, proId, sprintId):
     for pbi in pbisInSprint:
         sprintTasks = SprintTaskDao.getSprintTasksByPbiId(pbi.id)
         tasksNotDone = list(filter(lambda sprintTask: sprintTask.status != SprintTaskStatusEnum.DONE.value, sprintTasks))
-        if len(tasksNotDone) >= 0:
+        if len(tasksNotDone) > 0:
             ProductBacklogItemDao.updateById(pid=pbi.id, status=PbiStatusEnum.NOT_FINISHED.value)
         else:
             ProductBacklogItemDao.updateById(pid=pbi.id, status=PbiStatusEnum.DONE.value)
