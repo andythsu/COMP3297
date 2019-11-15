@@ -47,7 +47,7 @@ class ProductBacklogItem(models.Model):
 
 
 class SprintBacklog(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.IntegerField()
     startDate = models.DateField()
     endDate = models.DateField()
     maxHours = models.IntegerField()

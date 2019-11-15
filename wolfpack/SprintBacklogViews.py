@@ -34,7 +34,7 @@ def index(request, proId):
 def insert(request, proId):
     if request.method == 'POST':
         sprintBacklogId = SprintBacklogDao.insert(
-            name=request.POST['name'],
+            name=SprintBacklogDao.getLastSprintBacklogNumber()+1,
             startDate=request.POST['startDate'],
             endDate=request.POST['endDate'],
             maxHours=request.POST['maxHours'],
@@ -55,7 +55,6 @@ def update(request, proId, sprintId):
     sprint = SprintBacklogDao.getSprintBacklogById(sprintId)
     if request.method == 'POST':
         SprintBacklogDao.updateById(sprintId,
-                                    name=request.POST['name'],
                                     startDate=request.POST['startDate'],
                                     endDate=request.POST['endDate'],
                                     maxHours=request.POST['maxHours'])

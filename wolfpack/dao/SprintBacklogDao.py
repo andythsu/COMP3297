@@ -9,6 +9,13 @@ def getSprintBacklogById(pid):
     return get_object_or_404(SprintBacklog, id=pid)
 
 
+def getLastSprintBacklogNumber():
+    if SprintBacklog.objects.exists():
+        return SprintBacklog.objects.latest('id').name
+    else:
+        return 0
+
+
 def getAllSprintsByProjectId(projectId):
     return SprintBacklog.objects.all().filter(projectId=projectId)
 
