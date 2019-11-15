@@ -24,6 +24,7 @@
 {#this will prevent user from editing sprints with status other than "not started"#}
 {% if sprint.status == 0 %}
 <a class='btn btn-success' href="{% url 'wolfpack:sprint_update' pro.id sprint.id %}">Edit Sprint</a>
+<a class='btn btn-success' href="{% url 'wolfpack:sprint_start' pro.id sprint.id %}">Start Sprint</a>
 {% endif %}
 {#end of if block#}
 

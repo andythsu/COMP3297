@@ -38,7 +38,7 @@ def insert(request, proId):
             startDate=request.POST['startDate'],
             endDate=request.POST['endDate'],
             maxHours=request.POST['maxHours'],
-            status=SprintStatusEnum.IN_PROGRESS.value,
+            status=SprintStatusEnum.NOT_STARTED.value,
             # this will restrict user from editing the sprint backlog detail after they create it
             projectId=proId
         )
@@ -65,7 +65,12 @@ def update(request, proId, sprintId):
             'sprint': sprint,
             'proId': proId
         }
-    return render(request, 'SprintUpdate.html', context)
+    return render(request, 'SprintBacklogUpdate.html', context)
+
+
+def start(request, proId, sprintId):
+    SprintBacklogDao.updateById(pid=sprintId, status=SprintStatusEnum.IN_PROGRESS.value)
+    return redirect(reverse('wolfpack:index_sprint', args=[proId]))
 
 
 def close(request, proId, sprintId):
