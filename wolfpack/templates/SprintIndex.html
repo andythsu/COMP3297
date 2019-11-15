@@ -13,17 +13,19 @@
 
 <header>
       <h1>All Sprints</h1>
-      <a class='btn btn-success' href="{% url 'wolfpack:add_sprint' pro.id %}">Add Sprint Backlog</a>
+
       <a class='btn btn-dark' href="{% url 'wolfpack:get_project_pbis' pro.id %}">Go Back</a>
+      {% if activeSprints|length <= 0 %}
+        <a class='btn btn-success' href="{% url 'wolfpack:add_sprint' pro.id %}">Add Sprint Backlog</a>
+      {% endif %}
       <hr>
 </header>
 
 <ul class='list-group'>
-    Active Sprint
+    <h5>Active Sprint</h5>
     {% if activeSprints|length <= 0 %}
         <p>No active sprints.</p>
     {% endif %}
-    <hr>
     {% for sprint in activeSprints %}
     <li class='list-group-item'>
         <div class="row">
@@ -45,13 +47,12 @@
         </div>
     </li>
     {% endfor %}
-
+    <hr>
     <br>
 
-    Inactive Sprint
-    <hr>
+    <h5>Inactive Sprint</h5>
     {% if inactiveSprints|length <= 0 %}
-        No inactive sprints.
+        <p>No inactive sprints.</p>
     {% endif %}
     {% for sprint in inactiveSprints %}
     <li class='list-group-item'>
