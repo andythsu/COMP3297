@@ -21,61 +21,77 @@
       <hr>
 </header>
 
-<ul class='list-group'>
-    <h5>Active Sprint</h5>
-    {% if activeSprints|length <= 0 %}
-        <p>No active sprints.</p>
-    {% endif %}
-    {% for sprint in activeSprints %}
-    <li class='list-group-item'>
-        <div class="row">
-            <div class="col-sm">
-                Sprint: <a href="{% url 'wolfpack:sprint_detail' pro.id sprint.sprint.id %}">{{sprint.sprint.name}}</a>
-            </div>
-            <div class="col-sm">
-                Start Date: {{sprint.sprint.startDate}}
-            </div>
-            <div class="col-sm">
-                End Date: {{sprint.sprint.endDate}}
-            </div>
-            <div class="col-sm">
-                Maximum Hours: {{sprint.sprint.maxHours}}
-            </div>
-            <div class="col-sm">
-                Status: {{ sprint.sprintStatus }}
-            </div>
-        </div>
-    </li>
-    {% endfor %}
-    <hr>
-    <br>
 
-    <h5>Inactive Sprint</h5>
-    {% if inactiveSprints|length <= 0 %}
-        <p>No inactive sprints.</p>
-    {% endif %}
-    {% for sprint in inactiveSprints %}
-    <li class='list-group-item'>
-        <div class="row">
-            <div class="col-sm">
-                Sprint: <a href="{% url 'wolfpack:sprint_detail' pro.id sprint.sprint.id %}">{{sprint.sprint.name}}</a>
-            </div>
-            <div class="col-sm">
-                Start Date: {{sprint.sprint.startDate}}
-            </div>
-            <div class="col-sm">
-                End Date: {{sprint.sprint.endDate}}
-            </div>
-            <div class="col-sm">
-                Maximum Hours: {{sprint.sprint.maxHours}}
-            </div>
-            <div class="col-sm">
-                Status: {{ sprint.sprintStatus }}
-            </div>
-        </div>
-    </li>
-    {% endfor %}
-</ul>
-    </div>
+<h5>Active Sprint</h5>
+{% if activeSprints|length <= 0 %}
+    <p>No active sprints.</p>
+{% else %}
+<div class="col-12 container">
+	<ul class="list-unstyled row">
+		<li class="list-item col-3 border-top border-bottom py-2">
+            <b>Sprint</b>
+        </li>
+		<li class="list-item col-3 border-top border-bottom py-2">
+            <b>Start Date</b>
+        </li>
+		<li class="list-item col-3 border-top border-bottom py-2">
+            <b>End Date</b>
+        </li>
+		<li class="list-item col-3 border-top border-bottom py-2">
+            <b>Maximum Hours</b>
+        </li>
+		{% for sprint in activeSprints %}
+		<li class="list-item col-3 border-bottom py-2">
+            <a href="{% url 'wolfpack:sprint_detail' pro.id sprint.sprint.id %}">{{sprint.sprint.name}}</a>
+        </li>
+		<li class="list-item col-3 border-bottom py-2">
+            {{sprint.sprint.startDate}}
+        </li>
+		<li class="list-item col-3 border-bottom py-2">
+            {{sprint.sprint.endDate}}
+        </li>
+		<li class="list-item col-3 border-bottom py-2">
+            {{sprint.sprint.maxHours}}
+        </li>
+		{% endfor %}
+	</ul>
+</div>
+{% endif %}
+
+<h5>Inactive Sprint</h5>
+{% if inactiveSprints|length <= 0 %}
+    <p>No inactive sprints.</p>
+{% else %}
+<div class="col-12 container">
+	<ul class="list-unstyled row">
+		<li class="list-item col-3 border-top border-bottom py-2">
+            <b>Sprint</b>
+        </li>
+		<li class="list-item col-3 border-top border-bottom py-2">
+            <b>Start Date</b>
+        </li>
+		<li class="list-item col-3 border-top border-bottom py-2">
+            <b>End Date</b>
+        </li>
+		<li class="list-item col-3 border-top border-bottom py-2">
+            <b>Maximum Hours</b>
+        </li>
+		{% for sprint in inactiveSprints %}
+		<li class="list-item col-3 border-bottom py-2">
+            <a href="{% url 'wolfpack:sprint_detail' pro.id sprint.sprint.id %}">{{sprint.sprint.name}}</a>
+        </li>
+		<li class="list-item col-3 border-bottom py-2">
+            {{sprint.sprint.startDate}}
+        </li>
+		<li class="list-item col-3 border-bottom py-2">
+            {{sprint.sprint.endDate}}
+        </li>
+		<li class="list-item col-3 border-bottom py-2">
+            {{sprint.sprint.maxHours}}
+        </li>
+		{% endfor %}
+	</ul>
+</div>
+{% endif %}
 
 {% include 'partials/footer.html' %}
