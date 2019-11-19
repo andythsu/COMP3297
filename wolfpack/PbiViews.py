@@ -91,11 +91,17 @@ def getProjectPbis(request, proId):
 
     for eachPbi in pbi2:
         pbis2_cumu += eachPbi.size
+        if (eachPbi.status==1):
+            status="In progress"
+        if (eachPbi.status==0):
+            status="Not started"
+        if (eachPbi.status == 3):
+            status = "Not finished"
         modifiedPbi2.append({
             'pbi': eachPbi,
             'cumusize': pbis2_cumu,
             # Update 3Nov 0145: Passes the cumulative size of each PBI
-            'statusInString': PbiStatusEnum.getNameByValue(eachPbi.status)
+            'statusInString': status
         })
 
     context = {

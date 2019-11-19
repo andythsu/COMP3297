@@ -4,62 +4,88 @@
 
 <a class='btn btn-success' href="{% url 'wolfpack:insert' pro.id %}">Add PBI</a>
 <a class='btn btn-success' href="{% url 'wolfpack:index_sprint' pro.id %}">View Sprint</a>
-<ul class='list-group'>
-    Done
-    {% for pbi in pbis %}
-    <li class='list-group-item'>
-        <div class="row">
-            <div class="col-sm">
-                User Story: <a href="{% url 'wolfpack:detail' pro.id pbi.pbi.id %}">{{pbi.pbi.userStory}}</a>
-            </div>
-            <div class="col-sm">
-                size: {{pbi.pbi.size}}
-            </div>
-			<div class="col-sm">
-                cumu. size: {{pbi.cumusize}}
-            </div>
-			<!--Update 3Nov 0205: Displays cumulative size of PBI-->
-            <div class="col-sm">
-                priority: {{pbi.pbi.priority}}
-            </div>
-            <div class="col-sm">
-                status: {{pbi.statusInString}}
-            </div>
-            <div class="col-sm">
-                Sprint: {{pbi.pbi.sprintId}}
-            </div>
-        </div>
-    </li>
-    {% endfor %}
-</ul>
 
-<ul class='list-group'>
-    Not done
-    {% for pbi2 in pbis2 %}
-    <li class='list-group-item'>
-        <div class="row">
-            <div class="col-sm">
-                User Story: <a href="{% url 'wolfpack:detail' pro.id pbi2.pbi.id %}">{{pbi2.pbi.userStory}}</a>
-            </div>
-            <div class="col-sm">
-                size: {{pbi2.pbi.size}}
-            </div>
-			<div class="col-sm">
-                cumu. size: {{pbi2.cumusize}}
-            </div>
-			<!--Update 3Nov 0205: Displays cumulative size of PBI-->
-            <div class="col-sm">
-                priority: {{pbi2.pbi.priority}}
-            </div>
-            <div class="col-sm">
-                status: {{pbi2.statusInString}}
-            </div>
-            <div class="col-sm">
-                Sprint: {{pbi2.pbi.sprintId}}
-            </div>
-        </div>
-    </li>
-    {% endfor %}
-</ul>
+<br />
+<h5>Done</h5>
+<div class="col-12 container">
+	<ul class="list-unstyled row">
+		<li class="list-item col-2 border-top border-bottom py-2">
+            <b>User story</b>
+        </li>
+		<li class="list-item col-2 border-top border-bottom py-2">
+            <b>Size</b>
+        </li>
+		<li class="list-item col-2 border-top border-bottom py-2">
+            <b>Cumulative size</b>
+        </li>
+		<li class="list-item col-2 border-top border-bottom py-2">
+            <b>Priority</b>
+        </li>
+		<li class="list-item col-4 border-top border-bottom py-2">
+            <b>Sprint</b>
+        </li>
+		{% for pbi in pbis %}
+		<li class="list-item col-2 border-bottom py-2">
+			<a href="{% url 'wolfpack:detail' pro.id pbi.pbi.id %}">{{pbi.pbi.userStory}}</a>
+        </li>
+		<li class="list-item col-2 border-bottom py-2">
+			{{pbi.pbi.size}}
+        </li>
+		<li class="list-item col-2 border-bottom py-2">
+			{{pbi.cumusize}}
+        </li>
+		<li class="list-item col-2 border-bottom py-2">
+			{{pbi.pbi.priority}}
+        </li>
+		<li class="list-item col-4 border-bottom py-2">
+			{{pbi.pbi.sprintId}}
+        </li>
+		{% endfor %}
+	</ul>
+</div>
+
+<h5>Not Done</h5>
+<div class="col-12 container">
+	<ul class="list-unstyled row">
+		<li class="list-item col-2 border-top border-bottom py-2">
+            <b>User story</b>
+        </li>
+		<li class="list-item col-2 border-top border-bottom py-2">
+            <b>Size</b>
+        </li>
+		<li class="list-item col-2 border-top border-bottom py-2">
+            <b>Cumulative size</b>
+        </li>
+		<li class="list-item col-2 border-top border-bottom py-2">
+            <b>Priority</b>
+        </li>
+		<li class="list-item col-2 border-top border-bottom py-2">
+            <b>Sprint</b>
+        </li>
+		<li class="list-item col-2 border-top border-bottom py-2">
+			<b>Status</b>
+        </li>
+		{% for pbi in pbis2 %}
+		<li class="list-item col-2 border-bottom py-2">
+			<a href="{% url 'wolfpack:detail' pro.id pbi.pbi.id %}">{{pbi.pbi.userStory}}</a>
+        </li>
+		<li class="list-item col-2 border-bottom py-2">
+			{{pbi.pbi.size}}
+        </li>
+		<li class="list-item col-2 border-bottom py-2">
+			{{pbi.cumusize}}
+        </li>
+		<li class="list-item col-2 border-bottom py-2">
+			{{pbi.pbi.priority}}
+        </li>
+		<li class="list-item col-2 border-bottom py-2">
+			{{pbi.pbi.sprintId}}
+        </li>
+		<li class="list-item col-2 border-bottom py-2">
+			{{pbi.statusInString}}
+        </li>
+		{% endfor %}
+	</ul>
+</div>
 
 {% include 'partials/footer.html' %}
