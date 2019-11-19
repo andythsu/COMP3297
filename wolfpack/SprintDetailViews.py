@@ -82,13 +82,16 @@ def index(request, proId, sprintId):
     tasks = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.TO_DO.value)
     tasks2 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.IN_PROGRESS.value)
     tasks3 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.DONE.value)
+    pbi = list(ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.IN_PROGRESS.value))
 
     modifiedTask = []
     modifiedTask2 = []
     modifiedTask3 = []
+    modifiedPbi = []
 
     notfinish_cumu=0
     done_cumu=0
+
 
     for task in tasks:
         notfinish_cumu+=task.effortHours
@@ -116,7 +119,8 @@ def index(request, proId, sprintId):
         'tasks3': modifiedTask3,
         'notdone': notfinish_cumu,
         'done': done_cumu,
-        'remaining': remaining
+        'remaining': remaining,
+        'pbis': pbi
     }
     return render(request, 'SprintBacklogDetail.html', context)
 

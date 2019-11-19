@@ -12,7 +12,7 @@
     <div class='container'>
 
 <header>
-      <h1>Sprint Backlog for {{sprint.name}}</h1>
+      <h1>Sprint Backlog for Sprint {{sprint.name}}</h1>
       <a class='btn btn-dark' href="{% url 'wolfpack:index_sprint' pro.id %}">Go Back</a>
       <hr>
 </header>
@@ -40,8 +40,22 @@
 <h5>Done: {{done}} hours</h5>
 
 <ul class='list-group'>
+	PBIs in Sprint {{sprint.name}}
+	{% for pbi in pbis %}
+	<li class='list-group-item'>
+		<div class="row">
+			<div class="col-sm">
+				User Story: <a href="{% url 'wolfpack:detail' pro.id pbi.id %}">{{pbi.userStory}}</a>
+			</div>
+		</div>
+    </li>
+    {% endfor %}
+</ul>
+	
+
+<ul class='list-group'>
     To Do
-    {% for task in tasks %}
+	{% for task in tasks %}
     <li class='list-group-item'>
         <div class="row">
             <div class="col-sm">
