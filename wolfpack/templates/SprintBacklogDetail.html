@@ -34,107 +34,177 @@
 {% endif %}
 
 
-<h5>Maximum effort hours: {{sprint.maxHours}} hours</h5>
-<h5>Remaining effort hours: {{remaining}} hours</h5>
-<h5>Not done: {{notdone}} hours</h5>
-<h5>Done: {{done}} hours</h5>
+<h4>Maximum effort hours: {{sprint.maxHours}} hours</h4>
+<h4>Remaining effort hours: {{remaining}} hours</h4>
+<h4>Not done: {{notdone}} hours</h4>
+<h4>Done: {{done}} hours</h4><br />
 
-<ul class='list-group'>
-	PBIs in Sprint {{sprint.name}}
-	{% for pbi in pbis %}
-	<li class='list-group-item'>
-		<div class="row">
-			<div class="col-sm">
-				User Story: <a href="{% url 'wolfpack:detail' pro.id pbi.id %}">{{pbi.userStory}}</a>
-			</div>
-		</div>
-    </li>
-    {% endfor %}
-</ul>
+
+<h5>PBIs in Sprint {{sprint.name}}</h5>
+<div class="col-12 container">
+	<ul class="list-unstyled row">
+		<li class="list-item col-1 border-top py-2">
+            <b>PBI</b>
+        </li>
+		<li class="list-item col-3 border-top py-2">
+            <b>User story</b>
+        </li>
+		<li class="list-item col-2 border-top py-2">
+            <b>Total hours</b>
+        </li>
+		<li class="list-item col-2 border-top py-2">
+            <b>Burntdown hours</b>
+        </li>
+		<li class="list-item col-2 border-top py-2">
+            <b>Remaining hours</b>
+        </li>
+		<li class="list-item col-2 border-top py-2">
+        </li>
+		{% for pbi in pbis %}
+		<li class="list-item col-1 border-top py-2">
+            <a href="{% url 'wolfpack:detail' pro.id pbi.id %}">{{pbi.id}}</a>
+        </li>
+		<li class="list-item col-3 border-top py-2">
+            {{pbi.userStory}}
+        </li>
+		<li class="list-item col-2 border-top py-2">
+            -
+			<!--Not yet implemented. Remove this comment if implemented.-->
+        </li>
+		<li class="list-item col-2 border-top py-2">
+            -
+			<!--Not yet implemented. Remove this comment if implemented.-->
+        </li>
+		<li class="list-item col-2 border-top py-2">
+            -
+			<!--Not yet implemented. Remove this comment if implemented.-->
+        </li>
+		<li class="list-item col-2 border-top py-2">
+            <a class='pbi-delete btn btn-outline-danger btn-sm' href="">Reject</a>
+			<!--Not yet implemented. Remove this comment if implemented.-->
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+        
+
 	
-
-<ul class='list-group'>
-    To Do
-	{% for task in tasks %}
-    <li class='list-group-item'>
-        <div class="row">
-            <div class="col-sm">
-                Title: <a href="{% url 'wolfpack:update_t' pro.id sprint.id task.task.id %}">{{task.task.title}}</a>
-            </div>
-            <div class="col-sm">
-                Corresponding PBI: <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>
-            </div>
-            <div class="col-sm">
-                Effort hours: {{task.task.effortHours}}
-            </div>
-            <div class="col-sm">
-                Owner: {{task.task.owner}}
-            </div>
-            <div class="col-sm">
-                Status: to_do
-            </div>
-            <div>
+<h5>To Do</h5>
+<div class="col-12 container">
+	<ul class="list-unstyled row">
+			
+			<li class="list-item col-2 border-top py-2">
+                <b>Title</b>
+            </li>
+            <li class="list-item col-3 border-top py-2">
+                <b>Corresponding PBI</b>
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                <b>Effort hours</b>
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                <b>Owner</b>
+            </li>
+            <li class="list-item col-3 border-top py-2">
+            </li>
+		{% for task in tasks %}
+			<li class="list-item col-2 border-top py-2">
+                <a href="{% url 'wolfpack:update_t' pro.id sprint.id task.task.id %}">{{task.task.title}}</a>
+            </li>
+            <li class="list-item col-3 border-top py-2">
+                <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                {{task.task.effortHours}}
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                {{task.task.owner}}
+            </li>
+			<li class="list-item col-1 border-top py-2">
+            </li>
+            <li class="list-item col-2 border-top py-2">
                 <a class='pbi-edit btn btn-outline-secondary btn-sm' href="{% url 'wolfpack:update_t' pro.id sprint.id task.task.id %}">Edit</a>
-                <a class='pbi-delete btn btn-outline-danger btn-sm' href="{% url 'wolfpack:delete_t' pro.id sprint.id task.task.id %}">Delete</a>
-            </div>
-        </div>
-    </li>
-    {% endfor %}
-</ul>
+				<a class='pbi-delete btn btn-outline-danger btn-sm' href="{% url 'wolfpack:delete_t' pro.id sprint.id task.task.id %}">Delete</a>
+            </li>
+		{% endfor %}
+	</ul>
+</div>
 
-<ul class='list-group'>
-    In Progress
-    {% for task in tasks2 %}
-    <li class='list-group-item'>
-        <div class="row">
-            <div class="col-sm">
-                Title: {{task.task.title}}
-            </div>
-            <div class="col-sm">
-                Corresponding PBI: <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>
-            </div>
-            <div class="col-sm">
-                Effort hours: {{task.task.effortHours}}
-            </div>
-            <div class="col-sm">
-                Owner: {{task.task.owner}}
-            </div>
-            <div class="col-sm">
-                Status: in_progress
-            </div>
-            <div>
+<h5>In Progress</h5>
+<div class="col-12 container">
+	<ul class="list-unstyled row">
+			
+			<li class="list-item col-2 border-top py-2">
+                <b>Title</b>
+            </li>
+            <li class="list-item col-3 border-top py-2">
+                <b>Corresponding PBI</b>
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                <b>Effort hours</b>
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                <b>Owner</b>
+            </li>
+            <li class="list-item col-3 border-top py-2">
+            </li>
+		{% for task in tasks2 %}
+			<li class="list-item col-2 border-top py-2">
+                <a href="{% url 'wolfpack:update_t' pro.id sprint.id task.task.id %}">{{task.task.title}}</a>
+            </li>
+            <li class="list-item col-3 border-top py-2">
+                <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                {{task.task.effortHours}}
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                {{task.task.owner}}
+            </li>
+			<li class="list-item col-1 border-top py-2">
+            </li>
+            <li class="list-item col-2 border-top py-2">
                 <a class='pbi-finish btn btn-outline-success btn-sm' href="{% url 'wolfpack:finish_t' pro.id sprint.id task.task.id %}">Finish</a>
-            </div>
-        </div>
-    </li>
-    {% endfor %}
-</ul>
+            </li>
+		{% endfor %}
+	</ul>
+</div>
 
-<ul class='list-group'>
-    Done
-    {% for task in tasks3 %}
-    <li class='list-group-item'>
-        <div class="row">
-            <div class="col-sm">
-                Title: {{task.task.title}}
-            </div>
-            <div class="col-sm">
-                Corresponding PBI: <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>
-            </div>
-            <div class="col-sm">
-                Effort hours: {{task.task.effortHours}}
-            </div>
-            <div class="col-sm">
-                Owner: {{task.task.owner}}
-            </div>
-            <div class="col-sm">
-                Status: done
-            </div>
-        </div>
-    </li>
-    {% endfor %}
-</ul>
-
-
+<h5>Done</h5>
+<div class="col-12 container">
+	<ul class="list-unstyled row">
+			
+			<li class="list-item col-2 border-top py-2">
+                <b>Title</b>
+            </li>
+            <li class="list-item col-3 border-top py-2">
+                <b>Corresponding PBI</b>
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                <b>Effort hours</b>
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                <b>Owner</b>
+            </li>
+            <li class="list-item col-3 border-top py-2">
+            </li>
+		{% for task in tasks3 %}
+			<li class="list-item col-2 border-top py-2">
+                <a href="{% url 'wolfpack:update_t' pro.id sprint.id task.task.id %}">{{task.task.title}}</a>
+            </li>
+            <li class="list-item col-3 border-top py-2">
+                <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                {{task.task.effortHours}}
+            </li>
+            <li class="list-item col-2 border-top py-2">
+                {{task.task.owner}}
+            </li>
+			<li class="list-item col-3 border-top py-2">
+            </li>
+		{% endfor %}
+	</ul>
+</div>
 
 {% include 'partials/footer.html' %}
