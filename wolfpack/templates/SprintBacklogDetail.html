@@ -41,6 +41,9 @@
 
 
 <h5>PBIs in Sprint {{sprint.name}}</h5>
+{% if pbis|length <= 0 %}
+    <p>No PBIs in Sprint {{sprint.name}}.</p>
+{% else %}
 <div class="col-12 container">
 	<ul class="list-unstyled row">
 		<li class="list-item col-1 border-top py-2">
@@ -86,10 +89,13 @@
 		{% endfor %}
 	</ul>
 </div>
-        
+{% endif %}  
 
 	
 <h5>To Do</h5>
+{% if tasks|length <= 0 %}
+    <p>No tasks to do.</p>
+{% else %}
 <div class="col-12 container">
 	<ul class="list-unstyled row">
 			
@@ -129,8 +135,12 @@
 		{% endfor %}
 	</ul>
 </div>
+{% endif %}
 
 <h5>In Progress</h5>
+{% if tasks2|length <= 0 %}
+    <p>No tasks in progress.</p>
+{% else %}
 <div class="col-12 container">
 	<ul class="list-unstyled row">
 			
@@ -169,8 +179,12 @@
 		{% endfor %}
 	</ul>
 </div>
+{% endif %}
 
 <h5>Done</h5>
+{% if tasks3|length <= 0 %}
+    <p>No tasks done.</p>
+{% else %}
 <div class="col-12 container">
 	<ul class="list-unstyled row">
 			
@@ -206,5 +220,6 @@
 		{% endfor %}
 	</ul>
 </div>
+{% endif %}
 
 {% include 'partials/footer.html' %}
