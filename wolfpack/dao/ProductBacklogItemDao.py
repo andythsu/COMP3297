@@ -58,7 +58,7 @@ def updateById(pid, size=None, priority=None, status=None, userStory=None, proje
     if projectId is not None:
         pbi.projectId = projectId
 
-    if sprintId is not None:
+    #if sprintId is not None:
         pbi.sprintId = SprintBacklogDao.getSprintBacklogById(sprintId)
 
     pbi.save()
@@ -73,5 +73,5 @@ def viewAllDonePbi():
 
 
 def rejectPbi(pid):
-    updateById(pid, None, None, 3, None, None, None)
+    updateById(pid, None, None, 0, None, None, None)
 

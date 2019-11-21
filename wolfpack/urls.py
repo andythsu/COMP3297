@@ -18,6 +18,7 @@ urlpatterns = [
     path('project/<int:proId>/pbi/<int:pbiId>/delete', PbiViews.delete, name='delete'),
     path('project/<int:proId>/pbi/<int:pbiId>/update', PbiViews.update, name='update'),
     path('project/<int:proId>/pbi/<int:pbiId>/addToSprint', PbiViews.addToSprint, name='addToSprint'),
+    path('project/<int:proId>/pbi/<int:pbiId>/reject', PbiViews.rejectFromSprint, name='rejectFromSprint'),
     path('project/<int:proId>/sprint', SprintBacklogViews.index, name='index_sprint'),
     path('project/<int:proId>/sprint/insert', SprintBacklogViews.insert, name='add_sprint'),
     path('project/<int:proId>/sprint/<int:sprintId>/details', SprintDetailViews.index, name='sprint_detail'),

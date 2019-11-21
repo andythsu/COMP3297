@@ -149,3 +149,20 @@ def addToSprint(request, proId, pbiId):
             'sprints': sprintList
         }
     return render(request, 'PbiAddToSprint.html', context)
+
+
+def rejectFromSprint(request, proId, pbiId):
+    sprintId = ProductBacklogItemDao.getItemById(pbiId).sprintId
+    reject = True
+    tasks = SprintTaskDao.getSprintTasksByPbiId(pbiId)
+    if tasks:
+        for task in tasks:
+            if task.status>0:
+                reject = False
+    if reject:
+        ProductBacklogItemDao.rejectPbi(pbiId)
+        messages.success(request, 'PBI reject successfully')
+        return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
+    else:
+        messages.info(request, 'PBI has started task(s), cannot be rejected')
+        return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
