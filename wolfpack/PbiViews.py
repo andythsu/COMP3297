@@ -31,6 +31,7 @@ def insert(request, proId):
 def details(request, proId, pbiId):
     pbi = ProductBacklogItemDao.getItemById(pbiId)
     context = {
+        'proId': proId,
         'pbi': pbi,
         'pbiStatusInString': PbiStatusEnum.getNameByValue(pbi.status)
     }
@@ -40,12 +41,13 @@ def details(request, proId, pbiId):
 def update(request, proId, pbiId):
     pbi = ProductBacklogItemDao.getItemById(pid=pbiId)
     if request.method == 'POST':
+        userStory = ProductBacklogItemDao.getItemById(pbiId).userStory
         ProductBacklogItemDao.updateById(pbiId,
                                          size=request.POST['size'],
                                          priority=request.POST['priority'],
                                          status=request.POST['status'],
                                          userStory=request.POST['userStory'])
-        messages.success(request, 'PBI Updated : %s' % pbiId)
+        messages.success(request, 'PBI Updated : %s' % userStory)
         return redirect(reverse('wolfpack:get_project_pbis', args=[proId]))
     else:
         context = {
@@ -57,8 +59,9 @@ def update(request, proId, pbiId):
 
 def delete(request, proId, pbiId):
     if request.method == 'POST':
+        userStory = ProductBacklogItemDao.getItemById(pbiId).userStory
         ProductBacklogItemDao.deleteById(pbiId)
-        messages.success(request, 'Pbi Deleted : %s' % pbiId)
+        messages.success(request, 'Pbi Deleted : %s' % userStory)
 
     return redirect(reverse('wolfpack:get_project_pbis', args=[proId]))
 

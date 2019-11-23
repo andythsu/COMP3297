@@ -1,8 +1,9 @@
-{% include 'partials/header.html' %}
+{% url 'wolfpack:get_project_pbis' proId as gobackurl %}
+{% include 'partials/header.html' with url_to_go_back=gobackurl %}
 
 <div class="row">
     <div class="col-md">
-        <h3>Project Story:&nbsp;&nbsp;&nbsp;&nbsp; {{pbi.userStory}}</h3>
+        <h3>Product Backlog Item:&nbsp;&nbsp;&nbsp;&nbsp; {{pbi.userStory}}</h3>
     </div>
 </div>
 

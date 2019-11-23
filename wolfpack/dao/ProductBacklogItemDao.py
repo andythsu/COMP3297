@@ -33,7 +33,7 @@ def insert(size, priority, status, userStory, projectId):
         projectId=ProjectDao.getProjectById(projectId)
     )
     pbi.save()
-    return pbi.pk
+    return pbi.userStory
 
 
 def deleteById(pid):
