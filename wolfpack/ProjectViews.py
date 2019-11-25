@@ -7,6 +7,7 @@ from django.urls import reverse
 
 from .dao import ProjectDao, UserDao
 
+
 def index(request):
     projects = ProjectDao.getAllProjects()
 
@@ -21,6 +22,7 @@ def index(request):
         'projects': projectList
     }
     return render(request, 'ProjectIndex.html', context)
+
 
 def insertProject(request):
     user = list(UserDao.getUserByRole(UserRoleEnum.SCRUM_MASTER))
@@ -43,8 +45,51 @@ def insertProject(request):
         }
         return render(request, 'add_project.html', context)
 
+
 def deleteProject(request, proId):
     if request.method == 'POST':
         ProjectDao.deleteById(proId)
         messages.success(request, 'Project Deleted : %s' % proId)
     return redirect(reverse('wolfpack:index_project'))
+
+
+def inviteScrumMaster(request, proId):
+    user = list(UserDao.getUserByRole(UserRoleEnum.SCRUM_MASTER))
+    modifiedUser = []
+    for eachUser in user:
+        modifiedUser.append({
+            'user': eachUser,
+        })
+
+    if request.method == 'POST':
+        ##send email
+        UserDao.invite(request.POST['scrumMaster'], proId)
+
+        return redirect(reverse('wolfpack:index_project'))
+    else:
+        context = {
+            'users': modifiedUser,
+            'projectId': proId
+        }
+        return render(request, 'ProjectInviteScrumMaster.html', context)
+
+
+def inviteDeveloper(request, proId):
+    user = list(UserDao.getUserByRole(UserRoleEnum.DEVELOPER))
+    modifiedUser = []
+    for eachUser in user:
+        modifiedUser.append({
+            'user': eachUser,
+        })
+
+    if request.method == 'POST':
+        ##send email
+        UserDao.invite(request.POST['developer'], proId)
+
+        return redirect(reverse('wolfpack:index_project'))
+    else:
+        context = {
+            'users': modifiedUser,
+            'projectId': proId
+        }
+        return render(request, 'ProjectInviteDeveloper.html', context)

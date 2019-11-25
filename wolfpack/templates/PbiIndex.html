@@ -5,6 +5,13 @@
 <a class='btn btn-success' href="{% url 'wolfpack:insert' pro.id %}">Add PBI</a>
 <a class='btn btn-success' href="{% url 'wolfpack:index_sprint' pro.id %}">View Sprint</a>
 
+{% if 0 %}
+	## if user is project owner
+	<a class='btn btn-success' href="{% url 'wolfpack:project_invite_developer' pro.id %}">Invite Developer</a>
+	<a class='btn btn-success' href="{% url 'wolfpack:project_invite_scrumMaster' pro.id %}">Invite ScrumMaster</a>
+{% endif %}
+
+
 <br />
 <h5>Done</h5>
 <div class="col-12 container">

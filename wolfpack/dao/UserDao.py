@@ -84,3 +84,6 @@ def getUserByRole(role):
         return Developer.objects.all()
     else:
         raise Exception("user role doesn't exist in enum")
+
+def invite(pid, projectId):
+    return
