@@ -67,7 +67,7 @@
             <b>User story</b>
         </li>
 		<li class="list-item col-2 border-top py-2">
-            <b>Total hours</b>
+            <b>Total effort hours</b>
         </li>
 		<li class="list-item col-2 border-top py-2">
             <b>Burntdown hours</b>
@@ -79,25 +79,22 @@
         </li>
 		{% for pbi in pbis %}
 		<li class="list-item col-1 border-top py-2">
-            <a href="{% url 'wolfpack:detail' pro.id pbi.id %}">{{pbi.id}}</a>
+            <a href="{% url 'wolfpack:detail' pro.id pbi.pbi.id %}">{{pbi.pbi.id}}</a>
         </li>
 		<li class="list-item col-3 border-top py-2">
-            {{pbi.userStory}}
+            {{pbi.pbi.userStory}}
         </li>
 		<li class="list-item col-2 border-top py-2">
-            -
-			<!--Not yet implemented. Remove this comment if implemented.-->
-        </li>
+            {{pbi.total}}
+		</li>
 		<li class="list-item col-2 border-top py-2">
-            -
-			<!--Not yet implemented. Remove this comment if implemented.-->
-        </li>
+            {{pbi.burn}}
+		</li>
 		<li class="list-item col-2 border-top py-2">
-            -
-			<!--Not yet implemented. Remove this comment if implemented.-->
-        </li>
+            {{pbi.remain}}
+		</li>
 		<li class="list-item col-2 border-top py-2">
-            <a class='pbi-delete btn btn-outline-danger btn-sm' href="{% url 'wolfpack:rejectFromSprint' pro.id pbi.id %}">Reject</a>
+            <a class='pbi-delete btn btn-outline-danger btn-sm' href="{% url 'wolfpack:rejectFromSprint' pro.id pbi.pbi.id %}">Reject</a>
 			<!--Not yet implemented. Remove this comment if implemented.-->
 		</li>
 		{% endfor %}

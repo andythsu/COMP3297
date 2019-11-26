@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
+from typing import Any
 
 from .Enum import SprintTaskStatusEnum, PbiStatusEnum, UserRoleEnum
 from .dao import ProjectDao, SprintBacklogDao, SprintTaskDao, ProductBacklogItemDao, UserDao
@@ -82,7 +83,7 @@ def index(request, proId, sprintId):
     tasks = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.TO_DO.value)
     tasks2 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.IN_PROGRESS.value)
     tasks3 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.DONE.value)
-    pbi = list(ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.IN_PROGRESS.value))
+    pbis = list(ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.IN_PROGRESS.value))
 
     modifiedTask = []
     modifiedTask2 = []
@@ -92,20 +93,41 @@ def index(request, proId, sprintId):
     notfinish_cumu=0
     done_cumu=0
 
+    for pbi in pbis:
+        modifiedPbi.append({
+            'pbi': pbi,
+            'id': pbi.id,
+            'total': 0,
+            'burn': 0,
+            'remain': 0
+        })
+
 
     for task in tasks:
+        for pbi in modifiedPbi:
+            if pbi['id'] == task.pbiId:
+                pbi['total']+=task.effortHours
+                pbi['remain'] += task.effortHours
         notfinish_cumu+=task.effortHours
         modifiedTask.append({
             'task': task,
         })
 
     for task in tasks2:
+        for pbi in modifiedPbi:
+            if pbi['id'] == task.pbiId:
+                pbi['total']+=task.effortHours
+                pbi['remain'] += task.effortHours
         notfinish_cumu+=task.effortHours
         modifiedTask2.append({
             'task': task,
         })
 
     for task in tasks3:
+        for pbi in modifiedPbi:
+            if pbi['id'] == task.pbiId:
+                pbi['total']+=task.effortHours
+                pbi['burn'] += task.effortHours
         done_cumu+=task.effortHours
         modifiedTask3.append({
             'task': task,
@@ -120,7 +142,7 @@ def index(request, proId, sprintId):
         'notdone': notfinish_cumu,
         'done': done_cumu,
         'remaining': remaining,
-        'pbis': pbi
+        'pbis': modifiedPbi
     }
     return render(request, 'SprintBacklogDetail.html', context)
 
