@@ -105,7 +105,7 @@ def index(request, proId, sprintId):
 
     for task in tasks:
         for pbi in modifiedPbi:
-            if pbi['id'] == task.pbiId:
+            if pbi['id'] == task.pbiId.id:
                 pbi['total']+=task.effortHours
                 pbi['remain'] += task.effortHours
         notfinish_cumu+=task.effortHours
@@ -115,7 +115,7 @@ def index(request, proId, sprintId):
 
     for task in tasks2:
         for pbi in modifiedPbi:
-            if pbi['id'] == task.pbiId:
+            if pbi['id'] == task.pbiId.id:
                 pbi['total']+=task.effortHours
                 pbi['remain'] += task.effortHours
         notfinish_cumu+=task.effortHours
@@ -125,7 +125,7 @@ def index(request, proId, sprintId):
 
     for task in tasks3:
         for pbi in modifiedPbi:
-            if pbi['id'] == task.pbiId:
+            if pbi['id'] == task.pbiId.id:
                 pbi['total']+=task.effortHours
                 pbi['burn'] += task.effortHours
         done_cumu+=task.effortHours
