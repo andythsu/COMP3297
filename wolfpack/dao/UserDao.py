@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
 
 from wolfpack.models import ProductOwner
 from wolfpack.models import Developer
@@ -22,6 +23,13 @@ def getUserById(pid, role):
         return get_object_or_404(Developer, id=pid)
     else:
         raise Exception("user role doesn't exist in enum")
+
+def getUserByOnlyId(pid):
+    if pid is None:
+        return None
+    else:
+        return get_object_or_404(User, id=pid)
+
 
 
 def insert(name, role, projectId=None):
@@ -86,4 +94,11 @@ def getUserByRole(role):
         raise Exception("user role doesn't exist in enum")
 
 def invite(pid, projectId):
+    send_mail(
+        'Invitation to project',
+        'You are invited to this project.',
+        'mail@wolfpack.com',
+        ['receive@wolfpack.com'],#getUserByOnlyId(pid).email
+        fail_silently=False,
+    )
     return
