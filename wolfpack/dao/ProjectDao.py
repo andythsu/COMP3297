@@ -15,11 +15,10 @@ def getProjectById(pid):
     return get_object_or_404(Project, id=pid)
 
 
-def insert(title, description, scrumMasterId):
+def insert(title, description):
     project = Project(
         title=title,
-        description=description,
-        scrumMaster=UserDao.getUserById(scrumMasterId, UserRoleEnum.SCRUM_MASTER)
+        description=description
     )
     project.save()
     return project.id

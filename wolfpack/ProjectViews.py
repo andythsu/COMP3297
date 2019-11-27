@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 
 from wolfpack.Enum import UserRoleEnum
+from wolfpack.dao import EmailDao
 from .models import Project
 from django.contrib import messages
 from django.urls import reverse
@@ -15,7 +16,7 @@ def index(request):
     for project in projects:
         projectList.append({
             'project': project,
-            'scrumMaster': project.scrumMaster.name
+            'scrumMaster': project.scrumMaster.name if project.scrumMaster is not None else ""
         })
 
     context = {
@@ -25,23 +26,27 @@ def index(request):
 
 
 def insertProject(request):
-    user = list(UserDao.getUserByRole(UserRoleEnum.SCRUM_MASTER))
-    modifiedUser = []
-    for eachUser in user:
-        modifiedUser.append({
-            'user': eachUser,
+    scrumMasters = list(UserDao.getUserByRole(UserRoleEnum.SCRUM_MASTER))
+    availableDevelopers = list(UserDao.getAvailableDevelopers())
+    modified_sm = []
+    # modified_dev = []
+    for scrumMaster in scrumMasters:
+        modified_sm.append({
+            'user': scrumMaster,
         })
+
     if request.method == 'POST':
         projectId = ProjectDao.insert(
             title=request.POST['title'],
             description=request.POST['description'],
-            scrumMasterId=request.POST['scrumMaster']
         )
+        EmailDao.sendEmail(request.POST['scrumMaster'], request.POST.getlist('developer'))
         messages.success(request, 'Project Added : %s' % request.POST['title'])
         return redirect(reverse('wolfpack:index_project'))
     else:
         context = {
-            'users': modifiedUser
+            'users': modified_sm,
+            'availableDevelopers': availableDevelopers
         }
         return render(request, 'add_project.html', context)
 

@@ -5,7 +5,6 @@ from wolfpack.models import Developer
 from wolfpack.models import ScrumMaster
 from wolfpack.models import User
 
-
 from . import ProjectDao
 
 from wolfpack.Enum import UserRoleEnum
@@ -85,5 +84,11 @@ def getUserByRole(role):
     else:
         raise Exception("user role doesn't exist in enum")
 
+
 def invite(pid, projectId):
     return
+
+
+# this function will return developers with no project associated with
+def getAvailableDevelopers():
+    return Developer.objects.all().exclude(projectId__isnull=False)

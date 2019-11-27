@@ -24,10 +24,22 @@
         </select>
     </div>
 
+    <div class="form-group">
+        <p>Invite developers to the project (hold control to select multiple)</p>
+        {% if availableDevelopers|length > 0 %}
+            <select name="developer" id="multiselect_dev" multiple="multiple">
+                {% for developer in availableDevelopers %}
+                    <option value="{{developer.id}}">{{developer.name}}</option>
+                {% endfor %}
+            </select>
+        {% else %}
+            <p>All developers are busy with projects</p>
+        {% endif %}
+    </div>
 
     <div class="form-group">
         <hr>
-        <input class='btn btn-primary' type="submit" value="Submit"/>
+        <input id="insert_project_btn" class='btn btn-primary' type="submit" value="Submit"/>
     </div>
 </form>
 
