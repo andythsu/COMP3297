@@ -4,6 +4,7 @@ from . import PbiViews
 from . import ProjectViews
 from . import SprintBacklogViews
 from . import SprintDetailViews
+from . import AcceptInviteViews
 
 app_name = 'wolfpack'
 
@@ -30,6 +31,7 @@ urlpatterns = [
     path('project/<int:proId>/sprint/<int:sprintId>/insert', SprintDetailViews.insert, name='add_task'),
     path('project/<int:proId>/sprint/<int:sprintId>/deleteTask/<int:taskId>', SprintDetailViews.delete, name='delete_t'),
     path('project/<int:proId>/sprint/<int:sprintId>/updateTask/<int:taskId>', SprintDetailViews.update, name='update_t'),
-    path('project/<int:proId>/sprint/<int:sprintId>/finishTask/<int:taskId>', SprintDetailViews.finish, name='finish_t')
+    path('project/<int:proId>/sprint/<int:sprintId>/finishTask/<int:taskId>', SprintDetailViews.finish, name='finish_t'),
+    path('accept_invitation', AcceptInviteViews.index, name="accept_invite")
 ]
 

@@ -40,7 +40,7 @@ def insertProject(request):
             title=request.POST['title'],
             description=request.POST['description'],
         )
-        EmailDao.sendEmail(request.POST['scrumMaster'], request.POST.getlist('developer'))
+        EmailDao.sendEmail(request.POST['scrumMaster'], request.POST.getlist('developer'), projectId)
         messages.success(request, 'Project Added : %s' % request.POST['title'])
         return redirect(reverse('wolfpack:index_project'))
     else:
