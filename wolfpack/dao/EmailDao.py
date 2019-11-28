@@ -1,5 +1,5 @@
 from django.core.mail import send_mail
-
+from django.conf import settings
 from wolfpack.dao import UserDao, ProjectDao
 from wolfpack.Enum import UserRoleEnum
 
@@ -8,7 +8,7 @@ def sendEmail(scrumMaster, developers, projectId):
     project = ProjectDao.getProjectById(pid=projectId)
     subject = "project invitation"
     message_sm = "You have been invited to be the scrum master for project " + project.title
-    from_email = "noreply@gmail.com"
+    from_email = settings.EMAIL_HOST_USER
     # send to scrum master
     sm = UserDao.getUserById(pid=scrumMaster, role=UserRoleEnum.SCRUM_MASTER)
     developers = [UserDao.getUserById(pid=developer, role=UserRoleEnum.DEVELOPER) for developer in developers]
