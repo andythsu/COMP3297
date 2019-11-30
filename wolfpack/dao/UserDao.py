@@ -23,12 +23,12 @@ def getUserById(pid, role):
     else:
         raise Exception("user role doesn't exist in enum")
 
+
 def getUserByOnlyId(pid):
     if pid is None:
         return None
     else:
         return get_object_or_404(User, id=pid)
-
 
 
 def insert(name, role, projectId=None):
@@ -98,7 +98,7 @@ def invite(pid, projectId):
         'Invitation to project',
         'You are invited to this project.',
         'mail@wolfpack.com',
-        ['receive@wolfpack.com'],#getUserByOnlyId(pid).email
+        ['receive@wolfpack.com'],  # getUserByOnlyId(pid).email
         fail_silently=False,
     )
     return
@@ -107,3 +107,17 @@ def invite(pid, projectId):
 # this function will return developers with no project associated with
 def getAvailableDevelopers():
     return Developer.objects.all().exclude(projectId__isnull=False)
+
+
+def getUserByEmailAndPassword(email, password, role):
+    user = None
+    if role == UserRoleEnum.SCRUM_MASTER:
+        user = ScrumMaster.objects.get(email=email, password=password)
+    elif role == UserRoleEnum.DEVELOPER:
+        user = Developer.objects.get(email=email, password=password)
+    elif role == UserRoleEnum.PRODUCT_OWNER:
+        user = ProductOwner.objects.get(email=email, password=password)
+    else:
+        raise Exception("cannot determine user role")
+
+    return user

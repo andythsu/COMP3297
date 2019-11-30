@@ -10,6 +10,7 @@ from .dao import ProjectDao, UserDao
 
 
 def index(request):
+    request.session['uid'] = 5
     projects = ProjectDao.getAllProjects()
 
     projectList = []
