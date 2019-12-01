@@ -94,7 +94,9 @@
             {{pbi.remain}}
 		</li>
 		<li class="list-item col-2 border-top py-2">
+			{% if sprint.status != 2 %}
             <a class='pbi-delete btn btn-outline-danger btn-sm' href="{% url 'wolfpack:rejectFromSprint' pro.id pbi.pbi.id %}">Reject</a>
+			{% endif %}
 			<!--Not yet implemented. Remove this comment if implemented.-->
 		</li>
 		{% endfor %}
@@ -140,9 +142,11 @@
 			<li class="list-item col-1 border-top py-2">
             </li>
             <li class="list-item col-2 border-top py-2">
+				{% if sprint.status != 2 %}
                 <a class='pbi-edit btn btn-outline-secondary btn-sm' href="{% url 'wolfpack:update_t' pro.id sprint.id task.task.id %}">Edit</a>
 				<a class='pbi-delete btn btn-outline-danger btn-sm' href="{% url 'wolfpack:delete_t' pro.id sprint.id task.task.id %}">Delete</a>
-            </li>
+				{% endif %}
+			</li>
 		{% endfor %}
 	</ul>
 </div>
@@ -185,8 +189,10 @@
 			<li class="list-item col-1 border-top py-2">
             </li>
             <li class="list-item col-2 border-top py-2">
+				{% if sprint.status != 2 %}
                 <a class='pbi-finish btn btn-outline-success btn-sm' href="{% url 'wolfpack:finish_t' pro.id sprint.id task.task.id %}">Finish</a>
-            </li>
+				{% endif %}
+			</li>
 		{% endfor %}
 	</ul>
 </div>
