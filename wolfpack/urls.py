@@ -5,11 +5,13 @@ from . import ProjectViews
 from . import SprintBacklogViews
 from . import SprintDetailViews
 from . import AcceptInviteViews
+from . import UserViews
 
 app_name = 'wolfpack'
 
 urlpatterns = [
     path('', ProjectViews.index, name='index'),
+    path('login', UserViews.login, name='login'),
     path('index_project', ProjectViews.index, name='index_project'),
     path('add_project', ProjectViews.insertProject, name='add_project'),
     path('delete_project/<int:proId>', ProjectViews.deleteProject, name='delete_project'),

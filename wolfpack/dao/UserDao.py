@@ -111,12 +111,21 @@ def getAvailableDevelopers():
 
 def getUserByEmailAndPassword(email, password, role):
     user = None
-    if role == UserRoleEnum.SCRUM_MASTER:
-        user = ScrumMaster.objects.get(email=email, password=password)
-    elif role == UserRoleEnum.DEVELOPER:
-        user = Developer.objects.get(email=email, password=password)
-    elif role == UserRoleEnum.PRODUCT_OWNER:
-        user = ProductOwner.objects.get(email=email, password=password)
+    if role == UserRoleEnum.SCRUM_MASTER.value:
+        try:
+            user = ScrumMaster.objects.get(email=email, password=password)
+        except ScrumMaster.DoesNotExist:
+            pass
+    elif role == UserRoleEnum.DEVELOPER.value:
+        try:
+            user = Developer.objects.get(email=email, password=password)
+        except Developer.DoesNotExist:
+            pass
+    elif role == UserRoleEnum.PRODUCT_OWNER.value:
+        try:
+            user = ProductOwner.objects.get(email=email, password=password)
+        except ProductOwner.DoesNotExist:
+            pass
     else:
         raise Exception("cannot determine user role")
 
