@@ -1,7 +1,8 @@
 {% url 'wolfpack:get_project_pbis' projectId as gobackurl %}
 {% include 'partials/header.html' with url_to_go_back=gobackurl %}
 
-<h3>New PBI</h3>
+<h2>New PBI</h2>
+<hr>
 <form action="{% url 'wolfpack:insert' projectId %}" method="post">
     {% csrf_token %}
     <div class="form-group">
@@ -27,6 +28,7 @@
     <div class="form-group">
         <hr>
         <input class='btn btn-primary' type="submit" value="Submit"/>
+         <a class='btn btn-dark' href="{% url 'wolfpack:get_project_pbis' projectId %}">Go Back</a>
     </div>
 </form>
 

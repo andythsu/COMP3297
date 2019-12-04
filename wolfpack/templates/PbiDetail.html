@@ -1,11 +1,22 @@
 {% url 'wolfpack:get_project_pbis' proId as gobackurl %}
 {% include 'partials/header.html' with url_to_go_back=gobackurl %}
 
-<div class="row">
-    <div class="col-md">
-        <h3>Product Backlog Item:&nbsp;&nbsp;&nbsp;&nbsp; {{pbi.userStory}}</h3>
-    </div>
-</div>
+<h2>Product Backlog Item:&nbsp;&nbsp;&nbsp;&nbsp; {{pbi.userStory}}</h2>
+<hr>
+<div>
+
+    <form action="{% url 'wolfpack:delete' pbi.projectId pbi.id %}" method="post">
+        <a class='btn btn-dark' href="{% url 'wolfpack:get_project_pbis' pbi.projectId %}">Go Back</a>
+        {% csrf_token %}
+        {% if pbi.status != 1 %}
+        <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:update' pbi.projectId pbi.id %}">Edit</a>
+        <input class='pbi-delete btn btn-danger' type="submit" value="Delete"/>
+
+    <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:addToSprint' pbi.projectId pbi.id %}">Add to sprint</a>
+         </form>
+{% endif %}
+
+<hr>
 
 <div class="row">
     <div class="col-md sprint">
@@ -25,13 +36,6 @@
         Priority: &nbsp;&nbsp;&nbsp;&nbsp; {{pbi.priority}}
     </div>
 </div>
-{% if pbi.status != 1 %}
-    <form action="{% url 'wolfpack:delete' pbi.projectId pbi.id %}" method="post">
-        {% csrf_token %}
-        <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:update' pbi.projectId pbi.id %}">Edit</a>
-        <input class='pbi-delete btn btn-danger' type="submit" value="Delete"/>
-    </form>
-    <a class='pbi-edit btn btn-outline-secondary' href="{% url 'wolfpack:addToSprint' pbi.projectId pbi.id %}">Add to sprint</a>
-{% endif %}
+
 
 {% include 'partials/footer.html' %}

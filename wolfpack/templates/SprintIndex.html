@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'wolfpack/css/style.css' %}">
-    <title>Product Backlog</title>
-  </head>
-  <body>
+{% include 'partials/header.html' %}
 
-    <div class='container'>
+<h2>All Sprints</h2>
 
-<header>
-      <h1>All Sprints</h1>
-
+<hr>
       <a class='btn btn-dark' href="{% url 'wolfpack:get_project_pbis' pro.id %}">Go Back</a>
       {% if activeSprints|length <= 0 %}
         <a class='btn btn-success' href="{% url 'wolfpack:add_sprint' pro.id %}">Add Sprint Backlog</a>
       {% endif %}
       <hr>
-</header>
 
 
 <h5>Active Sprint</h5>

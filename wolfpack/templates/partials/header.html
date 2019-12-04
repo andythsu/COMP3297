@@ -5,14 +5,28 @@
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'wolfpack/css/style.css' %}">
-    <title>Product Backlog </title>
+    <title>BackTrack</title>
   </head>
   <body>
 
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="#">BackTrack</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'wolfpack:userInfo'%}">{{request.session.user.name}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'wolfpack:logout'%}">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<br>
     <div class='container'>
-    <header>
-      <a class='app-title' href="{% url 'wolfpack:index_project' %}"><h1>Product Backlog</h1></a>
-
       <div class="messages">
       {% if messages %}
         {% for message in messages %}
@@ -26,11 +40,15 @@
         {% endfor %}
       {% endif %}
       </div>
+<!--    <header>-->
+<!--      <a class='app-title' href="{% url 'wolfpack:index_project' %}"><h1>Product Backlog</h1></a>-->
 
-      {% if not url_to_go_back %}
-      {% url 'wolfpack:index_project' as url_to_go_back %}
-      {% endif %}
-      <a class='btn btn-dark' href="{{ url_to_go_back }}">Go Back</a>
-      <hr>
-    </header>
-    </div>
+<!--      -->
+
+<!--      {% if not url_to_go_back %}-->
+<!--      {% url 'wolfpack:index_project' as url_to_go_back %}-->
+<!--      {% endif %}-->
+<!--      <a class='btn btn-dark' href="{{ url_to_go_back }}">Go Back</a>-->
+<!--      <hr>-->
+<!--    </header>-->
+<!--    </div>-->

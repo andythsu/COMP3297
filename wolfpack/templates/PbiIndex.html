@@ -1,7 +1,8 @@
 {% include 'partials/header.html' %}
 
-
-
+<h2>Product Backlog</h2>
+<hr>
+<a class='btn btn-dark' href="{% url 'wolfpack:index_project'%}">Go Back</a>
 <a class='btn btn-success' href="{% url 'wolfpack:insert' pro.id %}">Add PBI</a>
 <a class='btn btn-success' href="{% url 'wolfpack:index_sprint' pro.id %}">View Sprint</a>
 
@@ -10,7 +11,7 @@
 	<a class='btn btn-success' href="{% url 'wolfpack:project_invite_developer' pro.id %}">Invite Developer</a>
 	<a class='btn btn-success' href="{% url 'wolfpack:project_invite_scrumMaster' pro.id %}">Invite ScrumMaster</a>
 {% endif %}
-
+<hr>
 
 <br />
 <h5>Done</h5>

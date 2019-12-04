@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'wolfpack/css/style.css' %}">
-    <title>Sprint Backlog</title>
-  </head>
-  <body>
+{% include 'partials/header.html' %}
 
-    <div class='container'>
+<h2>New Sprint</h2>
 
-<header>
-      <h1>New Sprint</h1>
-      <a class='btn btn-dark' href="{% url 'wolfpack:index_sprint' projectId%}">Go Back</a>
+
       <hr>
-</header>
 
 <form action="{% url 'wolfpack:add_sprint' projectId %}" method="post">
     {% csrf_token %}
@@ -38,6 +26,7 @@
     <div class="form-group">
         <hr>
         <input class='btn btn-primary' type="submit" value="Submit"/>
+        <a class='btn btn-dark' href="{% url 'wolfpack:index_sprint' projectId%}">Go Back</a>
     </div>
 
 </form>

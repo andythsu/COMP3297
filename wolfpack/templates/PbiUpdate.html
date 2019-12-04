@@ -1,7 +1,8 @@
 {% url 'wolfpack:detail' proId pbi.id as gobackurl %}
 {% include 'partials/header.html' with url_to_go_back=gobackurl %}
 
-<h3>Edit PBI</h3>
+<h2>Edit PBI</h2>
+<hr>
 
 <form action="{% url 'wolfpack:update' proId pbi.id %}" method="post">
   {% csrf_token %}
@@ -35,6 +36,7 @@
   <div class="form-group">
     <hr>
     <input class='btn btn-primary' type="submit" value="Submit" />
+    <a class='btn btn-dark' href="{% url 'wolfpack:detail' proId pbi.id %}">Go Back</a>
   </div>
 </form>
 
