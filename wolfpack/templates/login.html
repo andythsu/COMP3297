@@ -9,14 +9,18 @@
   </head>
   <body>
 
-    <div class='container'>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="#">BackTrack</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+     </div>
+</nav>
 
-<header>
+<div class='container'>
     <br>
-    <h1 style="text-align:center;">BackTrack</h1>
-     <h2>Login</h2>
-      <hr>
-</header>
+
 <div class="messages">
       {% if messages %}
         {% for message in messages %}
@@ -29,7 +33,13 @@
           </div>
         {% endfor %}
       {% endif %}
-      </div>
+</div>
+
+<header>
+    <br>
+    <h2>Login</h2>
+    <hr>
+</header>
 
 <form action="{% url 'wolfpack:login' %}" method="post">
     {% csrf_token %}
@@ -53,7 +63,6 @@
     </div>
 
     <div class="form-group">
-        <hr>
         <input id="insert_project_btn" class='btn btn-primary' type="submit" value="Login"/>
     </div>
 </form>

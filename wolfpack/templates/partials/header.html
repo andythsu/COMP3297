@@ -11,7 +11,7 @@
 
     <div class='container'>
     <header>
-      <a class='app-title' href="{% url 'wolfpack:index' %}"><h1>Product Backlog</h1></a>
+      <a class='app-title' href="{% url 'wolfpack:index_project' %}"><h1>Product Backlog</h1></a>
 
       <div class="messages">
       {% if messages %}
@@ -28,7 +28,7 @@
       </div>
 
       {% if not url_to_go_back %}
-      {% url 'wolfpack:index' as url_to_go_back %}
+      {% url 'wolfpack:index_project' as url_to_go_back %}
       {% endif %}
       <a class='btn btn-dark' href="{{ url_to_go_back }}">Go Back</a>
       <hr>

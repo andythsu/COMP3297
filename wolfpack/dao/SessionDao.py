@@ -18,11 +18,11 @@ def isProductOwner(request):
 
 def getUId(request):
     checkSession(request)
-    return int(request.session[SessionStorageEnum.U_ID])
+    return int(request.session[str(SessionStorageEnum.U_ID)])
 
 def getURole(request):
     checkSession(request)
-    return int(request.session[SessionStorageEnum.U_ROLE])
+    return int(request.session[str(SessionStorageEnum.U_ROLE)])
 
 def hasSession(request):
     return AuthDao.isAuthenticated(request)

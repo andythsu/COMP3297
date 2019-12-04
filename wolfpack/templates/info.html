@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'wolfpack/css/style.css' %}">
+    <title>User Information</title>
+  </head>
+  <body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="{% url 'wolfpack:index_project' %}">BackTrack</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'wolfpack:index_project'%}">Go Back</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'wolfpack:logout'%}">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    <div class='container'>
+
+<header>
+    <br>
+    <h2>About Me</h2>
+    <hr>
+</header>
+
+
+    <div class="form-group">
+        <h5>Name</h5>
+        <p>{{user.name}}</p>
+    </div>
+
+    <div class="form-group">
+        <h5>Email</h5>
+        <p>{{user.email}}</p>
+    </div>
+
+</form>
+
+{% include 'partials/footer.html' %}

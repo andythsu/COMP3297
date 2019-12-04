@@ -74,6 +74,7 @@ class SprintTaskStatusEnum(Enum):
         else:
             raise Exception("value doesn't exist in SprintTaskStatusEnum class")
 
+
 class SessionStorageEnum(Enum):
     U_ROLE = "u_role"
     U_ID = "u_id"

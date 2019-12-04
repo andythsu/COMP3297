@@ -6,10 +6,12 @@ from .models import Project
 from django.contrib import messages
 from django.urls import reverse
 
-from .dao import ProjectDao, UserDao
+from .dao import ProjectDao, UserDao, SessionDao
+from .Enum import UserRoleEnum
 
 
 def index(request):
+    user = UserDao.getUserById(SessionDao.getUId(request), UserRoleEnum.getNameByValue(SessionDao.getURole(request)))
     projects = ProjectDao.getAllProjects()
 
     projectList = []
@@ -20,6 +22,7 @@ def index(request):
         })
 
     context = {
+        'user': user,
         'projects': projectList
     }
     return render(request, 'ProjectIndex.html', context)
