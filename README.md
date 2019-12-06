@@ -20,10 +20,10 @@ Some useful scripts are built-in for different purposes.
 
 ## Structure of the Project
 Although we use Django for developing *BackTrack*, we still try to separate the entire project into **Backend** and **Frontend** to maintain the OO principle. 
-### Backend
-The backend developers first mainly focus on the implementation of *models.py* for establishing our database model. Then they also to implement some necessary query function in */dao* directory for providing an interface to communicate with the data in database.
-### Frontend
-The frontend developers first implement some necessary **view** functions in *XXXViews.py* under */wolfpack* directory for transferring the required contents to the templates. Then they also need to implement the *.html* under */wolfpack/templates* for performing the UI of *BackTrack*.
+- ###Backend
+    The backend developers first mainly focus on the implementation of *models.py* for establishing our database model. Then they also to implement some necessary query function in */dao* directory for providing an interface to communicate with the data in database.
+- ### Frontend
+    SThe frontend developers first implement some necessary **view** functions in *XXXViews.py* under */wolfpack* directory for transferring the required contents to the templates. Then they also need to implement the *.html* under */wolfpack/templates* for performing the UI of *BackTrack*.
 
 ## Usage
 1. Install the develop environment by the steps in **Develop Environment** if needed.
