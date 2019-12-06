@@ -71,7 +71,8 @@ def insert(request, proId, sprintId):
                 sprintId=sprintId,
                 pbiId=request.POST['corpbi']
             )
-            messages.success(request, 'sprint task added : %s' % sprintTaskId)
+            sprintTask = SprintTaskDao.getSprintTaskById(sprintTaskId)
+            messages.success(request, 'Sprint task added : %s' % sprintTask.title)
             return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
     else:
         return render(request, 'SprintTaskAdd.html', context)
@@ -148,8 +149,9 @@ def index(request, proId, sprintId):
 
 
 def delete(request, proId, sprintId, taskId):
+    sprintTask = SprintTaskDao.getSprintTaskById(taskId)
     SprintTaskDao.deleteById(taskId)
-    messages.success(request, 'Task deleted : %s' % taskId)
+    messages.success(request, 'Sprint task deleted : %s' % sprintTask.title)
     return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
 
 
@@ -169,7 +171,8 @@ def update(request, proId, sprintId, taskId):
                                  effortHours=request.POST['effortHours'],
                                  owner=request.POST.get('owner')
                                  )
-        messages.success(request, 'Task Updated : %s' % taskId)
+        sprintTask = SprintTaskDao.getSprintTaskById(taskId)
+        messages.success(request, 'Sprint task updated : %s' % sprintTask.title)
         return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
     else:
         context = {
@@ -182,6 +185,7 @@ def update(request, proId, sprintId, taskId):
 
 
 def finish(request, proId, sprintId, taskId):
+    sprintTask = SprintTaskDao.getSprintTaskById(taskId)
     SprintTaskDao.updateById(taskId, status=2)
-    messages.success(request, 'Task done : %s' % taskId)
+    messages.success(request, 'Sprint task done : %s' % sprintTask.title)
     return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))

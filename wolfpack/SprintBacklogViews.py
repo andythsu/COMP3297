@@ -83,7 +83,7 @@ def update(request, proId, sprintId):
 
 def start(request, proId, sprintId):
     SprintBacklogDao.updateById(pid=sprintId, status=SprintStatusEnum.IN_PROGRESS.value)
-    return redirect(reverse('wolfpack:index_sprint', args=[proId]))
+    return redirect(reverse('wolfpack:sprint_detail', args=[proId, sprintId]))
 
 
 def close(request, proId, sprintId):

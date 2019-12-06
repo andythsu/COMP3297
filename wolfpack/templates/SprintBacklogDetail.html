@@ -1,6 +1,6 @@
 {% include 'partials/header.html' %}
 
-<h2>Sprint Backlog for Sprint {{sprint.name}}</h2>
+<h2>Sprint {{sprint.name}}</h2>
 
 <hr>
 <a class='btn btn-dark' href="{% url 'wolfpack:index_sprint' pro.id %}">Go Back</a>
@@ -20,22 +20,23 @@
 <a class="btn btn-danger" href="{% url 'wolfpack:sprint_close' pro.id sprint.id %}">Close Sprint</a>
 {% endif %}
 <hr>
-
-<h4>Maximum effort hours: {{sprint.maxHours}} hours</h4>
-<h4>Remaining effort hours: {{remaining}} hours</h4>
-<h4>Not done: {{notdone}} hours</h4>
-<h4>Done: {{done}} hours</h4><br />
-
-
+<h5>Effort Hours Analysis</h5>
+<ul class="list-group">
+    <li class="list-group-item"><b>Maximum effort hours:</b> {{sprint.maxHours}}</li>
+    <li class="list-group-item"><b>Remaining effort hours:</b> {{remaining}}</li>
+    <li class="list-group-item"><b>Not done effort hours:</b> {{notdone}}</li>
+    <li class="list-group-item"><b>Done effort hours:</b> {{done}}</li>
+</ul>
+<hr>
 <h5>PBIs in Sprint {{sprint.name}}</h5>
 {% if pbis|length <= 0 %}
     <p>No PBIs in Sprint {{sprint.name}}.</p>
 {% else %}
 <div class="col-12 container">
 	<ul class="list-unstyled row">
-		<li class="list-item col-1 border-top py-2">
-            <b>PBI</b>
-        </li>
+<!--		<li class="list-item col-1 border-top py-2">-->
+<!--            <b>PBI</b>-->
+<!--        </li>-->
 		<li class="list-item col-3 border-top py-2">
             <b>User story</b>
         </li>
@@ -51,9 +52,9 @@
 		<li class="list-item col-2 border-top py-2">
         </li>
 		{% for pbi in pbis %}
-		<li class="list-item col-1 border-top py-2">
-            <a href="{% url 'wolfpack:detail' pro.id pbi.pbi.id %}">{{pbi.pbi.id}}</a>
-        </li>
+<!--		<li class="list-item col-1 border-top py-2">-->
+<!--            <a href="{% url 'wolfpack:detail' pro.id pbi.pbi.id %}">{{pbi.pbi.id}}</a>-->
+<!--        </li>-->
 		<li class="list-item col-3 border-top py-2">
             {{pbi.pbi.userStory}}
         </li>
@@ -76,7 +77,7 @@
 	</ul>
 </div>
 {% endif %}  
-
+<hr>
 	
 <h5>To Do</h5>
 {% if tasks|length <= 0 %}
@@ -101,7 +102,7 @@
             </li>
 		{% for task in tasks %}
 			<li class="list-item col-2 border-top py-2">
-                <a href="{% url 'wolfpack:update_t' pro.id sprint.id task.task.id %}">{{task.task.title}}</a>
+                {{task.task.title}}
             </li>
             <li class="list-item col-3 border-top py-2">
                 <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>
@@ -148,7 +149,7 @@
             </li>
 		{% for task in tasks2 %}
 			<li class="list-item col-2 border-top py-2">
-                <a href="{% url 'wolfpack:update_t' pro.id sprint.id task.task.id %}">{{task.task.title}}</a>
+                {{task.task.title}}
             </li>
             <li class="list-item col-3 border-top py-2">
                 <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>
@@ -194,7 +195,7 @@
             </li>
 		{% for task in tasks3 %}
 			<li class="list-item col-2 border-top py-2">
-                <a href="{% url 'wolfpack:update_t' pro.id sprint.id task.task.id %}">{{task.task.title}}</a>
+                {{task.task.title}}
             </li>
             <li class="list-item col-3 border-top py-2">
                 <a href="{% url 'wolfpack:detail' pro.id task.task.pbiId %}">{{task.task.pbiId}}</a>

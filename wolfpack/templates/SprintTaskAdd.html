@@ -11,11 +11,15 @@
 
     <div class="form-group">
         Corresponding Pbi:
-        <select name="corpbi" id="corpbi">
-            {% for pbi in pbis %}
-                <option value="{{pbi.pbi.id}}">{{pbi.pbi.userStory}}</option>
-            {% endfor %}
-      </select>
+        {% if pbis|length <= 0 %}
+            <p><i>No available PBIs! Please choose add PBIs to this sprint first.</i></p>
+        {% else %}
+            <select name="corpbi" id="corpbi">
+                {% for pbi in pbis %}
+                    <option value="{{pbi.pbi.id}}">{{pbi.pbi.userStory}}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
 
     <div class="form-group">
         <label for="text">Effort hours</label><br/>
@@ -27,19 +31,20 @@
     </div>
 
     <div class="form-group">
-        Owner ID:
+        Owner:
         <select name="owner" id="owner">
              <option value="" selected disabled hidden>None</option>
             {% for user in users %}
                 {{user.user.id}}
-                <option value="{{user.user.id}}">{{user.user.id}}</option>
+                <option value="None">None</option>
+                <option value="{{user.user.id}}">{{user.user.name}}</option>
             {% endfor %}
         </select>
     </div>
 
     <div class="form-group">
         <label for="text">Description</label><br/>
-        <textarea name="description" id="description"></textarea>
+        <textarea rows="5" cols="40" name="description" id="description"></textarea>
     </div>
     
     <div class="form-group">
