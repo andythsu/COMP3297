@@ -53,8 +53,7 @@ Although we use Django for developing *BackTrack*, we still try to separate the 
    ```python
    python manage.py runserver # in python
    ```
-4. Create a superuser if needed.
-5. Login to *localhost:8000/admin* (usually *127.0.0.1:8000/admin*) with the newly created super user account and create some user records for the customer user classes(Developer, Scrum Master, Product owner).
+5. Login to *localhost:8000/admin* (usually *127.0.0.1:8000/admin*) with the newly created super user account and create some user records for the customer user classes(Developer, Scrum master, Product owner).
 6. Go to the homepage *localhost:8000* (usually *127.0.0.1:8000*) and login to *BackTrack* with the newly created user record.
 7. You are now in *BackTrack* and enjoy your trip.
 
