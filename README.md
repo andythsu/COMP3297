@@ -27,19 +27,37 @@ Although we use Django for developing *BackTrack*, we still try to separate the 
 
 ## Usage
 1. Install the develop environment by the steps in **Develop Environment** if needed.
-2. Run the server by 
-    ```bash
+2. Establish the database by 
+   ```bash
+   ./scripts/dbmirgate.sh # in bash
+   ```
+   or
+   ```python
+   python manage.py makemigrations wolfpack
+   python manage.py migrate wolfpack
+   python manage.py migrate --run-syncdb # in python
+   ```
+3. Create a superuser by
+   ```bash
+   ./scripts/dbsuperuser.sh # in bash
+   ```
+   or
+   ```python
+   python manage.py createsuperuser # in python
+   ```
+4. Run the server by 
+   ```bash
     ./scripts/run.sh # in bash
-    ```
-    or
-    ```python
-    python manage.py runserver # in python
-    ```
-3. Create a superuser if needed.
-4. Login to *localhost:8000/admin* (usually *127.0.0.1:8000/admin*) adn create some user records.
-5. Go to the homepage *localhost:8000* (usually *127.0.0.1:8000*) and login to *BackTrack* with the newly created user record.
-6. You are now in *BackTrack* and enjoy your trip.
+   ```
+   or
+   ```python
+   python manage.py runserver # in python
+   ```
+4. Create a superuser if needed.
+5. Login to *localhost:8000/admin* (usually *127.0.0.1:8000/admin*) with the newly created super user account and create some user records for the customer user classes(Developer, Scrum Master, Product owner).
+6. Go to the homepage *localhost:8000* (usually *127.0.0.1:8000*) and login to *BackTrack* with the newly created user record.
+7. You are now in *BackTrack* and enjoy your trip.
 
 ## Limitations
 - Lack of *User Registration*
-- Lack of *Analysis Tool* such burndown chart
+- Lack of *Analysis Tool* such as burndown chart

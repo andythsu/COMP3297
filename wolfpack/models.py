@@ -3,7 +3,7 @@ from django.db import models
 
 class User(models.Model):
     name = models.CharField(max_length=20)
-    role = models.CharField(max_length=20)
+    role = models.IntegerField()
     email = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
 
@@ -15,15 +15,17 @@ class User(models.Model):
 
 
 class ProductOwner(User):
-    projectId = models.ForeignKey('Project', on_delete=models.SET_NULL, blank=False, null=True)
+    role = 1
+    projectId = models.ForeignKey('Project', on_delete=models.SET_NULL, blank=True, null=True)
 
 
 class ScrumMaster(User):
+    role = 0
     # projectId = models.ForeignKey('Project', on_delete=models.SET_NULL, blank=True, null=True)
-    pass
 
 
 class Developer(User):
+    role = 2
     projectId = models.ForeignKey('Project', on_delete=models.SET_NULL, blank=True, null=True)
 
 
