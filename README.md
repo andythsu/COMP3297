@@ -26,25 +26,19 @@ The backend developers first mainly focus on the implementation of *models.py* f
 The frontend developers first implement some necessary **view** functions in *XXXViews.py* under */wolfpack* directory for transferring the required contents to the templates. Then they also need to implement the *.html* under */wolfpack/templates* for performing the UI of *BackTrack*.
 
 ## Usage
-### Step 1
-Install the develop environment by the steps in **Develop Environment** if needed.
-### Step 2
-Run the server by 
-```bash
-./scripts/run.sh # in bash
-```
-or
-```python
-python manage.py runserver # in python
-```
-### Step 3
-Create a superuser if needed.
-### Step 4
-Login to *localhost:8000/admin* (usually *127.0.0.1:8000/admin*) adn create some user records.
-### Step 5
-Go to the homepage *localhost:8000* (usually *127.0.0.1:8000*) and login to *BackTrack* with the newly created user record.
-### Step 6
-You are now in *BackTrack* and enjoy your trip.
+1. Install the develop environment by the steps in **Develop Environment** if needed.
+2. Run the server by 
+    ```bash
+    ./scripts/run.sh # in bash
+    ```
+    or
+    ```python
+    python manage.py runserver # in python
+    ```
+3. Create a superuser if needed.
+4. Login to *localhost:8000/admin* (usually *127.0.0.1:8000/admin*) adn create some user records.
+5. Go to the homepage *localhost:8000* (usually *127.0.0.1:8000*) and login to *BackTrack* with the newly created user record.
+6. You are now in *BackTrack* and enjoy your trip.
 
 ## Limitations
 - Lack of *User Registration*
