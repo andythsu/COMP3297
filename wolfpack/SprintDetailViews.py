@@ -83,7 +83,7 @@ def index(request, proId, sprintId):
     tasks = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.TO_DO.value)
     tasks2 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.IN_PROGRESS.value)
     tasks3 = SprintTaskDao.getTaskByStatus(sprintId, status=SprintTaskStatusEnum.DONE.value)
-    pbis = list(ProductBacklogItemDao.getPbiByStatus(projectId=proId, status=PbiStatusEnum.IN_PROGRESS.value))
+    pbis = list(ProductBacklogItemDao.getPbiBySprintId(projectId=proId, sprintId=sprintId))
 
     modifiedTask = []
     modifiedTask2 = []

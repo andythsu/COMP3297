@@ -33,16 +33,29 @@ def index(request, proId):
 
 def insert(request, proId):
     if request.method == 'POST':
-        sprintBacklogId = SprintBacklogDao.insert(
-            name=SprintBacklogDao.getLastSprintBacklogNumber()+1,
-            startDate=request.POST['startDate'],
-            endDate=request.POST['endDate'],
-            maxHours=request.POST['maxHours'],
-            status=SprintStatusEnum.NOT_STARTED.value,
-            # this will restrict user from editing the sprint backlog detail after they create it
-            projectId=proId
-        )
-        messages.success(request, 'sprint backlog added : %s' % sprintBacklogId)
+        lastSprint = SprintBacklogDao.getLastSprintBacklog()
+        if lastSprint is None:
+            sprintBacklogId = SprintBacklogDao.insert(
+                name=1,
+                startDate=request.POST['startDate'],
+                endDate=request.POST['endDate'],
+                maxHours=request.POST['maxHours'],
+                status=SprintStatusEnum.NOT_STARTED.value,
+                # this will restrict user from editing the sprint backlog detail after they create it
+                projectId=proId
+            )
+        else:
+            sprintBacklogId = SprintBacklogDao.insert(
+                name=lastSprint.name+1,
+                startDate=request.POST['startDate'],
+                endDate=request.POST['endDate'],
+                maxHours=request.POST['maxHours'],
+                status=SprintStatusEnum.NOT_STARTED.value,
+                # this will restrict user from editing the sprint backlog detail after they create it
+                projectId=proId
+            )
+        sprint = SprintBacklogDao.getSprintBacklogById(sprintBacklogId)
+        messages.success(request, 'Sprint backlog added : Sprint %s' % sprint.name)
         return redirect(reverse('wolfpack:index_sprint', args=[proId]))
     else:
         context = {

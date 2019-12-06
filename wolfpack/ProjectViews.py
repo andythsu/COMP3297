@@ -44,20 +44,21 @@ def insertProject(request):
             description=request.POST['description'],
         )
         EmailDao.sendEmail(request.POST['scrumMaster'], request.POST.getlist('developer'), projectId)
-        messages.success(request, 'Project Added : %s' % request.POST['title'])
+        messages.success(request, 'Project added : %s' % request.POST['title'])
         return redirect(reverse('wolfpack:index_project'))
     else:
         context = {
             'users': modified_sm,
             'availableDevelopers': availableDevelopers
         }
-        return render(request, 'add_project.html', context)
+        return render(request, 'ProjectAdd.html', context)
 
 
 def deleteProject(request, proId):
     if request.method == 'POST':
+        project = ProjectDao.getProjectById(proId)
         ProjectDao.deleteById(proId)
-        messages.success(request, 'Project Deleted : %s' % proId)
+        messages.success(request, 'Project deleted : %s' % project.title)
     return redirect(reverse('wolfpack:index_project'))
 
 

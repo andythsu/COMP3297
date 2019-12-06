@@ -6,14 +6,17 @@ from wolfpack.Enum import SprintStatusEnum
 
 
 def getSprintBacklogById(pid):
-    return get_object_or_404(SprintBacklog, id=pid)
-
-
-def getLastSprintBacklogNumber():
-    if SprintBacklog.objects.exists():
-        return SprintBacklog.objects.latest('id').name
+    if pid is None:
+        return None
     else:
-        return 0
+        return get_object_or_404(SprintBacklog, id=pid)
+
+
+def getLastSprintBacklog():
+    if SprintBacklog.objects.exists():
+        return SprintBacklog.objects.latest('id')
+    else:
+        return None
 
 
 def getAllSprintsByProjectId(projectId):

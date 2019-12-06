@@ -8,17 +8,17 @@
   {% csrf_token %}
   <div class="form-group">
     <label for="title">User Story</label><br />
-    <input type="text" name="userStory" id="userStory" value="{{pbi.userStory}}"/>
+    <textarea rows = "5" cols = "40" name="userStory" id="userStory">{{pbi.userStory}}</textarea>
   </div>
 
   <div class="form-group">
     <label for="text">Size</label><br />
-    <textarea name="size" id="size">{{pbi.size}}</textarea>
+    <input name="size" id="size" value="{{pbi.size}}"></input>
   </div>
 
   <div class="form-group">
     <label for="text">Priority</label><br />
-    <textarea name="priority" id="priority">{{pbi.priority}}</textarea>
+    <input name="priority" id="priority" value="{{pbi.priority}}"></input>
   </div>
 
 

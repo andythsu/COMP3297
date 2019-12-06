@@ -19,7 +19,7 @@ def insert(request, proId):
             userStory=request.POST['userStory'],
             projectId=proId
         )
-        messages.success(request, 'pbi added : %s' % pbiId)
+        messages.success(request, 'PBI added : %s' % pbiId)
         return redirect(reverse('wolfpack:get_project_pbis', args=[proId]))
     else:
         context = {
@@ -47,7 +47,7 @@ def update(request, proId, pbiId):
                                          priority=request.POST['priority'],
                                          status=request.POST['status'],
                                          userStory=request.POST['userStory'])
-        messages.success(request, 'PBI Updated : %s' % userStory)
+        messages.success(request, 'PBI updated : %s' % userStory)
         return redirect(reverse('wolfpack:get_project_pbis', args=[proId]))
     else:
         context = {
@@ -114,44 +114,18 @@ def getProjectPbis(request, proId):
     }
     return render(request, 'PbiIndex.html', context)
 
+
 def addToSprint(request, proId, pbiId):
     pbi = ProductBacklogItemDao.getItemById(pid=pbiId)
-    pro = ProjectDao.getProjectById(proId)
-    sprints = SprintBacklogDao.getAllSprintsByProjectId(proId)
-    sprintList = []
-    for sprint in sprints:
-        sprintList.append({
-            'sprint': sprint,
-        })
-    if request.method == 'POST':
-        ProductBacklogItemDao.updateById(pbiId,
-                                         sprintId=request.POST['sprintId'],
-                                         status=1)
-
-#        sprintTaskId = SprintTaskDao.insert(
-#            title=request.POST['title'],
-#            pbiId=pbiId,
-#            effortHours=request.POST['effortHours'],
-#            status=1,
-#            developerId=request.POST['owner'],
-#            description=request.POST['description'],
-#            sprintId=request.POST['sprintId']
-#        )
-
-        messages.success(request, 'PBI Added to Sprint')
-        context = {
-            'pbi': pbi,
-            'pbiStatusInString':PbiStatusEnum.getNameByValue(pbi.status)
-        }
-        return render(request, 'PbiDetail.html', context)
+    currentSprint = SprintBacklogDao.getLastSprintBacklog()
+    if currentSprint is None:
+        messages.info(request, 'No available sprint! Please create a new sprint first')
     else:
-        context = {
-            'pbi': pbi,
-            'proId': proId,
-            'pro': pro,
-            'sprints': sprintList
-        }
-    return render(request, 'PbiAddToSprint.html', context)
+        pbi.sprintId = currentSprint
+        pbi.status = 1
+        pbi.save()
+        messages.success(request, 'PBI added to the current print')
+        return redirect(reverse('wolfpack:detail', args=[proId, pbiId]))
 
 
 def rejectFromSprint(request, proId, pbiId):
